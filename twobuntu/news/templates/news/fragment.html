@@ -1,0 +1,27 @@
+{% load static %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a href="https://twitter.com/2buntunews" class="sprite sprite-twitter pull-right" title="Follow on Twitter"></a>
+            Latest News
+        </h3>
+    </div>
+    <div class="list-group">
+        {% for item in items %}
+            <a href="#" class="list-group-item">
+                <span class="badge">{{ item.date|date:"M d" }}</span>
+                <h4 class="list-group-item-heading">{{ item.title }}</h4>
+                <p class="list-group-item-text">
+                    {{ item.body }}
+                </p>
+            </a>
+        {% empty %}
+            <div class="list-group-item">
+                <p class="text-muted">
+                    No news items.
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+</div>

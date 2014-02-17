@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="2buntu Articles" href="{% url "rss" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            {% include "articles/fragment.html" %}
+            <hr>
+            {% include "accounts/fragment.html" %}
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <form action="{% url "articles:search" %}">
+                    <input type="text" class="form-control" name="q" placeholder="Enter search terms...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </form>
+            </div>
+            <br>
+            {% include "news/fragment.html" %}
+            <div class="well">
+                <a href="{% url "rss" %}">
+                    <span class="sprite sprite-rss"></span>
+                    Latest Articles Feed
+                </a>
+            </div>
+            <img src="http://placehold.it/350x350/eeeeee/cccccc&text=Your+Ad+Here">
+            <br><br>
+            {% include "categories/fragment.html" %}
+        </div>
+    </div>
+{% endblock %}

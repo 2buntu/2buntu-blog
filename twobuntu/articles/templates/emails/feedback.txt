@@ -1,0 +1,11 @@
+{% autoescape off %}Hello 2buntu Administrators,
+
+A user has filled in the feedback form with the following information:
+
+Name:  {{ name }}
+Email: {{ email }}
+Comments:
+
+{{ comments }}
+
+ - 2buntu Auto Mailer{% endautoescape %}

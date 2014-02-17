@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            {% if not article.cc_license %}
+                <div class="alert alert-warning">
+                    <span class="sprite sprite-icon sprite-icon-warning"></span>
+                    <p>
+                        <strong>Important:</strong> this article is <em>not</em> released under a
+                        Creative Commons license and may <em>not</em> be copied or redistributed in any form.
+                        Please contact the author if you wish to reproduce its content.
+                    </p>
+                </div>
+            {% endif %}
+            <h2>
+                {{ article.title }}
+                <br>
+                <small>
+                    {{ article.date|timesince }}
+                    ago by
+                    <a href="{{ article.author.profile.get_absolute_url }}">{{ article.author }}</a>
+                </small>
+            </h2>
+            {{ article.render }}
+            <hr>
+            <!-- Disqus comments. -->
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_shortname = '2buntu';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + '2buntu.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
+        </div>
+        <div class="col-sm-4">
+            <h4>Share This Article</h4>
+            <div>
+                <a href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+                   class="sprite sprite-social sprite-social-facebook"
+                   title="Share this article on Facbook"></a>
+                <a href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}"
+                   class="sprite sprite-social sprite-social-googlep"
+                   title="Share this article on Google+"></a>
+                <a href="https://twitter.com/share?url={{ request.build_absolute_uri|urlencode }}"
+                   class="sprite sprite-social sprite-social-twitter"
+                   title="Share this article on Twitter"></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}"
+                   class="sprite sprite-social sprite-social-linkedin"
+                   title="Share this article on LinkedIn"></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

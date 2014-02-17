@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load gravatar %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="{{ profile.user.email|gravatar:256 }}">
+                </div>
+                <div class="col-lg-8">
+                    <h2>
+                        {{ profile }}<br>
+                        <small>Last seen {{ profile.user.last_login|timesince }} ago</small>
+                    </h2>
+                    <table class="table">
+                        {% if profile.website %}
+                            <tr>
+                                <th>Website:</th>
+                                <td>
+                                    <a href="{{ profile.website }}">{{ profile.website }}</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if profile.location %}
+                            <tr>
+                                <th>Location:</th>
+                                <td>
+                                    {{ profile.location }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if profile.birthday %}
+                            <tr>
+                                <th>Age:</th>
+                                <td>
+                                    {{ profile.age }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+            <hr>
+            {% include "articles/list.html" %}
+        </div>
+        <div class="col-sm-4">
+            <div class="well">
+                <p>{{ profile.bio|linebreaksbr }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

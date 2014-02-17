@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    <p>{{ description }}</p>
+    <br>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-8">
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+                {% for field in form %}
+                    {% if field|widget_type == "checkboxinput" %}
+                        <div class="checkbox">
+                            <label>
+                                {{ field }} {{ field.label }}
+                            </label>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="id_{{ field.name }}" class="control-label">
+                                {{ field.label }}
+                            </label>
+                            {% render_field field class+="form-control" placeholder=field.help_text %}
+                        </div>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger"><strong>{{ error }}</strong></div>
+                    {% endfor %}
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    {{ action }}
+                </button>
+                <input type="reset" class="btn btn-default">
+            </div>
+        </div>
+    </form>
+{% endblock %}

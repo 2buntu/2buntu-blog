@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>About Us</h2>
+            <p>
+                2buntu is a non-profit group of bloggers from around the world.
+                We practice a style of reporting that's off the beaten path and designed for human beings.
+            </p>
+            <p>
+                Our articles cover a wide-range of different topics.
+                Unity, Mir, Compiz, KDE, Gnome, Firefox, Chrom(ium), and Blender
+                are just some of the many open-source tools and apps we have written about.
+                We provide tutorials, tips, reviews, news, and the occasional rant.
+                (We try to keep the rants to a minimum.)
+            </p>
+            <h3>History</h3>
+            <p>
+                We're not quite as old as Ubuntu, but our archives span a number of years.
+                Here's a brief overview of how we got our start and what happened after that.
+            </p>
+            <ul>
+                <li>
+                    <p>
+                        2buntu was founded around March 2011 by Roland Taylor, and later
+                        expanded to included the likes of Joshua P. Bell, James Gifford, and Nathan Osman.
+                        These four are our current site and community administrators.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Our blogging platform was originally a Wordpress-powered blog.
+                        We have changed web hosts a number of times - we have used everything
+                        from <a href="http://ondina.co">Ondina</a> to
+                        <a href="http://rackspace.com">Rackspace</a>.
+                        Our current blogging engine is a set of custom Django apps hosted
+                        on a VPS "in the cloud."
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        The site domain name is owned by Joshua Bell, and the our blogging platform was
+                        created by Nathan Osman. Our social networking artwork (as featured on Google+,
+                        Twitter and Facebook) was created by Roland Taylor and released as Open Source
+                        without a specific license. James Gifford runs our "hotline" and champions our
+                        mailing list and server logs.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Our tagline, "News For Human Beings," was inspired by "Linux for human beings,"
+                        the tagline of the Ubuntu project.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Having kittens on the <a href="/404">404 pages</a> was Roland's idea.
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Fast Facts</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        2buntu currently has
+                        <strong>{{ num_users }}</strong>
+                        registered user{{ num_users|pluralize }}
+                        who have written
+                        <strong>{{ num_articles }}</strong>
+                        article{{ num_articles|pluralize }}.
+                        <em>That's a lot of articles!</em>
+                    </p>
+                    <p>
+                        2buntu is written in <a href="http://python.org">Python</a> and uses
+                        the <a href="http://djangoproject.com">Django</a> web framework.
+                        The user interface uses <a href="http://getbootstrap.com">Bootstrap 3</a>.
+                    </p>
+                    <p>
+                        Our articles are written in <a href="https://daringfireball.net/projects/markdown/">Markdown</a>
+                        and stored in a PostgreSQL database. The Markdown is rendered to HTML and cached with Redis.
+                    </p>
+                    {% if commit %}
+                        <p>
+                            This blog is running on commit <a href="#">{{ commit.hash }}</a>,
+                            which was created by {{ commit.author }} {{ commit.date|timesince }} ago.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

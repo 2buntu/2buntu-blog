@@ -1,0 +1,67 @@
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url "home" %}">
+                2buntu
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{% url "about" %}">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        About Us
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url "links" %}">
+                        <span class="glyphicon glyphicon-globe"></span>
+                        Links
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url "feedback" %}">
+                        <span class="glyphicon glyphicon-bullhorn"></span>
+                        Feedback
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <li>
+                            <a href="{% url "admin:index" %}">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Administration
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{% url "accounts:logout" %}">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url "accounts:login" %}">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url "accounts:register" %}">
+                            <span class="glyphicon glyphicon-new-window"></span>
+                            Register
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

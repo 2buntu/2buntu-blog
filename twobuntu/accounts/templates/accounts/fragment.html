@@ -1,0 +1,22 @@
+{% load gravatar %}
+
+<h2>Meet the Authors</h2>
+<p>
+    We have a number of different authors that contribute articles to our blog.
+    Each of them writes with a unique perspective, ensuring that we have a diverse collection articles accessible to anyone.
+</p>
+<br>
+<div class="row">
+    {% for user in users|slice:":3" %}
+        <div class="col-sm-4 text-center">
+            <img src="{{ user.email|gravatar }}" class="img-circle">
+            <h4 class="truncate">
+                <a href="{{ user.profile.get_absolute_url }}" title="{{ user.profile }}">{{ user.profile }}</a><br>
+                <small>Author of {{ user.num_articles }} article{{ user.num_articles|pluralize }}</small>
+            </h4>
+            <p>
+                {{ user.profile.bio|linebreaksbr }}
+            </p>
+        </div>
+    {% endfor %}
+</div>
