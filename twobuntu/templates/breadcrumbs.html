@@ -2,20 +2,20 @@
     <ol class="breadcrumb">
         <li>
             <a href="{% url "home" %}">
-                <span class="glyphicon glyphicon-home"></span>
+                <span class="fa fa-home"></span>
                 Home
             </a>
         </li>
         {% if parent %}
             <li>
                 <a href="{{ parent.url }}">
-                    <span class="glyphicon glyphicon-folder-open"></span>
+                    <span class="fa fa-folder-open"></span>
                     {{ parent.title }}
                 </a>
             </li>
         {% endif %}
         <li class="active">
-            <span class="glyphicon glyphicon-file"></span>
+            <span class="fa fa-file"></span>
             {{ title }}
         </li>
     </ol>

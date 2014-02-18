@@ -6,7 +6,7 @@
         {% for category in categories %}
             <a href="{{ category.get_absolute_url }}" class="list-group-item">
                 <span class="badge">{{ category.num_articles }}</span>
-                <span class="glyphicon glyphicon-folder-open"></span>
+                <span class="fa fa-folder-open"></span>
                 {{ category.name }}
             </a>
         {% empty %}

@@ -14,19 +14,19 @@
             <ul class="nav navbar-nav">
                 <li>
                     <a href="{% url "about" %}">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="fa fa-info-circle"></span>
                         About Us
                     </a>
                 </li>
                 <li>
                     <a href="{% url "links" %}">
-                        <span class="glyphicon glyphicon-globe"></span>
+                        <span class="fa fa-globe"></span>
                         Links
                     </a>
                 </li>
                 <li>
                     <a href="{% url "feedback" %}">
-                        <span class="glyphicon glyphicon-bullhorn"></span>
+                        <span class="fa fa-bullhorn"></span>
                         Feedback
                     </a>
                 </li>
@@ -36,27 +36,27 @@
                     {% if user.is_staff %}
                         <li>
                             <a href="{% url "admin:index" %}">
-                                <span class="glyphicon glyphicon-cog"></span>
+                                <span class="fa fa-cog"></span>
                                 Administration
                             </a>
                         </li>
                     {% endif %}
                     <li>
                         <a href="{% url "accounts:logout" %}">
-                            <span class="glyphicon glyphicon-log-out"></span>
+                            <span class="fa fa-sign-out"></span>
                             Logout
                         </a>
                     </li>
                 {% else %}
                     <li>
                         <a href="{% url "accounts:login" %}">
-                            <span class="glyphicon glyphicon-log-in"></span>
+                            <span class="fa fa-sign-in"></span>
                             Login
                         </a>
                     </li>
                     <li>
                         <a href="{% url "accounts:register" %}">
-                            <span class="glyphicon glyphicon-new-window"></span>
+                            <span class="fa fa-plus"></span>
                             Register
                         </a>
                     </li>
