@@ -13,7 +13,9 @@ div.jumbotron p { font-size: 12pt; }
 div.navbar { box-shadow: 0 0 8px black; margin-bottom: 0; }
 img { max-width: 100%; }
 p, li { text-align: justify; }
-span.glyphicon { margin: 0 4px; }
+
+/* fontawesome icons right margin */
+span.fa, i.fa { margin: 0 4px; }
 
 /* Implement "missing" classes. */
 .fade-bottom { position: relative; }
@@ -30,24 +32,6 @@ div.content { background-color: white; box-shadow: 0 0 8px #ccc; padding: 16px 1
 div.content h2:first-child,
 div.content h4:first-child { margin-top: 0; }
 div.footer { background-color: #ddd; padding: 32px 0; }
-
-/* Sprites used throughout the site. */
-.sprite { background-image: url(../img/sprites.png); display: inline-block; }
-.sprite-social { height: 32px; opacity: 0.7; width: 32px; margin-right: 4px; }
-.sprite-social:hover { opacity: 1; }
-.sprite-social-facebook { background-position: 0 0; }
-.sprite-social-googlep { background-position: -32px 0; }
-.sprite-social-twitter { background-position: -64px 0; }
-.sprite-social-linkedin { background-position: -96px 0; }
-.sprite-twitter { background-position: -128px 0; height: 16px; width: 16px; }
-.sprite-rss { background-position: -128px -16px; height: 16px; margin-right: 8px; vertical-align: middle; width: 16px; }
-.sprite-icon { float: left; height: 48px; margin: 8px 16px 8px 0; width: 48px; }
-.sprite-icon-danger { background-position: 0 -32px; }
-.sprite-icon-info { background-position: -48px -32px; }
-.sprite-icon-warning { background-position: -96px -32px; }
-
-/* Social share buttons */
-#share-buttons a{ margin-right:4px; }
 
 /* Article styles. */
 div.featured { height: 200px; overflow: hidden; }
