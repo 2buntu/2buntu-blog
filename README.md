@@ -82,12 +82,12 @@ The instructions below assume you are running Ubuntu 12.04 LTS.
 
    Point your web browser to http://127.0.0.1:8000/
 
-### Additional notes:
+### Additional Notes:
 
-1. If you are contributing to the development of this project, please make sure changes you make to the `twobuntu/local_settings.py` file as described in Step 5 of the Installation Instructions are not committed along with the rest of your changes. To stop tracking it,
+* If you are contributing to the development of this project, please make sure changes you make to `twobuntu/local_settings.py` file as described in Step 5 of the installation instructions are not committed along with the rest of your changes. To stop tracking changes to this file:
 
-		git update-index --assume-unchanged twobuntu/local_settings.py
+        git update-index --assume-unchanged twobuntu/local_settings.py
 
-   To re-enable tracking on the file,
+  To re-enable tracking:
 
-		git update-index --no-assume-unchanged twobuntu/local_settings.py
+        git update-index --no-assume-unchanged twobuntu/local_settings.py
