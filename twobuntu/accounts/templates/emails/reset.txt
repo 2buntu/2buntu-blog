@@ -1,0 +1,9 @@
+{% autoescape off %}Hello {{ user.profile }},
+
+Someone has began the password reset procedure on your account. If this was you, please click the link below to continue:
+
+{{ url }}
+
+If you did not initiate this procedure, please ignore this email.
+
+- The 2buntu Staff{% endautoescape %}
