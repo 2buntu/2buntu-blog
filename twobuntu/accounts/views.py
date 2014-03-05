@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login as login_user, logout as logout_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
