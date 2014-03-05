@@ -1,4 +1,4 @@
-{% autoescape off %}Hello {{ username }},
+{% autoescape off %}Hello {{ user.profile }},
 
 Thank you for deciding to create an account on 2buntu. In order to complete the registration process, we need you to complete one more step. Please open the URL below in your browser:
 

@@ -49,7 +49,7 @@ def create_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 class ConfirmationKey(models.Model):
-    """Unique token for confirming a user account."""
+    """Unique token for confirming a user account or resetting a password."""
 
     user = models.OneToOneField(User,
                                 primary_key=True)
@@ -59,10 +59,3 @@ class ConfirmationKey(models.Model):
     def __unicode__(self):
         """Return a string representation of the key."""
         return self.user
-
-    @models.permalink
-    def get_absolute_url(self):
-        """Return the absolute URL of the profile."""
-        return ('accounts:confirm', (), {
-            'key': self.key,
-        })

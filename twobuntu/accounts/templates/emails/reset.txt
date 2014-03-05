@@ -1,9 +1,11 @@
 {% autoescape off %}Hello {{ user.profile }},
 
-Someone has began the password reset procedure on your account. If this was you, please click the link below to continue:
+Someone has begun the password reset procedure on your account. If this was you, please open the URL below in your browser:
 
 {{ url }}
 
+If you are unable to click the link, please copy and paste it into your browser's address bar.
+
 If you did not initiate this procedure, please ignore this email.
 
-- The 2buntu Staff{% endautoescape %}
+ - The 2buntu Staff{% endautoescape %}

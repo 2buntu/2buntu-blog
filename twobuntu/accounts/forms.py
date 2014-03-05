@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 
 class RegistrationForm(UserCreationForm):
     """Form for new user registrations."""
@@ -16,6 +15,6 @@ class ResetForm(PasswordResetForm):
     def clean_email(self):
         """Verify that the email address is valid."""
         try:
-            return User.objects.get(email=self.cleaned_data['email'])
+            self.user = User.objects.get(email=self.cleaned_data['email'])
         except User.DoesNotExist:
-            raise ValidationError("The email address you provided does not match any valid account.")
+            raise forms.ValidationError("The email address you provided does not match any valid account.")

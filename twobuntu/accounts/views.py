@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import login as login_user, logout as logout_user
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
-from twobuntu.accounts.forms import RegistrationForm
+from twobuntu.accounts.forms import RegistrationForm, ResetForm
 from twobuntu.accounts.models import ConfirmationKey
 from twobuntu.articles.models import Article
 
@@ -29,11 +29,10 @@ def login(request):
             return redirect(request.GET['next'] if 'next' in request.GET else 'home')
     else:
         form = AuthenticationForm()
-    return render(request, 'form.html', {
-        'title':       'Login',
-        'form':        form,
-        'description': "Please enter your username and password to login.",
-        'action':      'Login',
+    return render(request, 'accounts/login.html', {
+        'title':  'Login',
+        'form':   form,
+        'action': 'Login',
     })
 
 @login_required
@@ -55,8 +54,8 @@ def register(request):
             key = ConfirmationKey(user=user)
             key.save()
             template = render_to_string('emails/register.txt', {
-                'username': user.username,
-                'url':      request.build_absolute_uri(key.get_absolute_url()),
+                'user': user,
+                'url':  request.build_absolute_uri(reverse('accounts:register_confirm', kwargs={'key': key.key,})),
             })
             send_mail('2buntu Registration', template, '2buntu <noreply@2buntu.com>', [user.email,])
             messages.info(request, "Please check the email address you provided for instructions on activating your account.")
@@ -70,10 +69,53 @@ def register(request):
         'action':      'Register'
     })
 
-def confirm(request, key):
+def register_confirm(request, key):
     """Confirms a user account."""
     key = get_object_or_404(ConfirmationKey, key=key)
     key.user.is_active = True
     key.user.save()
+    key.delete()
     messages.info(request, "Thank you! Your account has been activated. Please log in below.")
     return redirect('accounts:login')
+
+def reset(request):
+    """Prompt a user for their email address."""
+    if request.method == 'POST':
+        form = ResetForm(data=request.POST)
+        if form.is_valid():
+            key = ConfirmationKey(user=form.user)
+            key.save()
+            template = render_to_string('emails/reset.txt', {
+                'user': key.user,
+                'url':  request.build_absolute_uri(reverse('accounts:reset_confirm', kwargs={'key': key.key,})),
+            })
+            send_mail('2buntu Password Reset', template, '2buntu <noreply@2buntu.com>', [key.user.email,])
+            messages.info(request, "An email has been sent to the address you provided with instructions on completing the password reset procedure.")
+            return redirect('home')
+    else:
+        form = ResetForm()
+    return render(request, 'form.html', {
+        'title':       'Reset Password',
+        'form':        form,
+        'description': "Please fill in the form below to begin the password reset procedure.",
+        'action':      'Continue',
+    })
+
+def reset_confirm(request, key):
+    """Complete the password reset procedure."""
+    key = get_object_or_404(ConfirmationKey, key=key)
+    if request.method == 'POST':
+        form = SetPasswordForm(user=key.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            key.delete()
+            messages.info(request, "Thank you! Your password has been reset. Please log in below.")
+            return redirect('accounts:login')
+    else:
+        form = SetPasswordForm(user=key.user)
+    return render(request, 'form.html', {
+        'title':       'Set Password',
+        'form':        form,
+        'description': "Please enter a new password for your account.",
+        'action':      'Continue',
+    })

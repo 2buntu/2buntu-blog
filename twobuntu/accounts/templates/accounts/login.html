@@ -1,0 +1,8 @@
+{% extends "form.html" %}
+
+{% block description %}
+    <p>Please enter your username and password to login.</p>
+    <p>
+        If you have forgotten your password, please <a href="{% url "accounts:reset" %}">click here</a> to begin the reset procedure.
+    </p>
+{% endblock %}
