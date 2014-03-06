@@ -9,6 +9,10 @@ be included here and NOT in settings.py
 DEBUG          = False
 TEMPLATE_DEBUG = DEBUG
 
+# Enable the console email backend when running in debug mode
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Database storage engine(s) for the project
 DATABASES = {
     'default': {
