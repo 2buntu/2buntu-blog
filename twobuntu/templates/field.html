@@ -1,0 +1,19 @@
+{% load widget_tweaks %}
+
+{% if field|widget_type == "checkboxinput" %}
+    <div class="checkbox">
+        <label>
+            {{ field }} {{ field.label }}
+        </label>
+    </div>
+{% else %}
+    <div class="form-group">
+        <label for="id_{{ field.name }}" class="control-label">
+            {{ field.label }}
+        </label>
+        {% render_field field class+="form-control" placeholder=field.help_text %}
+    </div>
+{% endif %}
+{% for error in field.errors %}
+    <div class="alert alert-danger"><strong>{{ error }}</strong></div>
+{% endfor %}
