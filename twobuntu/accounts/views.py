@@ -5,20 +5,21 @@ from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 
 from twobuntu.accounts.forms import RegistrationForm, ResetForm
-from twobuntu.accounts.models import ConfirmationKey
+from twobuntu.accounts.models import ConfirmationKey, Profile
 from twobuntu.articles.models import Article
+from twobuntu.decorators import canonical
 
-def profile(request, id, slug):
+@canonical(Profile)
+def profile(request, profile):
     """Display a user's profile."""
-    user = get_object_or_404(User, pk=id)
     return render(request, 'accounts/profile.html', {
-        'title':    user.profile,
-        'profile':  user.profile,
-        'articles': Article.objects.filter(author=user, published=True),
+        'title':    profile,
+        'profile':  profile,
+        'articles': Article.objects.filter(author=profile.user, published=True),
     })
 
 def login(request):
