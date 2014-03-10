@@ -2,11 +2,13 @@
 
 {% block content %}
     <h2>{{ title }}</h2>
-    {% block description %}
-        <p>
-            {{ description|safe }}
-        </p>
-    {% endblock %}
+        <div class="row">
+            <div class="col-lg-8">
+                {% block description %}
+                    <p>{{ description }}</p>
+                {% endblock %}
+            </div>
+        </div>
     <br>
     <form method="post">
         {% csrf_token %}
@@ -23,12 +25,14 @@
             </div>
         {% endblock %}
         <br>
-        <div>
-            <button type="submit" class="btn btn-primary">
-                <span class="fa fa-check"></span>
-                {{ action }}
-            </button>
-            <button type="reset" class="btn btn-default">Reset</button>
-        </div>
+        {% block form_actions %}
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="fa fa-check"></span>
+                    {{ action }}
+                </button>
+                <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+        {% endblock %}
     </form>
 {% endblock %}

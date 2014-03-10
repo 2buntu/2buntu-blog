@@ -1,8 +1,9 @@
 {% extends "form.html" %}
 
 {% block description %}
-    <p>Please enter your username and password to login.</p>
     <p>
+        In order to access protected pages on 2buntu, you will need to login.
+        Please enter your username and password below.
         If you have forgotten your password, please <a href="{% url "accounts:reset" %}">click here</a> to begin the reset procedure.
     </p>
 {% endblock %}

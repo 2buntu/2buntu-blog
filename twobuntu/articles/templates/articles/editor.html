@@ -1,0 +1,50 @@
+{% extends "form.html" %}
+{% load widget_tweaks %}
+
+{% block form_fields %}
+    <div class="row">
+        <div class="col-lg-8">
+            {% with form.title as field %}
+                {% include "field.html" %}
+            {% endwith %}
+        </div>
+        <div class="col-lg-4">
+            {% with form.category as field %}
+                {% include "field.html" %}
+            {% endwith %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            {% render_field form.body class+="form-control" placeholder=form.body.help_text rows="16" %}
+        </div>
+        <div class="col-lg-4">
+            <div class="well">
+                <h4>Writing an Article</h4>
+                <p>
+                    Articles for the 2buntu blog are written in Markdown.
+                    <a href="#">This page</a> presents an overview of Markdown syntax.
+                </p>
+                <p>
+                    When selecting a category, be as specific as possible.
+                    If your article does not suit one of the existing categories,
+                    please select "miscellaneous" and we will add an appropriate category.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_actions %}
+    <br>
+    <div>
+        <button type="submit" name="action" value="save" class="btn btn-primary">
+            <span class="fa fa-check"></span>
+            {{ action }}
+        </button>
+        <button type="submit" name="action" value="preview" class="btn btn-default">
+            <span class="fa fa-search"></span>
+            Preview
+        </button>
+    </div>
+{% endblock %}
