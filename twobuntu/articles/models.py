@@ -8,6 +8,17 @@ from twobuntu.cmarkdown import cmarkdown
 class Article(models.Model):
     """A post written in Markdown by an author."""
 
+    # Article status constants
+    DRAFT      = 0
+    UNAPPROVED = 1
+    PUBLISHED  = 2
+
+    STATUS = (
+        (DRAFT,      'Draft',),
+        (UNAPPROVED, 'Unapproved',),
+        (PUBLISHED,  'Published',),
+    )
+
     author = models.ForeignKey(User,
                                help_text="The user writing the article.")
     category = models.ForeignKey(Category,
@@ -17,8 +28,8 @@ class Article(models.Model):
                              help_text="The title of the article.")
     body = models.TextField(help_text="The body of the article [in Markdown].")
 
-    published = models.BooleanField(default=False,
-                                    help_text="Whether the article is published or not.")
+    status = models.PositiveSmallIntegerField(choices=STATUS,
+                                              help_text="The current status of the article.")
     cc_license = models.BooleanField(default=True,
                                      help_text="Whether the article is released under the CC-BY-SA 4.0 license or not.")
 
@@ -26,7 +37,10 @@ class Article(models.Model):
 
     def __unicode__(self):
         """Return a string representation of the article."""
-        return self.title
+        return '%s%s' % (
+            self.title,
+            ' [%s]' % self.get_status_display() if not self.status == self.PUBLISHED else '',
+        )
 
     @models.permalink
     def get_absolute_url(self):

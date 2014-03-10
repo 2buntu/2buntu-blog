@@ -19,7 +19,7 @@ def index(request):
     """Render the home page."""
     return render(request, 'pages/index.html', {
         'home':       True,
-        'articles':   Article.objects.filter(published=True),
+        'articles':   Article.objects.filter(status=Article.PUBLISHED),
         'categories': Category.objects.annotate(num_articles=Count('article')),
         'items':      Item.objects.all(),
         'users':      User.objects.annotate(num_articles=Count('article')).order_by('-num_articles'),

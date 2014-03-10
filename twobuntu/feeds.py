@@ -32,4 +32,4 @@ class LatestArticlesFeed(ArticleFeed):
     description = "Recently published articles about Ubuntu on the 2buntu blog."
 
     def items(self):
-        return Article.objects.filter(published=True)[:20]
+        return Article.objects.filter(status=Article.PUBLISHED)[:20]

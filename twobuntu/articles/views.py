@@ -6,7 +6,7 @@ from twobuntu.articles.forms import EditorForm
 from twobuntu.articles.models import Article
 from twobuntu.decorators import canonical
 
-@canonical(Article, published=True)
+@canonical(Article, status=Article.PUBLISHED)
 def view(request, article):
     """Display the specified article."""
     return render(request, 'articles/view.html', {
@@ -31,12 +31,13 @@ def search(request):
     q = request.GET['q']
     return render(request, 'articles/search.html', {
         'title':    'Search Results for "%s"' % q,
-        'articles': Article.objects.filter(published=True).filter(Q(title__icontains=q) | Q(body__icontains=q)),
+        'articles': Article.objects.filter(status=Article.PUBLISHED).filter(Q(title__icontains=q) | Q(body__icontains=q)),
     })
 
 @login_required
 def editor(request):
     """Display the article editor."""
+    article = get_object_or_404(Article, pk=request.GET['id']) if 'id' in request.GET else None
     return render(request, 'articles/editor.html', {
         'title':       'Edit "%s"' % article if article else 'New Article',
         'form':        EditorForm(),

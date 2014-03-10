@@ -7,10 +7,6 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    depends_on = (
-        ("categories", "0001_initial"),
-    )
-
     def forwards(self, orm):
         # Adding model 'Article'
         db.create_table(u'articles_article', (
@@ -19,7 +15,7 @@ class Migration(SchemaMigration):
             ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['categories.Category'])),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('body', self.gf('django.db.models.fields.TextField')()),
-            ('published', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('status', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
             ('cc_license', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -40,7 +36,7 @@ class Migration(SchemaMigration):
             'cc_license': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'published': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'status': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
         u'auth.group': {

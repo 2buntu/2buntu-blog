@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import login as login_user, logout as logout_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
@@ -19,7 +18,7 @@ def profile(request, profile):
     return render(request, 'accounts/profile.html', {
         'title':    profile,
         'profile':  profile,
-        'articles': Article.objects.filter(author=profile.user, published=True),
+        'articles': Article.objects.filter(author=profile.user, status=Article.PUBLISHED),
     })
 
 def login(request):
