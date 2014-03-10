@@ -33,6 +33,7 @@ div.content { background-color: white; box-shadow: 0 0 8px #ccc; padding: 16px 1
 div.content h2:first-child,
 div.content h4:first-child { margin-top: 0; }
 div.footer { background-color: #ddd; padding: 32px 0; }
+div.footer img { margin-top: 6px; }
 
 /* Article styles. */
 div.featured { height: 200px; overflow: hidden; }
