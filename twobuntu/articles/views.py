@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
+from twobuntu.articles.forms import EditorForm
 from twobuntu.articles.models import Article
 from twobuntu.decorators import canonical
 
@@ -30,4 +32,14 @@ def search(request):
     return render(request, 'articles/search.html', {
         'title':    'Search Results for "%s"' % q,
         'articles': Article.objects.filter(published=True).filter(Q(title__icontains=q) | Q(body__icontains=q)),
+    })
+
+@login_required
+def editor(request):
+    """Display the article editor."""
+    return render(request, 'articles/editor.html', {
+        'title':       'Edit "%s"' % article if article else 'New Article',
+        'form':        EditorForm(),
+        'description': "Use the form below to %s." % ('edit the article' if article else 'create an article',),
+        'action':      'Save',
     })
