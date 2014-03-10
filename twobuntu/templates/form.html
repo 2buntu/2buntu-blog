@@ -10,21 +10,25 @@
     <br>
     <form method="post">
         {% csrf_token %}
-        <div class="row">
-            <div class="col-lg-8">
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                {% endfor %}
-                {% for field in form %}
-                    {% include "field.html" %}
-                {% endfor %}
-                <br>
-                <button type="submit" class="btn btn-primary">
-                    <span class="fa fa-check"></span>
-                    {{ action }}
-                </button>
-                <input type="reset" class="btn btn-default">
+        {% block form_fields %}
+            <div class="row">
+                <div class="col-lg-8">
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                    {% for field in form %}
+                        {% include "field.html" %}
+                    {% endfor %}
+                </div>
             </div>
+        {% endblock %}
+        <br>
+        <div>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-check"></span>
+                {{ action }}
+            </button>
+            <button type="reset" class="btn btn-default">Reset</button>
         </div>
     </form>
 {% endblock %}
