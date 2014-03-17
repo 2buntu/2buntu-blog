@@ -49,7 +49,9 @@ The instructions below assume you are running Ubuntu 12.04 LTS.
         git clone https://github.com/2buntu/2buntu-Django-Blog.git
         cd 2buntu-Django-Blog
 
-5. Open `twobuntu/local_settings.py` and insert the database connection information where indicated:
+5. Copy `twobuntu/local_settings.py.default` to `twobuntu/local_settings.py`.
+
+6. Open `twobuntu/local_settings.py` and insert the database connection information where indicated:
 
         DATABASES = {
             'default': {
@@ -63,31 +65,22 @@ The instructions below assume you are running Ubuntu 12.04 LTS.
 
    Note that you will need to replace PASSWORD with the password you chose in step 3.
 
-6. Set a unique value for the `SECRET_KEY` setting.
+7. Set a unique value for the `SECRET_KEY` setting.
 
-7. Synchronize the database and perform all migrations using the following command:
+8. Synchronize the database and perform all migrations using the following command:
 
         ./manage.py syncdb
         ./manage.py migrate
 
    If you are prompted to create a superuser, enter "no".
 
-8. Create a superuser with the following command:
+9. Create a superuser with the following command:
 
         ./manage.py createsuperuser
 
-9. Launch the development server by running the following command:
+10. Launch the development server by running the following command:
 
         ./manage.py runserver
 
    Point your web browser to http://127.0.0.1:8000/
 
-### Additional Notes:
-
-* If you are contributing to the development of this project, please make sure changes you make to `twobuntu/local_settings.py` file as described in Step 5 of the installation instructions are not committed along with the rest of your changes. To stop tracking changes to this file:
-
-        git update-index --assume-unchanged twobuntu/local_settings.py
-
-  To re-enable tracking:
-
-        git update-index --no-assume-unchanged twobuntu/local_settings.py
