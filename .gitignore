@@ -1,3 +1,4 @@
 *.py[co]
 Thumbs.db
 *~
+twobuntu/local_settings.py
