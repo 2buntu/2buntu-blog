@@ -31,21 +31,38 @@
                     </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav pull-right">
+            <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    {% if user.is_staff %}
-                        <li>
-                            <a href="{% url "admin:index" %}">
-                                <span class="fa fa-cog"></span>
-                                Administration
-                            </a>
-                        </li>
-                    {% endif %}
-                    <li>
-                        <a href="{% url "accounts:logout" %}">
-                            <span class="fa fa-sign-out"></span>
-                            Logout
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-user"></span>
+                            {{ user.profile }}
+                            <b class="caret"></b>
                         </a>
+                        <ul class="dropdown-menu">
+                            {% if user.is_staff %}
+                                <li>
+                                    <a href="{% url "admin:index" %}">
+                                        <span class="fa fa-cog"></span>
+                                        Administration
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                            {% endif %}
+                            <li>
+                                <a href="{{ user.profile.get_absolute_url }}">
+                                    <span class="fa fa-user"></span>
+                                    My Profile
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url "accounts:logout" %}">
+                                    <span class="fa fa-sign-out"></span>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 {% else %}
                     <li>
