@@ -11,17 +11,16 @@ script:
     - sudo -u postgres psql -c "CREATE USER twobuntu WITH PASSWORD 'twobuntu'"
     - sudo -u postgres psql -c "CREATE DATABASE twobuntu WITH OWNER twobuntu"
     - cp twobuntu/local_settings.py.default twobuntu/local_settings.py
-    - echo "
-DATABASES = {
-    'default': {
-        'ENGINE':   'django.db.backends.postgresql_psycopg2',
-        'NAME':     'twobuntu',
-        'USER':     'twobuntu',
-        'PASSWORD': 'twobuntu',
-        'HOST':     'localhost',
-    },
-}
-
-SECRET_KEY = '1234567890abcdef'" >> twobuntu/local_settings.py
+    - echo "DATABASES = {
+                'default': {
+                    'ENGINE':   'django.db.backends.postgresql_psycopg2',
+                    'NAME':     'twobuntu',
+                    'USER':     'twobuntu',
+                    'PASSWORD': 'twobuntu',
+                    'HOST':     'localhost',
+                },
+            }
+            
+            SECRET_KEY = '1234567890abcdef'" >> twobuntu/local_settings.py
     - ./manage.py syncdb --noinput
     - ./manage.py migrate --noinput
