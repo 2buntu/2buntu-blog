@@ -20,6 +20,7 @@ def view(request, article):
             ('https://www.facebook.com/sharer.php?u=',              'Facebook', 'fa-facebook-square',),
             ('https://plus.google.com/share?url=',                  'Google+',  'fa-google-plus-square',),
             ('https://twitter.com/share?url=',                      'Twitter',  'fa-twitter-square',),
+            ('http://www.tumblr.com/share/',                        'Tumblr',   'fa-tumblr-square',),
             ('http://www.linkedin.com/shareArticle?mini=true&url=', 'LinkedIn', 'fa-linkedin-square',),
         ),
     })
