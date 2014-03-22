@@ -29,6 +29,7 @@ class Article(models.Model):
     body = models.TextField(help_text="The body of the article [in Markdown].")
 
     status = models.PositiveSmallIntegerField(choices=STATUS,
+                                              default=DRAFT,
                                               help_text="The current status of the article.")
     cc_license = models.BooleanField(default=True,
                                      help_text="Whether the article is released under the CC-BY-SA 4.0 license or not.")
