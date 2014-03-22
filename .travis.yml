@@ -1,0 +1,19 @@
+language: python
+
+python:
+    - "2.7"
+
+install:
+    - sudo apt-get install python-pip python-dev libpq-dev libjpeg8-dev zlib1g-dev
+    - sudo pip install Django psycopg2 South Markdown django-widget-tweaks Pillow python-dateutil
+    - sudo apt-get install postgresql
+
+script:
+    - sudo -u postgres psql -c "CREATE USER twobuntu WITH PASSWORD 'twobuntu'"
+    - sudo -u postgres psql -c "CREATE DATABASE twobuntu WITH OWNER twobuntu"
+    - cp twobuntu/local_settings.py.default twobuntu/local_settings.py
+    - perl -p -e "s/('(?:NAME|USER|PASSWORD)':\s*')/\1twobuntu/" twobuntu/local_settings.py
+    - perl -p -e "s/('HOST':\s*')/\1localhost/" twobuntu/local_settings.py
+    - perl -p -e "s/'PORT':\s*'',//" twobuntu/local_settings.py
+    - ./manage.py syncdb --noinput
+    - ./manage.py migrate --noinput
