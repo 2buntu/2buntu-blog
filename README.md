@@ -30,7 +30,7 @@ The instructions below assume you are running Ubuntu 12.04 LTS.
 
 1. Install the Python packages and their dependencies:
 
-        sudo apt-get install python-pip python-dev libpq-dev libjpeg8-dev zlib1g-dev
+        sudo apt-get install python-pip python-dev libpq-dev libjpeg8-dev
         sudo pip install Django psycopg2 South Markdown django-widget-tweaks Pillow python-dateutil
 
 2. Install PostgreSQL and switch to the psql user:
