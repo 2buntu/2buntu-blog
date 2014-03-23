@@ -73,6 +73,15 @@ def markdown(request):
         'title':  'Markdown Help',
     })
 
+@login_required
+def submit(request, id):
+    """Submit an article for approval."""
+    article = get_object_or_404(Article, pk=id, status=Article.DRAFT)
+    article.status = Article.UNAPPROVED
+    article.save()
+    messages.info(request, "The article has been submitted for approval by a staff member.")
+    return redirect(article)
+
 @user_passes_test(lambda u: u.is_staff)
 def publish(request, id):
     """Publish the specified article."""
