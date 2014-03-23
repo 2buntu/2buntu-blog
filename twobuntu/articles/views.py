@@ -49,8 +49,10 @@ def editor(request, id):
     if request.method == 'POST':
         form = EditorForm(instance=article, data=request.POST)
         if form.is_valid():
+            creating = article is None
             article = form.save(commit=False)
-            article.author = request.user
+            if creating:
+                article.author = request.user
             article.save()
             messages.info(request, "The article has been saved.")
             return redirect(article)
