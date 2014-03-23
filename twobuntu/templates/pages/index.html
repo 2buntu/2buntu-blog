@@ -12,16 +12,16 @@
             {% include "accounts/fragment.html" %}
         </div>
         <div class="col-sm-4">
-            <div class="input-group">
-                <form action="{% url "articles:search" %}">
+            <form action="{% url "articles:search" %}">
+                <div class="input-group">
                     <input type="text" class="form-control" name="q" placeholder="Enter search terms...">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
                             <span class="fa fa-search"></span>
                         </button>
                     </span>
-                </form>
-            </div>
+                </div>
+            </form>
             <br>
             {% include "news/fragment.html" %}
             <div class="well">
