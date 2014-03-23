@@ -22,7 +22,7 @@ def index(request):
         'articles':   Article.apply_filter(request),
         'categories': Category.objects.annotate(num_articles=Count('article')),
         'items':      Item.objects.all(),
-        'users':      User.objects.annotate(num_articles=Count('article')).order_by('-num_articles'),
+        'users':      User.objects.filter(is_active=True).annotate(num_articles=Count('article')).order_by('-num_articles'),
     })
 
 def about(request):
