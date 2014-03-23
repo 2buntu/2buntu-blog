@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
 from twobuntu.accounts.forms import RegistrationForm, ResetForm
