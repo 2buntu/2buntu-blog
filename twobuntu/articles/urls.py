@@ -7,4 +7,6 @@ urlpatterns = patterns('twobuntu.articles.views',
     url(r'^search/$',   'search',   name='search'),
     url(r'^editor/$',   'editor',   name='editor'),
     url(r'^markdown/$', 'markdown', name='markdown'),
+    
+    url(r'^publish/$', 'publish', name='publish'),
 )

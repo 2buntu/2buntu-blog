@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -66,3 +66,13 @@ def markdown(request):
     return render(request, 'articles/markdown.html', {
         'title':  'Markdown Help',
     })
+
+@user_passes_test(lambda u: u.is_staff)
+def publish(request):
+    """Publish the specified article."""
+    if not 'id' in request.GET:
+        raise Http404
+    article = get_object_or_404(Article, pk=request.GET['id'])
+    article.status = Article.PUBLISHED
+    article.save()
+    return redirect(article)

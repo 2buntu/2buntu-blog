@@ -52,7 +52,7 @@
                     <p>This article is ready for publishing but has not yet been approved by a staff member.</p>
                     {% if user.is_staff %}
                         <br>
-                        <a href="#" class="btn btn-sm btn-primary">
+                        <a href="{% url "articles:publish" %}?id={{ article.id }}" class="btn btn-sm btn-primary">
                             <span class="fa fa-check"></span>
                             Approve Article
                         </a>
