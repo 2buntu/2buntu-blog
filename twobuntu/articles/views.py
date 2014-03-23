@@ -4,9 +4,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from twobuntu.articles.forms import EditorForm
 from twobuntu.articles.models import Article
-from twobuntu.decorators import canonical
+from twobuntu.decorators import canonical, protect
 
-@canonical(Article, status=Article.PUBLISHED)
+@canonical(Article)
+@protect(lambda r, a: r.user.is_staff or r.user.id == a.author or a.status == Article.PUBLISHED)
 def view(request, article):
     """Display the specified article."""
     return render(request, 'articles/view.html', {
