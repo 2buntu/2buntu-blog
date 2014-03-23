@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
 from django.http import Http404
@@ -40,9 +41,9 @@ def search(request):
     })
 
 @login_required
-def editor(request):
+def editor(request, id):
     """Display the article editor."""
-    article = get_object_or_404(Article, pk=request.GET['id']) if 'id' in request.GET else None
+    article = get_object_or_404(Article, pk=id) if id else None
     if article and not article.can_edit(request):
         raise Http404
     if request.method == 'POST':
@@ -51,6 +52,7 @@ def editor(request):
             article = form.save(commit=False)
             article.author = request.user
             article.save()
+            messages.info(request, "The article has been saved.")
             return redirect(article)
     else:
         form = EditorForm(instance=article)
@@ -68,11 +70,10 @@ def markdown(request):
     })
 
 @user_passes_test(lambda u: u.is_staff)
-def publish(request):
+def publish(request, id):
     """Publish the specified article."""
-    if not 'id' in request.GET:
-        raise Http404
-    article = get_object_or_404(Article, pk=request.GET['id'])
+    article = get_object_or_404(Article, pk=id)
     article.status = Article.PUBLISHED
     article.save()
+    messages.info(request, "The article has been published.")
     return redirect(article)
