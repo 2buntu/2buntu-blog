@@ -54,15 +54,17 @@ def editor(request, id):
             if creating:
                 article.author = request.user
             article.save()
-            messages.info(request, "The article has been saved.")
-            return redirect(article)
+            messages.info(request, "The article has been saved." if creating else "Your changes to the article have been saved.")
+            if 'action' in request.POST and request.POST['action'] == 'continue':
+                return redirect('articles:editor', article.id)
+            else:
+                return redirect(article)
     else:
         form = EditorForm(instance=article)
     return render(request, 'articles/editor.html', {
         'title':       'Edit "%s"' % article if article else 'New Article',
         'form':        form,
         'description': "Use the form below to %s." % ('edit the article' if article else 'create an article',),
-        'action':      'Save',
     })
 
 def markdown(request):
