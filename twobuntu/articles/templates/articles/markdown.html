@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Markdown Help</h2>
+    <p>
+        Articles that are composed and written for the 2buntu blog are written in a text-formatting language
+        known as "Markdown". The language is both easy to read and easy to learn. What follows is a relatively
+        brief overview of Markdown syntax and some examples that demonstrate its usage.
+    </p>
+    <hr>
+    <h4>Simple Text Formatting</h4>
+    <pre>**bold** | *italic* | _also italic_</pre>
+    <p>The Markdown above produces the results below when rendered:</p>
+    <pre><b>bold</b> | <i>italic</i> | <i>also italic</i></pre>
+    <p>You can create headings with the following syntax:</p>
+    <pre># Top Level Heading
+## Second Level Heading</pre>
+    <p>An alternative syntax is also supported:</p>
+    <pre>Heading
+=======</pre>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>Links to URLs</h4>
+            <p>Links to other pages can be created using the syntax shown below:</p>
+            <pre>[link text](http://2buntu.com)</pre>
+            <p>This produces the following results:</p>
+            <pre><a href="http://2buntu.com">link text</a></pre>
+            <p>Bare URLs will also be automatically converted to links.</p>
+        </div>
+        <div class="col-lg-6">
+            <h4>Images</h4>
+            <p>Embedding images in posts is very simple:</p>
+            <pre>![hover text](http://example.com/image.jpg)</pre>
+            <p>The "hover text" is displayed when the user hovers the cursor over the image.</p>
+        </div>
+    </div>
+    <hr>
+    <h4>StackTack</h4>
+    <p>If you want to include an embedded question from the community site <a href="http://askubuntu.com">Ask Ubuntu</a>, you can do so with the following HTML:</p>
+    <pre>&lt;div class="stacktack" data-site="askubuntu" data-id="<strong>question ID</strong>"&gt;&lt;/div&gt;</pre>
+{% endblock %}

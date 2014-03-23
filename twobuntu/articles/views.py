@@ -55,3 +55,8 @@ def editor(request):
         'action':      'Save',
     })
 
+def markdown(request):
+    """Display Markdown help."""
+    return render(request, 'articles/markdown.html', {
+        'title':  'Markdown Help',
+    })
