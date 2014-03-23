@@ -18,7 +18,8 @@ def view(request, article):
             'title': article.category,
             'url':   article.category.get_absolute_url(),
         },
-        'article': article,
+        'article':  article,
+        'can_edit': article.can_edit(request),
         'social': (
             ('https://www.facebook.com/sharer.php?u=',              'Facebook', 'fa-facebook-square',),
             ('https://plus.google.com/share?url=',                  'Google+',  'fa-google-plus-square',),
@@ -42,7 +43,7 @@ def search(request):
 def editor(request):
     """Display the article editor."""
     article = get_object_or_404(Article, pk=request.GET['id']) if 'id' in request.GET else None
-    if article and not article.can_view(request):
+    if article and not article.can_edit(request):
         raise Http404
     if request.method == 'POST':
         form = EditorForm(instance=article, data=request.POST)
