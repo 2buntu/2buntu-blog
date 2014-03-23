@@ -37,7 +37,7 @@ def search(request):
     q = request.GET['q']
     return render(request, 'articles/search.html', {
         'title':    'Search Results for "%s"' % q,
-        'articles': Article.objects.filter(status=Article.PUBLISHED).filter(Q(title__icontains=q) | Q(body__icontains=q)),
+        'articles': Article.apply_filter(request, Q(title__icontains=q) | Q(body__icontains=q)),
     })
 
 @login_required
