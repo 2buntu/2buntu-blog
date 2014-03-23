@@ -52,6 +52,14 @@ class Article(models.Model):
         """Determine if the article may be viewed by the current user."""
         # The user must either be staff or have written the article or it must be published
         return request.user.is_staff or request.user == self.author or self.status == self.PUBLISHED
+    
+    @classmethod
+    def apply_filter(cls, request, *args):
+        """Return a QuerySet with the correct filter applied based on the request."""
+        args = list(args)
+        if not request.user.is_staff:
+            args.append(models.Q(author=request.user.id) | models.Q(status=cls.PUBLISHED))
+        return cls.objects.filter(*args)
 
     @models.permalink
     def get_absolute_url(self):
