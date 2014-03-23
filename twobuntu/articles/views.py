@@ -1,15 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 
 from twobuntu.articles.forms import EditorForm
 from twobuntu.articles.models import Article
-from twobuntu.decorators import canonical, protect
+from twobuntu.decorators import canonical
 
 @canonical(Article)
-@protect(lambda r, a: r.user.is_staff or r.user.id == a.author or a.status == Article.PUBLISHED)
 def view(request, article):
     """Display the specified article."""
+    if not article.can_view(request):
+        raise Http404
     return render(request, 'articles/view.html', {
         'title':   article.title,
         'parent':  {
@@ -40,6 +42,8 @@ def search(request):
 def editor(request):
     """Display the article editor."""
     article = get_object_or_404(Article, pk=request.GET['id']) if 'id' in request.GET else None
+    if article and not article.can_view(request):
+        raise Http404
     if request.method == 'POST':
         form = EditorForm(instance=article, data=request.POST)
         if form.is_valid():
