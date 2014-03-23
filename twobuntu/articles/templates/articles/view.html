@@ -14,7 +14,7 @@
                 </div>
             {% endif %}
             <h2>
-                {{ article.title }}
+                {{ article }}
                 <br>
                 <small>
                     {{ article.date|timesince }}
@@ -39,21 +39,24 @@
         <div class="col-sm-4">
             {% if can_edit %}
                 <div class="alert alert-warning">
-                    <h4>Toolbox</h4>
-                    <p>This toolbox provides you with buttons for making adjustments to this article.</p>
+                    <p>You have permission to edit this article.</p>
                     <br>
-                    <p class="pull-right">
-                        <a href="{% url "articles:editor" %}?id={{ article.id }}" class="btn btn-xs btn-primary">
-                            <span class="fa fa-edit"></span>
-                            Edit Article
+                    <a href="{% url "articles:editor" %}?id={{ article.id }}" class="btn btn-sm btn-primary">
+                        <span class="fa fa-edit"></span>
+                        Edit Article
+                    </a>
+                </div>
+            {% endif %}
+            {% if article.status == article.UNAPPROVED %}
+                <div class="alert alert-warning">
+                    <p>This article is ready for publishing but has not yet been approved by a staff member.</p>
+                    {% if user.is_staff %}
+                        <br>
+                        <a href="#" class="btn btn-sm btn-primary">
+                            <span class="fa fa-check"></span>
+                            Approve Article
                         </a>
-                        {% if user.is_staff and article.status == article.UNAPPROVED %}
-                            <a href="#" class="btn btn-xs btn-primary">
-                                <span class="fa fa-check"></span>
-                                Approve Article
-                            </a>
-                        {% endif %}
-                    </p>
+                    {% endif %}
                 </div>
             {% endif %}
             <h4>Share This Article</h4>

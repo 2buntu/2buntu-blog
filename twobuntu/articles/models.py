@@ -46,7 +46,7 @@ class Article(models.Model):
     def can_edit(self, request):
         """Determine if the article may be edited by the current user."""
         # The user must either be staff or have written the article and not published it yet
-        return request.user.is_staff or request.user == self.author and not self.status == self.PUBLISHED
+        return request.user.is_staff or request.user == self.author and self.status == self.DRAFT
     
     def can_view(self, request):
         """Determine if the article may be viewed by the current user."""
