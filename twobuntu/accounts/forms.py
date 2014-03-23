@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.contrib.auth.models import User
 
+from twobuntu.accounts.models import Profile
+
 class RegistrationForm(UserCreationForm):
     """Form for new user registrations."""
 
@@ -18,3 +20,10 @@ class ResetForm(PasswordResetForm):
             self.user = User.objects.get(email=self.cleaned_data['email'])
         except User.DoesNotExist:
             raise forms.ValidationError("The email address you provided does not match any valid account.")
+
+class ProfileForm(forms.ModelForm):
+    """Form for editing a user's profile."""
+    
+    class Meta:
+        model = Profile
+        fields = ('birthday', 'location', 'website', 'bio',)

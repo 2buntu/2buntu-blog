@@ -13,4 +13,6 @@ urlpatterns = patterns('twobuntu.accounts.views',
 
     url(r'^reset/$',                               'reset',         name='reset'),
     url(r'^reset/confirm/(?P<key>[0-9a-f]{32})/$', 'reset_confirm', name='reset_confirm'),
+    
+    url(r'^edit/(?P<id>\d+)/$', 'edit', name='edit'),
 )

@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
-from twobuntu.accounts.forms import RegistrationForm, ResetForm
+from twobuntu.accounts.forms import ProfileForm, RegistrationForm, ResetForm
 from twobuntu.accounts.models import ConfirmationKey, Profile
 from twobuntu.articles.models import Article
 from twobuntu.decorators import canonical
@@ -120,4 +120,22 @@ def reset_confirm(request, key):
         'form':        form,
         'description': "Please enter a new password for your account.",
         'action':      'Continue',
+    })
+
+@login_required
+def edit(request, id):
+    """Update the specified user profile."""
+    profile = get_object_or_404(Profile, user=id)
+    if request.method == 'POST':
+        form = ProfileForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(profile)
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, "form.html", {
+        'title':       'Edit Profile',
+        'form':        form,
+        'description': "Use the form below to make changes to this user profile.",
+        'action':      'Save',
     })

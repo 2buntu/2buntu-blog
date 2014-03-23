@@ -14,16 +14,16 @@ class Profile(models.Model):
 
     birthday = models.DateField(blank=True,
                                 null=True,
-                                help_text="The date that the user was born [used for displaying age].")
+                                help_text="Birthday in YYYY-MM-DD format [used for displaying age].")
     location = models.CharField(max_length=40,
                                 blank=True,
-                                help_text="The geographic location of the user.")
+                                help_text="Geographic location.")
 
     website = models.URLField(blank=True,
-                              help_text="A website created or run by the user.")
+                              help_text="A personal blog or website.")
 
     bio = models.TextField(blank=True,
-                           help_text="A brief biography of the user.")
+                           help_text="A brief biography.")
 
     def __unicode__(self):
         """Return a string representation of the profile."""

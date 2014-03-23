@@ -45,8 +45,22 @@
             {% include "articles/list.html" %}
         </div>
         <div class="col-sm-4">
+            {% if user.is_staff or user == profile.user %}
+                <div class="alert alert-warning">
+                    <p>You have permission to edit this profile.</p>
+                    <br>
+                    <a href="{% url "accounts:edit" profile.user.id %}" class="btn btn-sm btn-primary">
+                        <span class="fa fa-edit"></span>
+                        Edit Profile
+                    </a>
+                </div>
+            {% endif %}
             <div class="well">
-                <p>{{ profile.bio|linebreaksbr }}</p>
+                {% if profile.bio %}
+                    <p>{{ profile.bio|linebreaksbr }}</p>
+                {% else %}
+                    <p class="text-muted">This user has not yet completed their profile.</p>
+                {% endif %}
             </div>
         </div>
     </div>
