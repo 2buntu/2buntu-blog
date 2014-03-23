@@ -42,6 +42,14 @@ class Article(models.Model):
             self.title,
             ' [%s]' % self.get_status_display() if not self.status == self.PUBLISHED else '',
         )
+    
+    def can_edit(self, request):
+        """Determine if the article may be edited by the current user."""
+        return request.user.is_staff or request.user.id == self.author
+    
+    def can_view(self, request):
+        """Determine if the article may be viewed by the current user."""
+        return request.user.is_staff or request.user.id == self.author or self.status == self.PUBLISHED
 
     @models.permalink
     def get_absolute_url(self):
