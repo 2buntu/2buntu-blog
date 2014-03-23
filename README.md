@@ -87,3 +87,6 @@ The instructions below assume you are running Ubuntu 12.04 LTS.
 
    Point your web browser to http://127.0.0.1:8000/
 
+### Contributing
+
+Please refer to the [Contributing Guide](https://github.com/2buntu/2buntu-Django-Blog/blob/master/docs/CONTRIBUTING.md)
