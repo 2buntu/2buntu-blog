@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^about/$',    'twobuntu.views.about',    name='about'),
     url(r'^links/$',    'twobuntu.views.links',    name='links'),
     url(r'^feedback/$', 'twobuntu.views.feedback', name='feedback'),
+    url(r'^join/$',     'twobuntu.views.join',     name='join'),
 
     url(r'^accounts/',   include('twobuntu.accounts.urls',   'accounts')),
     url(r'^articles/',   include('twobuntu.articles.urls',   'articles')),

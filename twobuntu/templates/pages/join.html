@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Join Our Blog</h2>
+    <p>
+        So you want to join the 2buntu blog? <strong>Excellent!</strong>
+        We are a group of bloggers committed to excellence and we want to make sure that everything we
+        publish reflects this excellence in every way possible.
+        Therefore we have put together this guide to help new bloggers get an idea of what type of
+        articles we are looking for and how they can join our team.
+    </p>
+    <h3>Guidelines</h3>
+    <p>
+        Before explaining how 2buntu works, we feel it is important that we describe the type of
+        content that we want and do <em>not</em> want published on 2buntu. Please read through this list
+        carefully.
+    </p>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="alert alert-warning">
+                <span class="fa fa-hand-o-right"></span>
+                All content must relate to the Ubuntu operating system in some way.
+                Content that relates to other Linux distributions is allowed so long
+                as the content applies to Ubuntu as well.
+            </div>
+            <div class="alert alert-warning">
+                <span class="fa fa-hand-o-right"></span>
+                Articles must not be too short. Our rule of thumb: the article should consist of
+                at least 60+ lines when rendered in the browser. We value quality over quantity.
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="alert alert-warning">
+                <span class="fa fa-hand-o-right"></span>
+                Articles must be free from profanity, obscenity, and personal threats.
+                In general, we discourage articles with an overly negative tone (rants, for example).
+                Articles must also refrain from embedding copyrighted content.
+            </div>
+            <div class="alert alert-warning">
+                <span class="fa fa-hand-o-right"></span>
+                We reserve the right to edit any articles as we see fit in order to comply with these guidelines.
+            </div>
+        </div>
+    </div>
+    <h3>Getting Started</h3>
+    <p>
+        The workflow for submitting an article looks something like this:
+    </p>
+    <ul>
+        <li>You create a new article by clicking your username in the upper-right corner and clicking "New Article".</li>
+        <li>The article editor will appear, providing you with space for entering the title, body, and category of the article.</li>
+        <li>To save the article, click "Save" or "Save and Continue Editing". You can save an article before it is finished.</li>
+        <li>Once your article is complete, click the "Submit Article" button.</li>
+        <li>Assuming all goes well, a staff member will review your article and publish it.</li>
+    </ul>
+    <h3>Ready?</h3>
+    <p>
+        If this sounds like something you would be interested in, then please click the button below
+        to begin the registration process.
+    </p>
+    <br>
+    <a href="{% url "accounts:register" %}" class="btn btn-primary">
+        <span class="fa fa-check"></span>
+        Register
+    </a>
+{% endblock %}

@@ -51,7 +51,7 @@ def links(request):
     })
 
 def feedback(request):
-    """Gathers feedback from users."""
+    """Gather feedback from users."""
     if request.method == 'POST':
         form = FeedbackForm(data=request.POST)
         if form.is_valid():
@@ -67,3 +67,10 @@ def feedback(request):
         'description': "We value your feedback! Please fill in the form below to leave us a note, tip, or suggestion.",
         'action':      'Submit',
     })
+
+def join(request):
+    """Provide guidelines for joining and contributing to the blog."""
+    return render(request, 'pages/join.html', {
+        'title': 'Join',
+    })
+
