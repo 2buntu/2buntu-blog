@@ -3,7 +3,7 @@
 {% block content %}
     <h2>{{ title }}</h2>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-sm-8">
                 {% block description %}
                     <p>{{ description }}</p>
                 {% endblock %}
@@ -14,7 +14,7 @@
         {% csrf_token %}
         {% block form_fields %}
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-sm-8">
                     {% for error in form.non_field_errors %}
                         <div class="alert alert-danger">{{ error }}</div>
                     {% endfor %}
