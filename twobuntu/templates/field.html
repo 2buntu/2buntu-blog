@@ -11,7 +11,11 @@
         <label for="id_{{ field.name }}" class="control-label">
             {{ field.label }}
         </label>
-        {% render_field field class+="form-control" placeholder=field.help_text %}
+        {% if field|widget_type == "clearablefileinput" %}
+            {{ field }}
+        {% else %}
+            {% render_field field class+="form-control" placeholder=field.help_text %}
+        {% endif %}
     </div>
 {% endif %}
 {% for error in field.errors %}
