@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^articles/',   include('twobuntu.articles.urls',   'articles')),
     url(r'^api/',        include('twobuntu.api.urls',        'api')),
     url(r'^categories/', include('twobuntu.categories.urls', 'categories')),
+    url(r'^images/',     include('twobuntu.images.urls',     'images')),
 
     url(r'^admin/', include(admin.site.urls)),
 
