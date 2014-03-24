@@ -20,7 +20,7 @@ def index(request):
     return render(request, 'pages/index.html', {
         'home':       True,
         'articles':   Article.apply_filter(request),
-        'categories': Category.objects.annotate(num_articles=Count('article')),
+        'categories': Category.objects.filter(article__status=Article.PUBLISHED).annotate(num_articles=Count('article')),
         'items':      Item.objects.all(),
         'users':      User.objects.filter(is_active=True).annotate(num_articles=Count('article')).order_by('-num_articles'),
     })
