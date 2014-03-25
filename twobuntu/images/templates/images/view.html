@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>{{ image.caption }}</h2>
+            <p>
+                A preview of the image is displayed below in addition to the Markdown code
+                necessary to embed the image in an article.
+            </p>
+            <br>
+            <img src="{{ image.image.url }}" title="{{ image.caption|escape }}">
+            <br>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Embed Code</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Copy and paste the following code to embed this image in an article:</p>
+                    <pre>[image:{{ image.id }}]</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

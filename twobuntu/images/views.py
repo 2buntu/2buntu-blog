@@ -1,8 +1,18 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from twobuntu.images.forms import ImageUploadForm
+from twobuntu.images.models import Image
+
+@login_required
+def view(request, id):
+    """View uploaded image."""
+    image = get_object_or_404(Image, pk=id)
+    return render(request, "images/view.html", {
+        'title': image.caption,
+        'image': image,
+    })
 
 @login_required
 def upload(request):
@@ -11,8 +21,8 @@ def upload(request):
         form = ImageUploadForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             image = form.save()
-            messages.info(request, "Your image has been uploaded and can be embedded with \"[image:%d]\"." % image.id)
-            return redirect('home')
+            messages.info(request, "Your image has been uploaded.")
+            return redirect(image)
     else:
         form = ImageUploadForm()
     return render(request, 'images/upload.html', {
