@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 
 from twobuntu.images.forms import ImageUploadForm
 
+@login_required
 def upload(request):
     """Upload images for embedding in articles."""
     if request.method == 'POST':
