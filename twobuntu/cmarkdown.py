@@ -24,7 +24,7 @@ class ImagePattern(markdown.inlinepatterns.Pattern):
 
     def __init__(self):
         """Initialize the pattern."""
-        super(ImagePattern, self).__init__(r'\[image:\s*([^\]]+)\]')
+        super(ImagePattern, self).__init__(r'\[image:\s*(\d+)\]')
 
     def handleMatch(self, m):
         """Process a match of the regular expression."""
