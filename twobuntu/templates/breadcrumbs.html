@@ -14,9 +14,11 @@
                 </a>
             </li>
         {% endif %}
-        <li class="active">
-            <span class="fa fa-file"></span>
-            {{ title }}
-        </li>
+        {% if title %}
+            <li class="active">
+                <span class="fa fa-file"></span>
+                {{ title }}
+            </li>
+        {% endif %}
     </ol>
 {% endif %}
