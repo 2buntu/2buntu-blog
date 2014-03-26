@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
@@ -44,6 +45,7 @@ def logout(request):
     messages.info(request, "You have successfully been logged out.")
     return redirect('home')
 
+@transaction.atomic
 def register(request):
     """Present a registration form for new users."""
     if request.method == 'POST':
@@ -71,6 +73,7 @@ def register(request):
         'action':      'Register'
     })
 
+@transaction.atomic
 def register_confirm(request, key):
     """Confirms a user account."""
     key = get_object_or_404(ConfirmationKey, key=key)
@@ -103,6 +106,7 @@ def reset(request):
         'action':      'Continue',
     })
 
+@transaction.atomic
 def reset_confirm(request, key):
     """Complete the password reset procedure."""
     key = get_object_or_404(ConfirmationKey, key=key)
