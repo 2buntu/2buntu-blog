@@ -51,10 +51,13 @@
                 <div class="alert alert-warning">
                     <p>Please click the button below when you are ready to submit your article for publishing.</p>
                     <br>
-                    <a href="{% url "articles:submit" article.id %}" class="btn btn-sm btn-primary">
-                        <span class="fa fa-check"></span>
-                        Submit Article
-                    </a>
+                    <form method="post" action="{% url "articles:submit" article.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <span class="fa fa-check"></span>
+                            Submit Article
+                        </button>
+                    </form>
                 </div>
             {% endif %}
             {% if user.is_staff and not article.status == article.PUBLISHED or article.status == article.UNAPPROVED %}
@@ -62,10 +65,13 @@
                     <p>This article has not yet been approved by a staff member.</p>
                     {% if user.is_staff %}
                         <br>
-                        <a href="{% url "articles:publish" article.id %}" class="btn btn-sm btn-primary">
-                            <span class="fa fa-check"></span>
-                            Publish Article
-                        </a>
+                        <form method="post" action="{% url "articles:publish" article.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <span class="fa fa-check"></span>
+                                Publish Article
+                            </button>
+                        </form>
                     {% endif %}
                 </div>
             {% endif %}

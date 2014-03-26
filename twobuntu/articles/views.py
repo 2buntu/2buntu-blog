@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
 from twobuntu.articles.forms import EditorForm
 from twobuntu.articles.models import Article
@@ -73,6 +74,7 @@ def markdown(request):
         'title':  'Markdown Help',
     })
 
+@require_POST
 @login_required
 def submit(request, id):
     """Submit an article for approval."""
@@ -82,6 +84,7 @@ def submit(request, id):
     messages.info(request, "The article has been submitted for approval by a staff member.")
     return redirect(article)
 
+@require_POST
 @user_passes_test(lambda u: u.is_staff)
 def publish(request, id):
     """Publish the specified article."""
