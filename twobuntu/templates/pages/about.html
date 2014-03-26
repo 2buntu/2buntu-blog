@@ -81,10 +81,12 @@
                         2buntu currently has
                         <strong>{{ num_users }}</strong>
                         registered user{{ num_users|pluralize }}
-                        who have written
+                        who ha{{ num_users|pluralize:"s,ve" }} written
                         <strong>{{ num_articles }}</strong>
                         article{{ num_articles|pluralize }}.
-                        <em>That's a lot of articles!</em>
+                        {% if num_articles > 100 %}
+                            <em>That's a lot of articles!</em>
+                        {% endif %}
                     </p>
                     <p>
                         2buntu is written in <a href="http://python.org">Python</a> and uses
