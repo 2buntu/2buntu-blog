@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block rss %}
     <link rel="alternate" type="application/rss+xml" title="2buntu Articles" href="{% url "rss" %}" />
@@ -30,7 +31,7 @@
                     Latest Articles Feed
                 </a>
             </div>
-            <img src="http://placehold.it/350x350/eeeeee/cccccc&text=Your+Ad+Here">
+            <img src="{% static "img/blank-ad.png" %}">
             <br><br>
             {% include "categories/fragment.html" %}
         </div>
