@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>Advertising on 2buntu</h2>
+            <p>
+                Do you sell an application or service that you think would appeal to Ubuntu users?
+                We'd love to have you advertise your product here. Your ad will be seen by our many
+                visitors, drawing traffic and interest to your product.
+            </p>
+            <hr>
+            <h3>What We Offer</h3>
+            <p>
+                We currently offer advertising exclusively on our <a href="{% url "home" %}">home page</a>.
+                Advertisers pay a fixed fee for displaying an ad for a fixed period of time. We are very
+                flexible in regards to campaign duration, so please <a href="{% url "feedback" %}">
+                contact us</a> if you have any questions.
+            </p>
+            <h3>What We Accept</h3>
+            <p>
+                Although we welcome a diverse range of products, our policy is to limit advertising
+                to products that relate to Ubuntu or at least Linux. We do this because we want to
+                ensure that our visitors see only relevant ads - which makes both the advertiser and
+                customer happy.
+            </p>
+            <p>
+                We also want to avoid displaying offensive or suggestive ads on our website. We reserve
+                the right to refuse an ad that we deem is inappropriate for our visitors.
+            </p>
+            <h3>Interested?</h3>
+            <p>
+                Our advertising backend is still a work in progress, so we plan to offer more options
+                in the near future. Until then, please use the button below to get in touch with us.
+            </p>
+            <br>
+            <p>
+                <a href="{% url "feedback" %}" class="btn btn-primary">
+                    <span class="fa fa-envelope-o"></span>
+                    Get in Touch
+                </a>
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Pricing</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        Please <a href="{% url "feedback" %}">contact us</a> for pricing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

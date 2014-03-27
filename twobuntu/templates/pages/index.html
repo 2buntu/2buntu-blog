@@ -31,7 +31,9 @@
                     Latest Articles Feed
                 </a>
             </div>
-            <img src="{% static "img/blank-ad.png" %}">
+            <a href="{% url "ads:index" %}">
+                <img src="{% static "img/blank-ad.png" %}">
+            </a>
             <br><br>
             {% include "categories/fragment.html" %}
         </div>

@@ -64,7 +64,7 @@ def feedback(request):
     return render(request, "form.html", {
         'title':       "Feedback",
         'form':        FeedbackForm(),
-        'description': "We value your feedback! Please fill in the form below to leave us a note, tip, or suggestion.",
+        'description': "We value your feedback! Please fill in the form below to leave us a note, tip, or suggestion. We also accept advertising inquiries through this form.",
         'action':      'Submit',
     })
 
