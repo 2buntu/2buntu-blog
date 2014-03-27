@@ -39,8 +39,8 @@ def about(request):
         commit = {}
     return render(request, 'pages/about.html', {
         'title':        'About Us',
-        'num_articles': Article.objects.count(),
-        'num_users':    User.objects.count(),
+        'num_articles': Article.objects.filter(status=Article.PUBLISHED).count(),
+        'num_users':    User.objects.filter(is_active=True).count(),
         'commit':       commit,
     })
 

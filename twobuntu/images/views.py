@@ -9,7 +9,7 @@ from twobuntu.images.models import Image
 def view(request, id):
     """View uploaded image."""
     image = get_object_or_404(Image, pk=id)
-    return render(request, "images/view.html", {
+    return render(request, 'images/view.html', {
         'title': image.caption,
         'image': image,
     })
