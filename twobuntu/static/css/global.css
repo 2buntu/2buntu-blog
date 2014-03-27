@@ -13,6 +13,7 @@ div.jumbotron p { font-size: 12pt; }
 div.navbar { box-shadow: 0 0 8px black; margin-bottom: 0; }
 img { max-width: 100%; }
 p, li { text-align: justify; }
+a:hover, a:focus { text-decoration: none; }
 
 /* Space the Font Awesome icons away from text */
 div.alert span.fa { margin-top: 6px; }
