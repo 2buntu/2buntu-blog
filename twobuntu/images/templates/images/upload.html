@@ -1,4 +1,13 @@
 {% extends "form.html" %}
 
-{% block navbar %}{% endblock %}
-{% block footer %}{% endblock %}
+{% block navbar %}
+    {% if not popup %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    {% if not popup %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}

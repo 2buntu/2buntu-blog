@@ -30,4 +30,5 @@ def upload(request):
         'form':  form,
         'description': "Use this form to upload an image.",
         'action': 'Upload',
+        'popup':  'popup' in request.GET,
     })
