@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.mail import mail_admins
 from django.db.models import Count
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
 from twobuntu.articles.models import Article
@@ -74,3 +74,6 @@ def join(request):
         'title': 'Join',
     })
 
+def old(request, id):
+    """Redirect the client to the new URL for old articles."""
+    return redirect(get_object_or_404(Article, pk=id), permanent=True)

@@ -25,6 +25,9 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^rss/$', LatestArticlesFeed(), name='rss'),
+    
+    # Catch requests to the old URLs for a while with a permanent 301 redirect
+    url(r'^(?P<id>\d+)/', 'twobuntu.views.old'),
 )
 
 if settings.DEBUG:
