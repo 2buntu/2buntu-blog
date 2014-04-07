@@ -1,4 +1,5 @@
 {% extends "form.html" %}
+{% load static %}
 {% load widget_tweaks %}
 
 {% block form_fields %}
@@ -16,7 +17,7 @@
     </div>
     <div class="row">
         <div class="col-lg-8">
-            {% render_field form.body class+="form-control" placeholder=form.body.help_text rows="16" %}
+            {% render_field form.body class+="form-control editor" placeholder=form.body.help_text rows="16" %}
         </div>
         <div class="col-lg-4">
             <div class="well">
@@ -52,4 +53,9 @@
             Save and Continue Editing
         </button>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static "js/markdown.js" %}"></script>
 {% endblock %}
