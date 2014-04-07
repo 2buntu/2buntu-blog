@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 
 from twobuntu.images.forms import ImageUploadForm
 from twobuntu.images.models import Image
@@ -21,8 +22,7 @@ def upload(request):
         form = ImageUploadForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             image = form.save()
-            messages.info(request, "Your image has been uploaded.")
-            return redirect(image)
+            return HttpResponse('<script>window.opener.Toolbar.insertImage("[image:%d]");window.close();</script>' % image.id)
     else:
         form = ImageUploadForm()
     return render(request, 'images/upload.html', {
@@ -30,5 +30,4 @@ def upload(request):
         'form':  form,
         'description': "Use this form to upload an image.",
         'action': 'Upload',
-        'popup':  'popup' in request.GET,
     })
