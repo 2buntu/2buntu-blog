@@ -24,17 +24,16 @@
                 <h4>Writing an Article</h4>
                 <p>
                     Articles for the 2buntu blog are written in Markdown.
-                    <a href="{% url "articles:markdown" %}">This page</a> presents an overview of Markdown syntax.
+                    <a href="{% url "articles:markdown" %}" target="_blank">This page</a> presents an overview of Markdown syntax.
                 </p>
                 <p>
                     When selecting a category, be as specific as possible.
                     If your article does not suit one of the existing categories,
                     please select "miscellaneous" and we will add an appropriate category.
                 </p>
-            </div>
-            <div class="well">
                 <p>
-                    Click <a href="{% url "images:upload" %}">here</a> to upload an image.
+                    If you need to add an image to your article, please click the "Insert image"
+                    button in the editing toolbar. Images are hosted on our servers.
                 </p>
             </div>
         </div>
@@ -57,5 +56,8 @@
 
 {% block scripts %}
     {{ block.super }}
+    <script>
+        var IMAGE_UPLOAD_URL = "{% url "images:upload" %}";
+    </script>
     <script src="{% static "js/markdown.js" %}"></script>
 {% endblock %}
