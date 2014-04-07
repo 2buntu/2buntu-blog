@@ -27,7 +27,7 @@
     <body>
         {% block navbar %}{% include "navbar.html" %}{% endblock %}
         <div class="container content">
-            {% include "breadcrumbs.html" %}
+            {% block breadcrumbs %}{% include "breadcrumbs.html" %}{% endblock %}
             {% include "messages.html" %}
             {% block content %}{% endblock %}
         </div>

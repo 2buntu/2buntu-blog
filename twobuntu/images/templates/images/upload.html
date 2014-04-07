@@ -1,13 +1,5 @@
 {% extends "form.html" %}
 
-{% block navbar %}
-    {% if not popup %}
-        {{ block.super }}
-    {% endif %}
-{% endblock %}
-
-{% block footer %}
-    {% if not popup %}
-        {{ block.super }}
-    {% endif %}
-{% endblock %}
+{% block navbar %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block footer %}{% endblock %}
