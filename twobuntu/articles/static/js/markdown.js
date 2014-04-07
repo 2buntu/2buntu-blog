@@ -5,6 +5,67 @@
 
 var Toolbar = {
     
+    'initialize': function() {
+        
+        var toolbar = $('<div class="btn-toolbar" role="toolbar"></div>');
+        
+        $.each(Toolbar.buttons, function() {
+            
+            var group = $('<div class="btn-group btn-group-sm"></div>');
+            
+            $.each(this, function() {
+            
+                var icon = $('<span class="fa"></span>').addClass(this.icon);
+                var btn = $('<button type="button" class="btn btn-default"></button>')
+                    .append(icon).attr('title', this.description).click(this.action);
+                
+                group.append(btn);
+            });
+            
+            toolbar.append(group);
+        });
+        
+        $('#id_body').parents('.row').before(toolbar);
+        
+        Toolbar.watchForUnload();
+    },
+    
+    'watchForUnload': function() {
+        
+        var dirty = false;
+        
+        $('input[type=text],select,textarea').change(function() { dirty = true; });
+        $('button[type=submit]').click(function() { dirty = false; });
+        
+        $(window).bind('beforeunload', function() {
+            return dirty?true:undefined;
+        });
+    },
+    
+    'insertText': function(text) {
+        
+        var textarea = $('#id_body')[0];
+        var value     = textarea.value,
+            sel_start = textarea.selectionStart,
+            sel_end   = textarea.selectionEnd;
+        
+        textarea.value = value.substring(0, sel_start) +
+                         text +
+                         value.substring(sel_end);
+        
+        textarea.selectionStart = sel_start;
+        textarea.selectionEnd   = sel_start + text.length;
+        textarea.focus();
+    },
+    
+    'insertImage': function() {
+        
+        if(arguments.length)
+            Toolbar.insertText(arguments[0]);
+        else
+            window.open(IMAGE_UPLOAD_URL, 'popup', 'width=350,height=330');
+    },
+    
     'buttons': [
         [
             {
@@ -49,54 +110,7 @@ var Toolbar = {
                 'action':      function() { Toolbar.insertImage(); }
             }
         ]
-    ],
-    
-    'initialize': function() {
-        
-        var toolbar = $('<div class="btn-toolbar" role="toolbar"></div>');
-        
-        $.each(Toolbar.buttons, function() {
-            
-            var group = $('<div class="btn-group btn-group-sm"></div>');
-            
-            $.each(this, function() {
-            
-                var icon = $('<span class="fa"></span>').addClass(this.icon);
-                var btn = $('<button type="button" class="btn btn-default"></button>')
-                    .append(icon).attr('title', this.description).click(this.action);
-                
-                group.append(btn);
-            });
-            
-            toolbar.append(group);
-        });
-        
-        $('#id_body').parents('.row').before(toolbar);
-    },
-    
-    'insertText': function(text) {
-        
-        var textarea = $('#id_body')[0];
-        var value     = textarea.value,
-            sel_start = textarea.selectionStart,
-            sel_end   = textarea.selectionEnd;
-        
-        textarea.value = value.substring(0, sel_start) +
-                         text +
-                         value.substring(sel_end);
-        
-        textarea.selectionStart = sel_start;
-        textarea.selectionEnd   = sel_start + text.length;
-        textarea.focus();
-    },
-    
-    'insertImage': function() {
-        
-        if(arguments.length)
-            Toolbar.insertText(arguments[0]);
-        else
-            window.open(IMAGE_UPLOAD_URL, 'popup', 'width=350,height=330');
-    }
+    ]
 };
 
 $.ready(Toolbar.initialize());
