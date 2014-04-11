@@ -23,7 +23,14 @@ class ResetForm(PasswordResetForm):
 
 class ProfileForm(forms.ModelForm):
     """Form for editing a user's profile."""
-    
+
+    first_name = forms.CharField(max_length=30,
+                                 required=False,
+                                 help_text="First name [optional].")
+    last_name = forms.CharField(max_length=30,
+                                required=False,
+                                help_text="Last name [optional].")
+
     class Meta:
         model = Profile
-        fields = ('birthday', 'location', 'website', 'bio',)
+        fields = ('first_name', 'last_name', 'birthday', 'location', 'website', 'bio',)

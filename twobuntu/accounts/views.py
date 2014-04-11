@@ -127,16 +127,24 @@ def reset_confirm(request, key):
     })
 
 @login_required
+@transaction.atomic
 def edit(request, id):
     """Update the specified user profile."""
     profile = get_object_or_404(Profile, user=id)
     if request.method == 'POST':
         form = ProfileForm(instance=profile, data=request.POST)
         if form.is_valid():
+            profile.user.first_name = form.cleaned_data['first_name']
+            profile.user.last_name = form.cleaned_data['last_name']
+            profile.user.save()
             form.save()
             return redirect(profile)
     else:
-        form = ProfileForm(instance=profile)
+        form = ProfileForm(instance=profile,
+                           initial={
+                               'first_name': profile.user.first_name,
+                               'last_name': profile.user.last_name,
+                           })
     return render(request, "form.html", {
         'title':       'Edit Profile',
         'form':        form,

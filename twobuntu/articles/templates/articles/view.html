@@ -19,7 +19,7 @@
                 <small>
                     {{ article.date|timesince }}
                     ago by
-                    <a href="{{ article.author.profile.get_absolute_url }}">{{ article.author }}</a>
+                    <a href="{{ article.author.profile.get_absolute_url }}">{{ article.author.profile }}</a>
                 </small>
             </h2>
             {{ article.render }}
