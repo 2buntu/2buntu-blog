@@ -33,6 +33,73 @@
             <p>Embedding images in posts is very simple:</p>
             <pre>![hover text](http://example.com/image.jpg)</pre>
             <p>The "hover text" is displayed when the user hovers the cursor over the image.</p>
+            <div class="alert alert-info">
+                <strong>Note:</strong> if you are uploading a screenshot or image that you
+                have permission to use, please take advantage of the upload image button
+                in the toolbar.
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>Lists</h4>
+            <p>
+                In order to display an ordered or unordered list, prefix each item with
+                the approriate bullet. For ordered lists, a period may be used after the numeral:
+            </p>
+            <pre>1. Item 1
+    1. Subitem 1
+    2. Subitem 2
+2. Item 2</pre>
+            <p>An unordered list is created in a nearly identical manner:</p>
+            <pre>* An item
+* Another item
+* Yet another item</pre>
+        </div>
+        <div class="col-lg-6">
+            <h4>Code</h4>
+            <p>
+                If your article contains code or commands to be entered into a terminal,
+                indent the block with four spaces:
+            </p>
+            <pre>// Create code blocks like this one
+// by indenting the code with four spaces</pre>
+            <p>
+                If you need to refer to a variable or identifier within a paragraph
+                of normal text, use the backtick character (<code>`</code>):
+            </p>
+            <pre>Use `printf()` to output text.</pre>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>Alerts</h4>
+            <p>
+                You can insert an alert by using one of the alert blocks:
+            </p>
+            <pre>[warning]This is a warning.[/warning]</pre>
+            <p>This will result in the following block:</p>
+            <div class="alert alert-warning">This is a warning.</div>
+        </div>
+        <div class="col-lg-6">
+            <h4>Types of Alerts</h4>
+            <p>There are three different types of alerts. They are listed below:</p>
+            <table class="table">
+                <tr>
+                    <td><code>[info][/info]</code></td>
+                    <td>provides supplementary information of trivial importance</td>
+                </tr>
+                <tr>
+                    <td><code>[warning][/warning]</code></td>
+                    <td>warns the reader of a potential hazard</td>
+                </tr>
+                <tr>
+                    <td><code>[danger][/danger]</code></td>
+                    <td>serves as a strong caution against doing something potentially dangerous</td>
+                </tr>
+            </table>
         </div>
     </div>
 {% endblock %}
