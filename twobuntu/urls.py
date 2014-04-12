@@ -9,11 +9,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    url(r'^$',          'twobuntu.views.index',    name='home'),
-    url(r'^about/$',    'twobuntu.views.about',    name='about'),
-    url(r'^links/$',    'twobuntu.views.links',    name='links'),
-    url(r'^feedback/$', 'twobuntu.views.feedback', name='feedback'),
-    url(r'^join/$',     'twobuntu.views.join',     name='join'),
+    url(r'^$',               'twobuntu.views.index',      name='home'),
+    url(r'^about/$',         'twobuntu.views.about',      name='about'),
+    url(r'^links/$',         'twobuntu.views.links',      name='links'),
+    url(r'^feedback/$',      'twobuntu.views.feedback',   name='feedback'),
+    url(r'^join/$',          'twobuntu.views.join',       name='join'),
+    url(r'^opensearch.xml$', 'twobuntu.views.opensearch', name='opensearch'),
 
     url(r'^accounts/',   include('twobuntu.accounts.urls',   'accounts')),
     url(r'^ads/',        include('twobuntu.ads.urls',        'ads')),

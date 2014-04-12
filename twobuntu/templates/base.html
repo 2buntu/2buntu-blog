@@ -10,6 +10,7 @@
         {% load static %}
         <link rel="shortcut icon" href="{% static "img/favicon.png" %}">
         <link rel="apple-touch-icon" href="{% static "img/apple-touch-icon.png" %}">
+        <link rel="search" type="application/opensearchdescription+xml" title="2buntu" href="{% url "opensearch" %}">
 
         <title>
             {% if title %}

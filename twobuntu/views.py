@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.mail import mail_admins
 from django.db.models import Count
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
@@ -73,6 +74,10 @@ def join(request):
     return render(request, 'pages/join.html', {
         'title': 'Join',
     })
+
+def opensearch(request):
+    """Return OpenSearch XML file."""
+    return render(request, 'xml/opensearch.xml', content_type='text/xml')
 
 def old(request, id):
     """Redirect the client to the new URL for old articles."""
