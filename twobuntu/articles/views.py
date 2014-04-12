@@ -34,7 +34,7 @@ def view(request, article):
 def search(request):
     """Display search results."""
     if not 'q' in request.GET:
-        return redirect('home')
+        raise Http404
     q = request.GET['q']
     return render(request, 'articles/search.html', {
         'title':    'Search Results for "%s"' % q,
@@ -78,7 +78,7 @@ def markdown(request):
 @login_required
 def submit(request, id):
     """Submit an article for approval."""
-    article = get_object_or_404(Article, pk=id, status=Article.DRAFT)
+    article = get_object_or_404(Article, pk=id, author=request.user, status=Article.DRAFT)
     article.status = Article.UNAPPROVED
     article.save()
     messages.info(request, "The article has been submitted for approval by a staff member.")

@@ -1,9 +1,9 @@
-'''
+"""
 Installation-specific settings for 2buntu
 
 Anything that is specific to your installation of 2buntu should
 be included here and NOT in settings.py
-'''
+"""
 
 # Set DEBUG to True to enable full debugging in your application
 DEBUG          = False
