@@ -7,6 +7,10 @@
         <meta name="author" content="Nathan Osman">
         <meta name="description" content="A blog created by Ubuntu community members that provides news, tutorials, reviews, tips, and the occasional rant - all centering around the world's most popular Linux distribution: Ubuntu."/>
 
+        {% load static %}
+        <link rel="shortcut icon" href="{% static "img/favicon.png" %}">
+        <link rel="apple-touch-icon" href="{% static "img/apple-touch-icon.png" %}">
+
         <title>
             {% if title %}
                 {{ title}} &middot; 2buntu
@@ -15,7 +19,6 @@
             {% endif %}
         </title>
 
-        {% load static %}
         {% block stylesheets %}
             <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
             <link href="{% static "css/global.css" %}" rel="stylesheet">
