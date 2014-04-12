@@ -59,4 +59,13 @@ INSTALLED_APPS = (
     'twobuntu.news',
 )
 
+# Load the debug toolbar if it is installed
+try:
+    import debug_toolbar
+except ImportError:
+    pass
+else:
+    INSTALLED_APPS = tuple(INSTALLED_APPS + ('debug_toolbar',))
+
+# Import all local settings
 from local_settings import *
