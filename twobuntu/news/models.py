@@ -14,6 +14,8 @@ class Item(models.Model):
                              help_text="The title of the news item.")
     body = models.TextField(help_text="The body of the news item [in Markdown].")
 
+    url = models.URLField(help_text="URL with more details about the news item.")
+
     date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -31,5 +33,5 @@ def post_tweet(instance, **kwargs):
     """Post a tweet when a news item is created."""
     _api.PostUpdate('%s %s' % (
         instance.title,
-        'http://2buntu.com/a-really-long-url-that-doesnt-exist',
+        instance.url,
     ))

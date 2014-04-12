@@ -9,7 +9,7 @@
     </div>
     <div class="list-group">
         {% for item in items %}
-            <a href="#" class="list-group-item">
+            <a href="{{ item.url }}" class="list-group-item">
                 <span class="badge">{{ item.date|date:"M d" }}</span>
                 <h4 class="list-group-item-heading">{{ item.title }}</h4>
                 <p class="list-group-item-text">
