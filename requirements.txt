@@ -1,0 +1,8 @@
+Django>=1.6
+psycopg2
+South
+Markdown
+django-widget-tweaks
+Pillow
+python-dateutil
+python-twitter
