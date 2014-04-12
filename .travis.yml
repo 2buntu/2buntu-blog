@@ -5,7 +5,7 @@ python:
 
 install:
     - sudo apt-get install postgresql python-pip python-dev libpq-dev libjpeg8-dev zlib1g-dev
-    - pip install Django psycopg2 South Markdown django-widget-tweaks Pillow python-dateutil
+    - pip install Django psycopg2 South Markdown django-widget-tweaks Pillow python-dateutil python-twitter
 
 script:
     - sudo -u postgres psql -c "CREATE USER twobuntu WITH PASSWORD 'twobuntu'"
