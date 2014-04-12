@@ -23,5 +23,13 @@
                 </p>
             </div>
         {% endfor %}
+        {% if user.is_staff %}
+            <div class="list-group-item">
+                <a href="{% url "news:add" %}" class="btn btn-sm btn-primary">
+                    <span class="fa fa-plus"></span>
+                    Add Item
+                </a>
+            </div>
+        {% endif %}
     </div>
 </div>

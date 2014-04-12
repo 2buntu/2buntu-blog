@@ -28,7 +28,7 @@ class Item(models.Model):
 # Create a global Twitter API object used for tweeting
 _api = twitter.Api(**settings.TWITTER)
 
-@receiver(models.signals.pre_save, sender=Item)
+@receiver(models.signals.post_save, sender=Item)
 def post_tweet(instance, **kwargs):
     """Post a tweet when a news item is created."""
     _api.PostUpdate('%s %s' % (

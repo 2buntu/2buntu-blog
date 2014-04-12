@@ -21,11 +21,12 @@ urlpatterns = patterns('',
     url(r'^api/',        include('twobuntu.api.urls',        'api')),
     url(r'^categories/', include('twobuntu.categories.urls', 'categories')),
     url(r'^images/',     include('twobuntu.images.urls',     'images')),
+    url(r'^news/',       include('twobuntu.news.urls',       'news')),
 
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^rss/$', LatestArticlesFeed(), name='rss'),
-    
+
     # Catch requests to the old URLs for a while with a permanent 301 redirect
     url(r'^(?P<id>\d+)/', 'twobuntu.views.old'),
 )
