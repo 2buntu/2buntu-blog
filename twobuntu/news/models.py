@@ -1,5 +1,8 @@
+import twitter
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.dispatch import receiver
 
 class Item(models.Model):
     """A short news report."""
@@ -19,3 +22,14 @@ class Item(models.Model):
 
     class Meta:
         ordering = ('-date',)
+
+# Create a global Twitter API object used for tweeting
+_api = twitter.Api(**settings.TWITTER)
+
+@receiver(models.signals.pre_save, sender=Item)
+def post_tweet(instance, **kwargs):
+    """Post a tweet when a news item is created."""
+    _api.PostUpdate('%s %s' % (
+        instance.title,
+        'http://2buntu.com/a-really-long-url-that-doesnt-exist',
+    ))

@@ -43,7 +43,7 @@ class Profile(models.Model):
         })
 
 @receiver(models.signals.post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
+def create_profile(instance, created, **kwargs):
     """Create a profile whenever a user is created."""
     if created:
         Profile.objects.create(user=instance)
