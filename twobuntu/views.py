@@ -5,7 +5,9 @@ from subprocess import CalledProcessError, Popen, PIPE
 
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import mail_admins
+from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -77,7 +79,10 @@ def join(request):
 
 def opensearch(request):
     """Return OpenSearch XML file."""
-    return render(request, 'xml/opensearch.xml', content_type='text/xml')
+    return render(request, 'xml/opensearch.xml', {
+        'image_url':  request.build_absolute_uri(static('img/favicon.png')),
+        'search_url': request.build_absolute_uri(reverse('articles:search')),
+    }, content_type='text/xml')
 
 def old(request, id):
     """Redirect the client to the new URL for old articles."""

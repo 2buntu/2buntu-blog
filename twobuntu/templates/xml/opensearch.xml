@@ -3,6 +3,6 @@
     <ShortName>2buntu</ShortName>
     <Description>Search 2buntu: News for Human Beings</Description>
     <InputEncoding>UTF-8</InputEncoding>
-    <Image width="16" height="16" type="image/x-icon">{% load static %}{% static "img/favicon.png" %}</Image>
-    <Url type="text/html" method="get" template="{% url "articles:search" %}?q={searchTerms}"></Url>
+    <Image width="16" height="16" type="image/x-icon">{{ image_url }}</Image>
+    <Url type="text/html" method="get" template="{{ search_url }}?q={searchTerms}"></Url>
 </OpenSearchDescription>
