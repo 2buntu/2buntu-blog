@@ -42,17 +42,17 @@ class Article(models.Model):
             self.title,
             ' [%s]' % self.get_status_display() if not self.status == self.PUBLISHED else '',
         )
-    
+
     def can_edit(self, request):
         """Determine if the article may be edited by the current user."""
         # The user must either be staff or have written the article and not published it yet
         return request.user.is_staff or request.user == self.author and self.status == self.DRAFT
-    
+
     def can_view(self, request):
         """Determine if the article may be viewed by the current user."""
         # The user must either be staff or have written the article or it must be published
         return request.user.is_staff or request.user == self.author or self.status == self.PUBLISHED
-    
+
     @classmethod
     def apply_filter(cls, request, *args):
         """Return a QuerySet with the correct filter applied based on the request."""
@@ -74,4 +74,4 @@ class Article(models.Model):
         return cmarkdown(self.body)
 
     class Meta:
-        ordering = ('-date',)
+        ordering = ('status', '-date',)
