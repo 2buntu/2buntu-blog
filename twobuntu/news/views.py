@@ -8,7 +8,6 @@ from twobuntu.news.forms import AddItemForm
 from twobuntu.news.models import Item
 
 @user_passes_test(lambda u: u.is_staff)
-
 def add(request):
     """Add news items to the home page."""
     if request.method == 'POST':
@@ -17,10 +16,9 @@ def add(request):
             item = form.save(commit=False)
             item.reporter = request.user
             try:
-                item.save()
+                with transaction.atomic():
+                    item.save()
             except twitter.TwitterError as e:
-                # TODO: there should be a better way to make this atomic
-                item.delete()
                 messages.error(request, "Twitter error: \"%s\" Please try again." % e.message[0]['message'])
             else:
                 messages.info(request, "Your news item has been published!")
