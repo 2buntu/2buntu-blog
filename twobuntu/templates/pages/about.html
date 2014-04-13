@@ -99,7 +99,7 @@
                     </p>
                     {% if commit %}
                         <p>
-                            This blog is running on commit <a href="#">{{ commit.hash }}</a>,
+                            This blog is running on commit <a href="https://github.com/2buntu/2buntu-Django-Blog/commit/{{ commit.hash }}">{{ commit.hash }}</a>,
                             which was created by {{ commit.author }} {{ commit.date|timesince }} ago.
                         </p>
                     {% endif %}
