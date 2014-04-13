@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.dispatch import receiver
 from django.template.defaultfilters import slugify
+from django.utils.timezone import now
 
 from twobuntu.categories.models import Category
 from twobuntu.cmarkdown import cmarkdown
@@ -34,7 +36,7 @@ class Article(models.Model):
     cc_license = models.BooleanField(default=True,
                                      help_text="Whether the article is released under the CC-BY-SA 4.0 license or not.")
 
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField()
 
     def __unicode__(self):
         """Return a string representation of the article."""
@@ -75,3 +77,14 @@ class Article(models.Model):
 
     class Meta:
         ordering = ('status', '-date',)
+
+@receiver(models.signals.post_init, sender=Article)
+def set_status(instance, **kwargs):
+    """Store the status of the article before it is modified."""
+    instance.old_status = instance.status
+
+@receiver(models.signals.pre_save, sender=Article)
+def set_date(instance, **kwargs):
+    """Update the date unless the article was already published."""
+    if not instance.status == instance.old_status == Article.PUBLISHED:
+        instance.date = now()
