@@ -93,3 +93,12 @@ def publish(request, id):
     article.save()
     messages.info(request, "The article has been published.")
     return redirect(article)
+
+@require_POST
+@login_required
+def release(request, id):
+    article = get_object_or_404(Article, pk=id, author=request.user, cc_license=False)
+    article.cc_license = True
+    article.save()
+    messages.info(request, "The article is now available under a CC BY-SA 4.0 license.")
+    return redirect(article)
