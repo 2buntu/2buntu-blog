@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block breadcrumbs %}{% endblock %}
+
 {% block content %}
     <h2>Something Went Wrong</h2>
     <p>
-        Something has gone terribly, horribly wrong with our website. Rest assured that we have been notified
-        about this problem and are working to get it resolved as soon as possible. Please try again in a few
-        minutes.
+        Something has gone terribly, horribly wrong with our website.
+        Rest assured that we have dispatched all of our network troubleshooting staff to investigate the issue.
+        Please try again in a few minutes.
     </p>
     <br>
     <img src="{% static "img/500.jpg" %}">
