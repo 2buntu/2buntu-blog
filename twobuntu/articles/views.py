@@ -1,8 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.urlresolvers import reverse
+from django.core.mail import mail_admins
+from django.db import transaction
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
 from twobuntu.articles.forms import EditorForm
@@ -76,11 +80,16 @@ def markdown(request):
 
 @require_POST
 @login_required
+@transaction.atomic
 def submit(request, id):
     """Submit an article for approval."""
     article = get_object_or_404(Article, pk=id, author=request.user, status=Article.DRAFT)
     article.status = Article.UNAPPROVED
     article.save()
+    template = render_to_string('emails/submit.txt', {
+        'article': request.build_absolute_uri(article.get_absolute_url()),
+    })
+    mail_admins('2buntu Article Submitted', template)
     messages.info(request, "The article has been submitted for approval by a staff member.")
     return redirect(article)
 

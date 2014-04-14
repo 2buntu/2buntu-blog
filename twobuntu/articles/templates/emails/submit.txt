@@ -1,0 +1,7 @@
+{% autoescape off %}Hello 2buntu Administrators,
+
+A user has submitted an article for approval:
+
+{{ article }}
+
+ - 2buntu Auto Mailer{% endautoescape %}
