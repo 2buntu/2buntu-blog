@@ -1,6 +1,11 @@
 {% if articles %}
     <div class="jumbotron">
-        <h1 class="truncate">{{ articles.0.title }}</h1>
+        <h1 class="truncate">
+            {{ articles.0.title }}<br>
+            <small>
+                by {{ articles.0.author.profile }}
+            </small>
+        </h1>
         <p>{{ articles.0.render|striptags|truncatewords:40 }}</p>
         <p>
             <a href="{{ articles.0.get_absolute_url }}" class="btn btn-primary">Read More</a>
@@ -8,7 +13,7 @@
     </div>
     <div class="row">
         {% for article in articles|slice:"1:3" %}
-            <div class="col-sm-6 featured fade-bottom">
+            <div class="col-sm-6 featured-article fade-bottom">
                 {% include "articles/preview.html" %}
             </div>
         {% endfor %}

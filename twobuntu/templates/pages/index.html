@@ -8,9 +8,11 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-8">
-            {% include "articles/fragment.html" %}
+            {% include "articles/fragment1.html" %}
             <hr>
             {% include "accounts/fragment.html" %}
+            <hr>
+            {% include "articles/fragment2.html" %}
         </div>
         <div class="col-sm-4">
             <form action="{% url "articles:search" %}">
