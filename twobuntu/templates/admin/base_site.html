@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | 2buntu Administration{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        a.home { display: block; margin: 0 10px 10px; }
+    </style>
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">2buntu Administration</h1>
+{% endblock %}
+
+{% block nav-global %}
+    <a href="{% url "home" %}" class="home">Return to Home Page</a>
+{% endblock %}
