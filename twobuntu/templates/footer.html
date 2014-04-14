@@ -3,6 +3,54 @@
 <div class="footer">
     <div class="container">
         <div class="row">
+            <div class="col-sm-3">
+                <p>
+                    <a href="{% url "home" %}">
+                        <strong>
+                            <span class="fa fa-fw fa-home"></span>
+                            Home Page
+                        </strong>
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url "about" %}">
+                        <span class="fa fa-fw fa-info-circle"></span>
+                        About Us
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url "join" %}">
+                        <span class="fa fa-fw fa-plus-circle"></span>
+                        Join
+                    </a>
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <p>
+                    <a href="{% url "feedback" %}">
+                        <span class="fa fa-fw fa-bullhorn"></span>
+                        Feedback
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url "ads:index" %}">
+                        <span class="fa fa-fw fa-bullseye"></span>
+                        Advertising
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url "api:index" %}">
+                        <span class="fa fa-fw fa-cog"></span>
+                        API
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url "rss" %}">
+                        <span class="fa fa-fw fa-rss"></span>
+                        RSS Feed
+                    </a>
+                </p>
+            </div>
             <div class="col-sm-6">
                 <div class="media">
                     <img src="{% static "img/cc-by-sa.png" %}" class="pull-left media-object">
@@ -13,9 +61,8 @@
                         </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <p class="text-muted text-right">
+                <br>
+                <p class="text-muted">
                     Copyright &copy; 2014 -
                     <a href="http://quickmediasolutions.com">Nathan Osman</a>
                 </p>
