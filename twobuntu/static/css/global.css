@@ -33,7 +33,7 @@ span.fa { margin: 0 4px; }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Implement "missing" elements. */
-div.article img { display: block; margin: 10px auto; }
+div.article img { display: block; margin: 20px auto; }
 div.content { background-color: white; box-shadow: 0 0 8px #ccc; padding: 16px 16px 32px; }
 div.content h2:first-child,
 div.content h4:first-child { margin-top: 0; }
