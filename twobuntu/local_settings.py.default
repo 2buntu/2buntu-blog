@@ -13,13 +13,13 @@ TEMPLATE_DEBUG = DEBUG
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-DEFAULT_FROM_EMAIL = '2buntu <do-not-reply@2buntu.com>'
+DEFAULT_FROM_EMAIL = '2buntu <donotreply@2buntu.com>'
 SERVER_EMAIL       = DEFAULT_FROM_EMAIL
 
 # Staff members
 ADMINS = (
-    #('John', 'john@example.com'),
-    #('Mary', 'mary@example.com'),
+    #('John Smith', 'john@example.com'),
+    #('Mary Smith', 'mary@example.com'),
 )
 
 # Database storage engine(s) for the project
