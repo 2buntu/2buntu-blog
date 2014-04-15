@@ -73,10 +73,10 @@ def published(request):
 @minmax
 def modified(request):
     """Return articles sorted by modification date."""
-    return Article.objects(status=Article.PUBLISHED).order_by('-date')
+    return Article.objects.filter(status=Article.PUBLISHED).order_by('-date')
 
 @endpoint
 @articles
 def article(request, id):
     """Return information about a specific article."""
-    return [Article.objects(status=Article.PUBLISHED).get(pk=id),]
+    return [Article.objects.filter(status=Article.PUBLISHED).get(pk=id),]
