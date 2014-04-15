@@ -42,7 +42,9 @@
                     <a href="{{ article.author.profile.get_absolute_url }}">{{ article.author.profile }}</a>
                 </small>
             </h2>
-            {{ article.render }}
+            <div class="article">
+                {{ article.render }}
+            </div>
             <hr>
             <!-- Disqus comments. -->
             <div id="disqus_thread"></div>
