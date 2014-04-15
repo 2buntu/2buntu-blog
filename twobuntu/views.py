@@ -58,7 +58,11 @@ def feedback(request):
     if request.method == 'POST':
         form = FeedbackForm(data=request.POST)
         if form.is_valid():
-            template = render_to_string('emails/feedback.txt', form)
+            template = render_to_string('emails/feedback.txt', {
+                'name':     form.cleaned_data['name'],
+                'email':    form.cleaned_data['email'],
+                'comments': form.cleaned_data['comments'],
+            })
             mail_admins('2buntu Feedback', template)
             messages.info(request, "Thank you for your feedback. Your message was successfully sent to our administrators.")
             return redirect('home')
