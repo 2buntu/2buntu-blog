@@ -1,6 +1,6 @@
 Django>=1.6
 psycopg2
-django-redis
+django-redis-cache
 South
 Markdown
 django-widget-tweaks
