@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
@@ -73,7 +74,11 @@ class Article(models.Model):
 
     def render(self):
         """Render the Markdown body."""
-        return cmarkdown(self.body)
+        md = cache.get(self.id)
+        if not md:
+            md = cmarkdown(self.body)
+            cache.set(self.id, md)
+        return md
 
     class Meta:
         ordering = ('status', '-date',)
@@ -84,7 +89,8 @@ def set_status(instance, **kwargs):
     instance.old_status = instance.status
 
 @receiver(models.signals.pre_save, sender=Article)
-def set_date(instance, **kwargs):
-    """Update the date unless the article was already published."""
+def clear_cache_and_set_date(instance, **kwargs):
+    """Clear the rendered cache and update the date if required."""
+    cache.delete(instance.id)
     if not instance.status == instance.old_status == Article.PUBLISHED:
         instance.date = now()

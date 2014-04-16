@@ -72,4 +72,5 @@ cm = markdown.Markdown(safe_mode='escape', extensions=[
 
 def cmarkdown(value):
     """Render Markdown with our custom processors."""
+    print "Generating Markdown..."
     return mark_safe(cm.convert(value))
