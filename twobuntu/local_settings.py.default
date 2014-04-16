@@ -34,6 +34,17 @@ DATABASES = {
     },
 }
 
+# Cache(s) for the project
+CACHES = {
+    'default': {
+        'BACKEND':  'redis_cache.cache.RedisCache',
+        'LOCATION': '',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
+        }
+    }
+}
+
 # Absolute filesystem path where media (uploaded) and static files will be stored
 MEDIA_ROOT  = ''
 STATIC_ROOT = ''
