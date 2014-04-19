@@ -31,7 +31,7 @@ def articles(fn):
             'title':  a.title,
             'body':   a.render(),
             'author': {
-                'name':       str(a.author),
+                'name':       str(a.author.profile),
                 'email_hash': md5(a.author.email).hexdigest(),
             },
             'url':            request.build_absolute_uri(a.get_absolute_url()),
