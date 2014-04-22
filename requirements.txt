@@ -7,3 +7,4 @@ django-widget-tweaks
 Pillow
 python-dateutil
 python-twitter
+-e git+https://github.com/praekelt/django-recaptcha.git#egg=django-recaptcha
