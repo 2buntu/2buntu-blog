@@ -53,9 +53,9 @@ def minmax(fn):
     def wrap(request, **kwargs):
         f = {}
         if 'min' in request.GET:
-            f['date__gte' % field] = datetime.fromtimestamp(int(request.GET['min']))
+            f['date__gte'] = datetime.fromtimestamp(int(request.GET['min']))
         if 'max' in request.GET:
-            f['date__lte' % field] =  datetime.fromtimestamp(int(request.GET['max']))
+            f['date__lte'] =  datetime.fromtimestamp(int(request.GET['max']))
         return fn(request, **kwargs).filter(**f)
     return wrap
 
