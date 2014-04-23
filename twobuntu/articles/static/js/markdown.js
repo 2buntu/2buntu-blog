@@ -42,7 +42,7 @@ var Toolbar = {
         });
     },
 
-    'insertText': function(text) {
+    'insertText': function(pretext, placeholder, posttext) {
 
         var textarea = $('#id_body')[0];
         var value     = textarea.value,
@@ -50,18 +50,18 @@ var Toolbar = {
             sel_end   = textarea.selectionEnd;
 
         textarea.value = value.substring(0, sel_start) +
-                         text +
+                         pretext + placeholder + posttext +
                          value.substring(sel_end);
 
-        textarea.selectionStart = sel_start;
-        textarea.selectionEnd   = sel_start + text.length;
+        textarea.selectionStart = sel_start + pretext.length;
+        textarea.selectionEnd   = textarea.selectionStart + placeholder.length;
         textarea.focus();
     },
 
     'insertImage': function() {
 
         if(arguments.length)
-            Toolbar.insertText(arguments[0]);
+            Toolbar.insertText(arguments[0], '', '');
         else
             window.open(IMAGE_UPLOAD_URL, 'popup', 'width=350,height=330');
     },
@@ -71,36 +71,36 @@ var Toolbar = {
             {
                 'description': 'Insert bold text',
                 'icon':        'fa-bold',
-                'action':      function() { Toolbar.insertText('**text**'); }
+                'action':      function() { Toolbar.insertText('**', 'text', '**'); }
             },
             {
                 'description': 'Insert italic text',
                 'icon':        'fa-italic',
-                'action':      function() { Toolbar.insertText('*text*'); }
+                'action':      function() { Toolbar.insertText('*', 'text', '*'); }
             }
         ],
         [
             {
                 'description': 'Insert quotation',
                 'icon':        'fa-quote-left',
-                'action':      function() { Toolbar.insertText('> "text"'); }
+                'action':      function() { Toolbar.insertText('> ', '"text"', ''); }
             },
             {
                 'description': 'Insert code',
                 'icon':        'fa-code',
-                'action':      function() { Toolbar.insertText('    // printf("Hello, world!");'); }
+                'action':      function() { Toolbar.insertText('    ', '// printf("Hello, world!");', ''); }
             }
         ],
         [
             {
                 'description': 'Insert ordered list',
                 'icon':        'fa-list-ol',
-                'action':      function() { Toolbar.insertText('1. Item\n    1. Subitem\n    2. Subitem\n2. Item'); }
+                'action':      function() { Toolbar.insertText('1. ', 'Item', '\n    1. Subitem\n    2. Subitem\n2. Item'); }
             },
             {
                 'description': 'Insert unordered list',
                 'icon':        'fa-list-ul',
-                'action':      function() { Toolbar.insertText('* Item 1\n    * Subitem 1\n    * Subitem 2\n* Item 2'); }
+                'action':      function() { Toolbar.insertText('* ', 'Item 1', '\n    * Subitem 1\n    * Subitem 2\n* Item 2'); }
             }
         ],
         [
@@ -114,17 +114,17 @@ var Toolbar = {
             {
                 'description': 'Insert info',
                 'icon':        'fa-lightbulb-o',
-                'action':      function() { Toolbar.insertText('[info]text[/info]'); }
+                'action':      function() { Toolbar.insertText('[info]', 'text', '[/info]'); }
             },
             {
                 'description': 'Insert warning',
                 'icon':        'fa-exclamation-triangle',
-                'action':      function() { Toolbar.insertText('[warning]text[/warning]'); }
+                'action':      function() { Toolbar.insertText('[warning]', 'text', '[/warning]'); }
             },
             {
                 'description': 'Insert danger box',
                 'icon':        'fa-times-circle',
-                'action':      function() { Toolbar.insertText('[danger]text[/danger]'); }
+                'action':      function() { Toolbar.insertText('[danger]', 'text', '[/danger]'); }
             }
         ]
     ]
