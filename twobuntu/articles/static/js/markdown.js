@@ -105,6 +105,11 @@ var Toolbar = {
         ],
         [
             {
+                'description': 'Insert link',
+                'icon':        'fa-link',
+                'action':      function() { Toolbar.insertText('[', 'link text', '](http://example.org)'); }
+            },
+            {
                 'description': 'Insert image',
                 'icon':        'fa-picture-o',
                 'action':      function() { Toolbar.insertImage(); }
