@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'twobuntu.categories',
     'twobuntu.images',
     'twobuntu.news',
+    'twobuntu.shorturls',
 )
 
 # Load the debug toolbar if it is installed
