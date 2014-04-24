@@ -24,6 +24,9 @@ urlpatterns = patterns('',
     url(r'^images/',     include('twobuntu.images.urls',     'images')),
     url(r'^news/',       include('twobuntu.news.urls',       'news')),
 
+    # Shortened URLs can redirect anywhere
+    url(r'^(?P<key>[0-9a-f]{6})/$', 'twobuntu.shorturls.views.shorturl'),
+
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^rss/$', LatestArticlesFeed(), name='rss'),
