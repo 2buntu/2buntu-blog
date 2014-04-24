@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Django helper applications
+    'captcha',
     'south',
     'widget_tweaks',
     # 2buntu applications
