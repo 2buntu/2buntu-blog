@@ -72,7 +72,7 @@
                     </li>
                 {% else %}
                     <li>
-                        <a href="{% url "accounts:login" %}">
+                        <a href="{% url "accounts:login" %}?next={{ request.path|urlencode }}">
                             <span class="fa fa-sign-in"></span>
                             Login
                         </a>
