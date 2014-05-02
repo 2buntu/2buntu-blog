@@ -31,6 +31,8 @@ class Profile(models.Model):
 
     def age(self):
         """Return the age of the user."""
+        if not self.birthday:
+            return None
         n, b = now().date(), self.birthday
         return n.year - b.year - (0 if n.month > b.month or n.month == b.month and n.day >= b.day else 1)
 

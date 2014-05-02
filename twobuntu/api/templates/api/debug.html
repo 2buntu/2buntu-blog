@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    <p>
+        For your convenience, here are the results of your API query.
+    </p>
+    <hr>
+    <pre>{{ json }}</pre>
+{% endblock %}
