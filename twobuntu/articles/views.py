@@ -42,7 +42,7 @@ def search(request):
     q = request.GET['q']
     return render(request, 'articles/search.html', {
         'title':    'Search Results for "%s"' % q,
-        'articles': Article.apply_filter(request, Q(title__icontains=q) | Q(body__icontains=q)),
+        'articles': Article.apply_filter(request, Q(title__icontains=q) | Q(body__icontains=q)).select_related('author', 'author__profile', 'category'),
     })
 
 @login_required
