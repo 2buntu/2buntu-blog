@@ -18,12 +18,12 @@ class APIException(Exception):
 
 class ObjectEncoder(JSONEncoder):
     """JSON encoder for supported Django model instances."""
-    
+
     def __init__(self, request, **kwargs):
         """Initialize the encoder."""
         self._request = request
         super(ObjectEncoder, self).__init__()
-    
+
     def default(self, o):
         """Encode the provided object."""
         if type(o) is QuerySet: return list(o)
@@ -130,35 +130,35 @@ def minmax(fn):
 @minmax
 def articles(request):
     """Return all recent articles."""
-    return Article.objects.filter(status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED)
 
 @endpoint
 @paginate
 @minmax
 def article_by_id(request, id):
     """Return the specified article."""
-    return Article.objects.filter(pk=id, status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'category').filter(pk=id, status=Article.PUBLISHED)
 
 @endpoint
 @paginate
 @minmax
 def authors(request):
     """Return most popular authors."""
-    return Profile.objects.all()
+    return Profile.objects.select_related('user').all()
 
 @endpoint
 @paginate
 @minmax
 def author_by_id(request, id):
     """Return the specified author."""
-    return Profile.objects.filter(pk=id)
+    return Profile.objects.select_related('user').filter(pk=id)
 
 @endpoint
 @paginate
 @minmax
 def articles_by_author(request, id):
     """Return articles written by the specified author."""
-    return Article.objects.filter(author=id, status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'category').filter(author=id, status=Article.PUBLISHED)
 
 @endpoint
 @paginate
@@ -172,4 +172,4 @@ def categories(request):
 @minmax
 def articles_by_category(request, id):
     """Return recent articles in the specified category."""
-    return Article.objects.filter(category=id, status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'category').filter(category=id, status=Article.PUBLISHED)
