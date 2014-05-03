@@ -18,8 +18,14 @@ class APIException(Exception):
 
 class ObjectEncoder(JSONEncoder):
     """JSON encoder for supported Django model instances."""
-
+    
+    def __init__(self, request, **kwargs):
+        """Initialize the encoder."""
+        self._request = request
+        super(ObjectEncoder, self).__init__()
+    
     def default(self, o):
+        """Encode the provided object."""
         if type(o) is QuerySet: return list(o)
         elif type(o) is Article: return self._encode_article(o)
         elif type(o) is Category: return self._encode_category(o)
@@ -43,6 +49,7 @@ class ObjectEncoder(JSONEncoder):
             'body': article.render(),
             'cc_license': article.cc_license,
             'date': timegm(article.date.utctimetuple()),
+            'url': self._request.build_absolute_uri(article.get_absolute_url()),
         }
 
     def _encode_category(self, category):
@@ -51,6 +58,7 @@ class ObjectEncoder(JSONEncoder):
             'id': category.id,
             'name': category.name,
             'articles': category.num_articles,
+            'url': self._request.build_absolute_uri(category.get_absolute_url()),
         }
 
     def _encode_profile(self, profile):
@@ -58,19 +66,22 @@ class ObjectEncoder(JSONEncoder):
         return {
             'id': profile.user.id,
             'name': unicode(profile),
-            'email_hash': md5(article.author.email).hexdigest(),
+            'email_hash': md5(profile.user.email).hexdigest(),
             'age': profile.age(),
             'location': profile.location,
             'website': profile.website,
             'bio': profile.bio,
             'last_seen': timegm(profile.user.last_login.utctimetuple()),
+            'url': self._request.build_absolute_uri(profile.get_absolute_url()),
         }
 
 def endpoint(fn):
     """Wrap the API endpoint."""
     def wrapper(request, **kwargs):
         try:
-            json = dumps(fn(request, **kwargs), cls=ObjectEncoder)
+            json = dumps(fn(request, **kwargs),
+                         cls=ObjectEncoder,
+                         request=request)
         except APIException as e:
             json = dumps({
                 'error': str(e),
