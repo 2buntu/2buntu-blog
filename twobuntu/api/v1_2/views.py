@@ -1,5 +1,6 @@
 from calendar import timegm
 from datetime import datetime
+from hashlib import md5
 from json import dumps, JSONEncoder, loads
 
 from django.core.urlresolvers import reverse
@@ -33,6 +34,7 @@ class ObjectEncoder(JSONEncoder):
             'author': {
                 'id': article.author.id,
                 'name': unicode(article.author),
+                'email_hash': md5(article.author.email).hexdigest(),
             },
             'category': {
                 'id': article.category.id,
@@ -56,6 +58,7 @@ class ObjectEncoder(JSONEncoder):
         return {
             'id': profile.user.id,
             'name': unicode(profile),
+            'email_hash': md5(article.author.email).hexdigest(),
             'age': profile.age(),
             'location': profile.location,
             'website': profile.website,
