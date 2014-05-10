@@ -39,7 +39,7 @@ class ObjectEncoder(JSONEncoder):
             'title': article.title,
             'author': {
                 'id': article.author.id,
-                'name': unicode(article.author),
+                'name': unicode(article.author.profile),
                 'email_hash': md5(article.author.email).hexdigest(),
             },
             'category': {
@@ -130,14 +130,14 @@ def minmax(fn):
 @minmax
 def articles(request):
     """Return all recent articles."""
-    return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'author__profile', 'category').filter(status=Article.PUBLISHED)
 
 @endpoint
 @paginate
 @minmax
 def article_by_id(request, id):
     """Return the specified article."""
-    return Article.objects.select_related('author', 'category').filter(pk=id, status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'author__profile', 'category').filter(pk=id, status=Article.PUBLISHED)
 
 @endpoint
 @paginate
@@ -158,7 +158,7 @@ def author_by_id(request, id):
 @minmax
 def articles_by_author(request, id):
     """Return articles written by the specified author."""
-    return Article.objects.select_related('author', 'category').filter(author=id, status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'author__profile', 'category').filter(author=id, status=Article.PUBLISHED)
 
 @endpoint
 @paginate
@@ -172,4 +172,4 @@ def categories(request):
 @minmax
 def articles_by_category(request, id):
     """Return recent articles in the specified category."""
-    return Article.objects.select_related('author', 'category').filter(category=id, status=Article.PUBLISHED)
+    return Article.objects.select_related('author', 'author__profile', 'category').filter(category=id, status=Article.PUBLISHED)
