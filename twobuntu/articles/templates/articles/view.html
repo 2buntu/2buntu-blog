@@ -97,6 +97,18 @@
                     {% endif %}
                 </div>
             {% endif %}
+            {% if user.is_staff and not article.status == article.PUBLISHED %}
+                <div class="alert alert-warning">
+                    <p>
+                        This article can be scheduled for publishing at a later date.
+                    </p>
+                    <br>
+                    <a href="{% url "articles:schedule" id=article.id %}" class="btn btn-sm btn-primary">
+                        <span class="fa fa-calendar"></span>
+                        Schedule Article
+                    </a>
+                </div>
+            {% endif %}
             <h4>Share This Article</h4>
             <div id="share-buttons">
                 {% for site in social %}

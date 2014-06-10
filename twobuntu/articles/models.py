@@ -105,3 +105,9 @@ class ScheduledArticle(models.Model):
     def __unicode__(self):
         """Return a string representation of the scheduled article."""
         return unicode(self.article)
+
+@receiver(models.signals.post_save, sender=Article)
+def remove_scheduled(instance, **kwargs):
+    """Remove any scheduled articles if article is being published."""
+    if instance.status == Article.PUBLISHED:
+        ScheduledArticle.objects.filter(article=instance).delete()
