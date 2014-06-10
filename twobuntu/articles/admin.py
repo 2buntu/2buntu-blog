@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from twobuntu.articles.models import Article
+from twobuntu.articles.models import Article, ScheduledArticle
 
 class ArticleAdmin(admin.ModelAdmin):
     """Describe the administration inferface for articles."""
@@ -17,3 +17,4 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = ('title', 'body',)
 
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(ScheduledArticle)

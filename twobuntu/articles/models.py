@@ -98,9 +98,10 @@ def clear_cache_and_set_date(instance, **kwargs):
 class ScheduledArticle(models.Model):
     """An article to be published at a later date."""
     
-    article = models.ForeignKey(Article)
-    date = models.DateTimeField(help_text="The date and time at which the article should be published.")
+    article = models.OneToOneField(Article,
+                                   primary_key=True)
+    date = models.DateTimeField(help_text="Date/time to publish article (YYYY-MM-DD HH:MM:SS).")
     
     def __unicode__(self):
         """Return a string representation of the scheduled article."""
-        return self.article
+        return unicode(self.article)

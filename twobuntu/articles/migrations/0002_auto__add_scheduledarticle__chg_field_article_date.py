@@ -10,8 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding model 'ScheduledArticle'
         db.create_table(u'articles_scheduledarticle', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('article', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['articles.Article'])),
+            ('article', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['articles.Article'], unique=True, primary_key=True)),
             ('date', self.gf('django.db.models.fields.DateTimeField')()),
         ))
         db.send_create_signal(u'articles', ['ScheduledArticle'])
@@ -42,9 +41,8 @@ class Migration(SchemaMigration):
         },
         u'articles.scheduledarticle': {
             'Meta': {'object_name': 'ScheduledArticle'},
-            'article': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['articles.Article']"}),
-            'date': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+            'article': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['articles.Article']", 'unique': 'True', 'primary_key': 'True'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {})
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
