@@ -17,11 +17,14 @@
     </div>
     <div class="row">
         <div class="col-lg-8">
-            {% render_field form.body class+="form-control editor" placeholder=form.body.help_text rows="16" %}
-            {% for error in form.body.errors %}
-                <br>
-                <div class="alert alert-danger"><strong>{{ error }}</strong></div>
-            {% endfor %}
+            <div class="form-group{% if form.body.errors %} has-error has-feedback{% endif %}">
+                {% render_field form.body class+="form-control editor" placeholder=form.body.help_text rows="16" %}
+                {% for error in form.body.errors %}
+                    <p class="help-block text-danger">
+                        <strong>{{ error }}</strong>
+                    </p>
+                {% endfor %}
+            </div>
         </div>
         <div class="col-lg-4">
             <div class="well">
