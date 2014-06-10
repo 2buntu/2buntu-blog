@@ -9,8 +9,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
-from twobuntu.articles.forms import EditorForm
-from twobuntu.articles.models import Article
+from twobuntu.articles.forms import EditorForm, ScheduledArticleForm
+from twobuntu.articles.models import Article, ScheduledArticle
 from twobuntu.decorators import canonical
 
 @canonical(Article)
@@ -111,3 +111,27 @@ def release(request, id):
     article.save()
     messages.info(request, "The article is now available under a CC BY-SA 4.0 license.")
     return redirect(article)
+
+@user_passes_test(lambda u: u.is_staff)
+def schedule(request, id):
+    article = get_object_or_404(Article, ~Q(status=Article.PUBLISHED), pk=id)
+    try:
+        scheduled_article = article.scheduledarticle
+    except ScheduledArticle.DoesNotExist:
+        scheduled_article = None
+    if request.method == 'POST':
+        form = ScheduledArticleForm(instance=scheduled_article, data=request.POST)
+        if form.is_valid():
+            scheduled_article = form.save(commit=False)
+            scheduled_article.article = article
+            scheduled_article.save()
+            messages.info(request, "The article has been scheduled for publishing.")
+            return redirect(article)
+    else:
+        form = ScheduledArticleForm(instance=scheduled_article)
+    return render(request, 'form.html', {
+        'title':       'Schedule "%s"' % article.title,
+        'description': "Select a date and time to publish the article.",
+        'form':        form,
+        'action':      'Schedule',
+    })
