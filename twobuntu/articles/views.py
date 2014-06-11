@@ -131,6 +131,10 @@ def schedule(request, id):
         form = ScheduledArticleForm(instance=scheduled_article)
     return render(request, 'form.html', {
         'title':       'Schedule "%s"' % article.title,
+        'parent': {
+            'title': article,
+            'url':   article.get_absolute_url(),
+        },
         'description': "Select a date and time to publish the article.",
         'form':        form,
         'action':      'Schedule',
