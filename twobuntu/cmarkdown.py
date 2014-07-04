@@ -67,6 +67,7 @@ class TwoBuntuExtension(markdown.Extension):
         md.parser.blockprocessors.add('alert', AlertProcessor(md.parser), '>indent')
 
 cm = markdown.Markdown(safe_mode='escape', extensions=[
+    'headerid(level=3)',
     TwoBuntuExtension({}),
 ])
 
