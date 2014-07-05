@@ -21,7 +21,7 @@ def upload(request):
         form = ImageUploadForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             image = form.save()
-            return HttpResponse('<script>window.opener.Toolbar.insertImage("[image:%d]");window.close();</script>' % image.id)
+            return HttpResponse('<script>window.opener.editor.insertImage("[image:%d]");window.close();</script>' % image.id)
     else:
         form = ImageUploadForm()
     return render(request, 'images/upload.html', {

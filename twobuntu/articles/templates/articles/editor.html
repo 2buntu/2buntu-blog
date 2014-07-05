@@ -63,8 +63,11 @@
 
 {% block scripts %}
     {{ block.super }}
+    <script src="{% static "js/ace.js" %}"></script>
+    <script src="{% static "js/editor.js" %}"></script>
     <script>
-        var IMAGE_UPLOAD_URL = "{% url "images:upload" %}";
+        $(function() {
+            window.editor = new Editor("{% url "images:upload" %}");
+        });
     </script>
-    <script src="{% static "js/markdown.js" %}"></script>
 {% endblock %}
