@@ -1,5 +1,19 @@
 {% extends "form.html" %}
 
-{% block navbar %}{% endblock %}
-{% block breadcrumbs %}{% endblock %}
-{% block footer %}{% endblock %}
+{% block navbar %}
+    {% if not js %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if not js %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    {% if not js %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
