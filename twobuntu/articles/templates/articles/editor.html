@@ -70,7 +70,7 @@
     <script src="{% static "js/editor.js" %}"></script>
     <script>
         $(function() {
-            window.editor = new Editor("{% url "images:upload" %}");
+            window.editor = new Editor("{% url "images:upload" %}?js");
             $('#id_title').focus();
         });
     </script>
