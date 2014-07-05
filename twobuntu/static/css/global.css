@@ -16,7 +16,6 @@ div.navbar { box-shadow: 0 0 8px black; margin-bottom: 0; }
 h1 small { display: block; font-size: 12pt; line-height: 14pt; }
 img { max-width: 100%; }
 p, li { text-align: justify; }
-textarea.editor { font-family: monospace; }
 
 /* Space the Font Awesome icons away from text */
 div.alert span.fa { margin-top: 6px; }
@@ -43,6 +42,14 @@ div.footer img { margin-top: 6px; }
 /* Featured styles. */
 div.featured-article { height: 200px; overflow: hidden; }
 div.featured-author { height: 100px; overflow: hidden; }
+
+/* Classes for the article editor */
+div.editor { background-color: #f5f5f5; border: 1px solid #e3e3e3; border-radius: 4px; padding: 8px; }
+div.editor .toolbar { margin-bottom: 8px; }
+div.editor .toolbar button { background-color: #e3e3e3; border: 1px solid #ccc; border-radius: 2px; height: 28px; margin: 0 2px; width: 28px; }
+div.editor .toolbar button:hover { background-color: #ccc; }
+div.editor .toolbar .spacer { display: inline-block; width: 12px; }
+div.editor .ace { border: 1px solid #ccc; }
 
 /* Ensure the page is never wider than 992px. */
 @media (min-width: 992px) {

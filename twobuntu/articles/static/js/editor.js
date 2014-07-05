@@ -6,17 +6,19 @@
 function Editor(upload_url) {
 
     // Create the container that will eventually replace the textarea
-    var width = $('textarea').outerWidth(),
-        textarea = $('textarea').hide(),
-        container = $('<div>', {
-            width: width,
-            height: textarea.outerHeight()
-        }).css({
-            border: '1px solid #ccc'
-        }).insertBefore(textarea);
+    var textarea = $('textarea').hide(),
+        editor_container = $('<div>', {
+            height: textarea.height()
+        }).addClass('ace'),
+        toolbar = $('<div>').addClass('toolbar'),
+        container = $('<div>')
+            .addClass('editor')
+            .append(toolbar)
+            .append(editor_container)
+            .insertBefore(textarea);
 
     // Create the editor (duh!)
-    var editor = ace.edit(container[0]);
+    var editor = ace.edit(editor_container[0]);
 
     // Load the value of the textarea
     editor.session.setValue(textarea.val());
@@ -74,7 +76,8 @@ function Editor(upload_url) {
         }
     }
 
-    // Define the toolbar buttons
+    // Define the toolbar buttons - note that a separater
+    // is defined by an empty element
     var buttons = [
         {
             'description': 'Insert bold text',
@@ -86,6 +89,7 @@ function Editor(upload_url) {
             'icon':        'fa-italic',
             'action':      function() { insertText('*', 'text', '*'); }
         },
+        {},
         {
             'description': 'Insert quotation',
             'icon':        'fa-quote-left',
@@ -96,6 +100,7 @@ function Editor(upload_url) {
             'icon':        'fa-code',
             'action':      function() { insertText('    ', '// printf("Hello, world!");', ''); }
         },
+        {},
         {
             'description': 'Insert ordered list',
             'icon':        'fa-list-ol',
@@ -106,6 +111,7 @@ function Editor(upload_url) {
             'icon':        'fa-list-ul',
             'action':      function() { insertText('* ', 'Item 1', '\n    * Subitem 1\n    * Subitem 2\n* Item 2'); }
         },
+        {},
         {
             'description': 'Insert link',
             'icon':        'fa-link',
@@ -116,6 +122,7 @@ function Editor(upload_url) {
             'icon':        'fa-picture-o',
             'action':      function() { insertImage(); }
         },
+        {},
         {
             'description': 'Insert info',
             'icon':        'fa-lightbulb-o',
@@ -133,21 +140,21 @@ function Editor(upload_url) {
         }
     ];
 
-    // Now create the toolbar and insert it directly before the editor
-    var toolbar = $('<div>').css({
-            backgroundColor: '#ccc'
-        }).insertBefore(container);
-
-    // Create the buttons for the toolbar
+    // Append each of the buttons to the toolbar according to
+    // the information in the toolbar array
     $.each(buttons, function() {
 
-        $('<button>', {
-            title: this.title,
-            type: 'button'
-        }).css({
-            width: '32px',
-            height: '32px'
-        }).addClass('fa ' + this.icon).click(this.action).appendTo(toolbar);
+        if('action' in this)
+            $('<button>')
+                .attr('type', 'button')
+                .prop('title', this.description)
+                .addClass('fa ' + this.icon)
+                .click(this.action)
+                .appendTo(toolbar);
+        else
+            $('<span>')
+                .addClass('spacer')
+                .appendTo(toolbar);
     });
 };
 
