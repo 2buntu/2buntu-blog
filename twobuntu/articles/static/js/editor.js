@@ -29,18 +29,22 @@ function Editor(upload_url) {
     // ...and make the font a reasonable size
     editor.setFontSize('12pt');
 
-    // Ensure that the editor's contents are dumped into the
-    // textarea when the form is submitted
-    textarea.closest('form').submit(function() {
-        textarea.val(editor.session.getValue());
-    });
-
-    // Also ensure that the user is warned when they try to
+    // Ensure that the user is warned when they try to
     // close the editor with unsaved changes
     var dirty = false;
     editor.on('change', function() { dirty = true; })
     $(window).bind('beforeunload', function() {
         return dirty ? true : undefined;
+    });
+
+    // Also ensure that the editor's contents are dumped
+    // into the textarea when the form is submitted
+    textarea.closest('form').submit(function() {
+
+        textarea.val(editor.session.getValue());
+
+        // This prevents the unsaved popup
+        dirty = false;
     });
 
     // Inserts the specified text into the editor, setting
@@ -131,8 +135,7 @@ function Editor(upload_url) {
 
     // Now create the toolbar and insert it directly before the editor
     var toolbar = $('<div>').css({
-            backgroundColor: '#ccc',
-            height: '32px'
+            backgroundColor: '#ccc'
         }).insertBefore(container);
 
     // Create the buttons for the toolbar
@@ -143,7 +146,7 @@ function Editor(upload_url) {
             type: 'button'
         }).css({
             width: '32px',
-            height: '100%'
+            height: '32px'
         }).addClass('fa ' + this.icon).click(this.action).appendTo(toolbar);
     });
 };
