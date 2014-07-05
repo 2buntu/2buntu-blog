@@ -80,63 +80,65 @@ function Editor(upload_url) {
     // is defined by an empty element
     var buttons = [
         {
-            'description': 'Insert bold text',
-            'icon':        'fa-bold',
-            'action':      function() { insertText('**', 'text', '**'); }
+            description: 'Insert bold text',
+            icon:        'fa-bold',
+            action:      function() { insertText('**', 'text', '**'); },
+            key:         { win: 'Ctrl-B', mac: 'Command-B' }
         },
         {
-            'description': 'Insert italic text',
-            'icon':        'fa-italic',
-            'action':      function() { insertText('*', 'text', '*'); }
-        },
-        {},
-        {
-            'description': 'Insert quotation',
-            'icon':        'fa-quote-left',
-            'action':      function() { insertText('> ', '"text"', ''); }
-        },
-        {
-            'description': 'Insert code',
-            'icon':        'fa-code',
-            'action':      function() { insertText('    ', '// printf("Hello, world!");', ''); }
+            description: 'Insert italic text',
+            icon:        'fa-italic',
+            action:      function() { insertText('*', 'text', '*'); },
+            key:         { win: 'Ctrl-I', mac: 'Command-I' }
         },
         {},
         {
-            'description': 'Insert ordered list',
-            'icon':        'fa-list-ol',
-            'action':      function() { insertText('1. ', 'Item', '\n    1. Subitem\n    2. Subitem\n2. Item'); }
+            description: 'Insert quotation',
+            icon:        'fa-quote-left',
+            action:      function() { insertText('> ', '"text"', ''); }
         },
         {
-            'description': 'Insert unordered list',
-            'icon':        'fa-list-ul',
-            'action':      function() { insertText('* ', 'Item 1', '\n    * Subitem 1\n    * Subitem 2\n* Item 2'); }
-        },
-        {},
-        {
-            'description': 'Insert link',
-            'icon':        'fa-link',
-            'action':      function() { insertText('[', 'link text', '](http://example.org)'); }
-        },
-        {
-            'description': 'Insert image',
-            'icon':        'fa-picture-o',
-            'action':      function() { insertImage(); }
+            description: 'Insert code',
+            icon:        'fa-code',
+            action:      function() { insertText('    ', '// printf("Hello, world!");', ''); }
         },
         {},
         {
-            'description': 'Insert info',
-            'icon':        'fa-lightbulb-o',
-            'action':      function() { insertText('[info]', 'text', '[/info]'); }
+            description: 'Insert ordered list',
+            icon:        'fa-list-ol',
+            action:      function() { insertText('1. ', 'Item', '\n    1. Subitem\n    2. Subitem\n2. Item'); }
         },
         {
-            'description': 'Insert warning',
-            'icon':        'fa-exclamation-triangle',
-            'action':      function() { insertText('[warning]', 'text', '[/warning]'); }
+            description: 'Insert unordered list',
+            icon:        'fa-list-ul',
+            action:      function() { insertText('* ', 'Item 1', '\n    * Subitem 1\n    * Subitem 2\n* Item 2'); }
+        },
+        {},
+        {
+            description: 'Insert link',
+            icon:        'fa-link',
+            action:      function() { insertText('[', 'link text', '](http://example.org)'); }
         },
         {
-            'description': 'Insert danger box',
-            'icon':        'fa-times-circle',
-            'action':      function() { insertText('[danger]', 'text', '[/danger]'); }
+            description: 'Insert image',
+            icon:        'fa-picture-o',
+            action:      function() { insertImage(); }
+        },
+        {},
+        {
+            description: 'Insert info',
+            icon:        'fa-lightbulb-o',
+            action:      function() { insertText('[info]', 'text', '[/info]'); }
+        },
+        {
+            description: 'Insert warning',
+            icon:        'fa-exclamation-triangle',
+            action:      function() { insertText('[warning]', 'text', '[/warning]'); }
+        },
+        {
+            description: 'Insert danger box',
+            icon:        'fa-times-circle',
+            action:      function() { insertText('[danger]', 'text', '[/danger]'); }
         }
     ];
 
@@ -144,14 +146,22 @@ function Editor(upload_url) {
     // the information in the toolbar array
     $.each(buttons, function() {
 
-        if('action' in this)
+        if('action' in this) {
+
             $('<button>')
                 .attr('type', 'button')
                 .prop('title', this.description)
                 .addClass('fa ' + this.icon)
                 .click(this.action)
                 .appendTo(toolbar);
-        else
+
+            // If a keybinding was supplied, then register it
+            if('key' in this)
+                editor.commands.addCommand({
+                    bindKey: this.key,
+                    exec: this.action
+                });
+        } else
             $('<span>')
                 .addClass('spacer')
                 .appendTo(toolbar);
