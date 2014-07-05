@@ -156,5 +156,14 @@ function Editor(upload_url) {
                 .addClass('spacer')
                 .appendTo(toolbar);
     });
-};
 
+    // Find the <select> on the page and ensure the editor
+    // receives focus when [tab] is pressed
+    $('select').keydown(function(event) {
+
+        if(event.which == 9) {
+            editor.focus();
+            event.preventDefault();
+        }
+    });
+};
