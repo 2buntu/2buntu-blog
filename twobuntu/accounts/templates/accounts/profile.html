@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load gravatar %}
 
+{% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="2buntu Articles" href="{% url "accounts:rss" profile.user.id %}" />
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-sm-8">
@@ -61,6 +65,12 @@
                 {% else %}
                     <p class="text-muted">This user has not yet completed their profile.</p>
                 {% endif %}
+            </div>
+            <div class="well">
+                <a href="{% url "accounts:rss" profile.user.id %}">
+                    <span class="fa fa-rss"></span>
+                    {{ profile }}'s Articles Feed
+                </a>
             </div>
         </div>
     </div>
