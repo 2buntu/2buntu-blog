@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from twobuntu.accounts.models import Profile
 from twobuntu.articles.models import Article
+from twobuntu.categories.models import Category
 
 class ArticleFeed(Feed):
     """Feed of articles."""
@@ -53,3 +54,21 @@ class UserArticlesFeed(ArticleFeed):
 
     def items(self, profile):
         return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, author=profile.user)[:20]
+
+class CategoryArticlesFeed(ArticleFeed):
+    """Feed of articles in a specific category."""
+
+    def get_object(self, request, id):
+        return get_object_or_404(Category, pk=id)
+
+    def title(self, category):
+        return 'Articles in %s' % category
+
+    def link(self, category):
+        return category.get_absolute_url()
+
+    def description(self, category):
+        return "Articles filed under %s." % category
+
+    def items(self, category):
+        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, category=cat)[:20]

@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ title }}</h2>
-    <hr>
-    {% include "articles/list.html" %}
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>{{ title }}</h2>
+            <hr>
+            {% include "articles/list.html" %}
+        </div>
+        <div class="col-sm-4">
+            <div class="well">
+                <a href="{% url "categories:rss" category.id %}">
+                    <span class="fa fa-rss"></span>
+                    Articles in {{ category }} Feed
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
