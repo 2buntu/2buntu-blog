@@ -71,4 +71,4 @@ class CategoryArticlesFeed(ArticleFeed):
         return "Articles filed under %s." % category
 
     def items(self, category):
-        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, category=cat)[:20]
+        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, category=category)[:20]
