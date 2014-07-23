@@ -10,7 +10,7 @@ install:
 script:
     - sudo -u postgres psql -c "CREATE USER twobuntu WITH PASSWORD 'twobuntu'"
     - sudo -u postgres psql -c "CREATE DATABASE twobuntu WITH OWNER twobuntu"
-    - sudo -u postgres psql -c "ALTER USER numbles CREATEDB"
+    - sudo -u postgres psql -c "ALTER USER twobuntu CREATEDB"
     - cp twobuntu/local_settings.py.default twobuntu/local_settings.py
     - |
       echo "DATABASES = {
