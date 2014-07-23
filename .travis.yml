@@ -25,3 +25,4 @@ script:
       SECRET_KEY = '1234567890abcdef'" >> twobuntu/local_settings.py
     - ./manage.py syncdb --noinput
     - ./manage.py migrate --noinput
+    - ./manage.py test
