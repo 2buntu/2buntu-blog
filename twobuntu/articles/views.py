@@ -93,44 +93,33 @@ def markdown(request):
 @require_POST
 @login_required
 @transaction.atomic
-def submit(request, id):
+def modify(request, action, id):
     """
-    Submit an article for approval.
-    """
-    article = get_object_or_404(Article, pk=id, author=request.user, status=Article.DRAFT)
-    article.status = Article.UNAPPROVED
-    article.save()
-    template = render_to_string('emails/submit.txt', {
-        'article': request.build_absolute_uri(article.get_absolute_url()),
-    })
-    mail_admins('2buntu Article Submitted', template)
-    messages.info(request, "The article has been submitted for approval by a staff member.")
-    return redirect(article)
-
-
-@require_POST
-@user_passes_test(lambda u: u.is_staff)
-def publish(request, id):
-    """
-    Publish the specified article.
+    Attempt to modify the specified article.
     """
     article = get_object_or_404(Article, pk=id)
-    article.status = Article.PUBLISHED
-    article.save()
-    messages.info(request, "The article has been published.")
-    return redirect(article)
-
-
-@require_POST
-@login_required
-def release(request, id):
-    """
-    Release an article under a CC license.
-    """
-    article = get_object_or_404(Article, pk=id, author=request.user, cc_license=False)
-    article.cc_license = True
-    article.save()
-    messages.info(request, "The article is now available under a CC BY-SA 4.0 license.")
+    if action == 'submit':
+        if article.author != request.user or article.status != Article.DRAFT:
+            raise Http404
+        article.status = Article.UNAPPROVED
+        article.save()
+        template = render_to_string('emails/submit.txt', {
+            'article': request.build_absolute_uri(article.get_absolute_url()),
+        })
+        mail_admins('2buntu Article Submitted', template)
+        messages.info(request, "The article has been submitted for approval by a staff member.")
+    elif action == 'publish':
+        if not request.user.is_staff:
+            raise Http404
+        article.status = Article.PUBLISHED
+        article.save()
+        messages.info(request, "The article has been published.")
+    elif action == 'release':
+        if article.author != request.user or article.cc_license:
+            raise Http404
+        article.cc_license = True
+        article.save()
+        messages.info(request, "The article is now available under a CC BY-SA 4.0 license.")
     return redirect(article)
 
 
