@@ -82,7 +82,7 @@ def register(request):
         'title': 'Register',
         'form': form,
         'description': "Please fill in the form below to create your account.",
-        'action': 'Register'
+        'action': 'Register',
     })
 
 

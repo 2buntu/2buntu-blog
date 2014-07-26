@@ -77,7 +77,7 @@ def editor(request, id):
     return render(request, 'articles/editor.html', {
         'title': 'Edit "%s"' % article if article else 'New Article',
         'form': form,
-        'description': "Use the form below to %s." % ('edit the article' if article else 'create an article',),
+        'description': "Use the form below to %s." % ('edit the article' if article else 'create an article'),
     })
 
 

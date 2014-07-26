@@ -123,7 +123,7 @@ def endpoint(fn):
             })
         elif 'callback' in request.GET:
             return HttpResponse(
-                '%s(%s)' % (request.GET['callback'], json,),
+                '%s(%s)' % (request.GET['callback'], json),
                 content_type='application/javascript',
             )
         else:
