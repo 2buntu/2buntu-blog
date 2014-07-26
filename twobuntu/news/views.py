@@ -5,11 +5,13 @@ from django.db import transaction
 from django.shortcuts import redirect, render
 
 from twobuntu.news.forms import AddItemForm
-from twobuntu.news.models import Item
+
 
 @user_passes_test(lambda u: u.is_staff)
 def add(request):
-    """Add news items to the home page."""
+    """
+    Add news items to the home page.
+    """
     if request.method == 'POST':
         form = AddItemForm(data=request.POST)
         if form.is_valid():
@@ -27,7 +29,7 @@ def add(request):
         form = AddItemForm()
     return render(request, 'form.html', {
         'title': 'Add Item',
-        'form':  form,
+        'form': form,
         'description': "Enter the details for the news item below.",
         'action': 'Add',
     })
