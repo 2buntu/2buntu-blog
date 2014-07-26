@@ -10,11 +10,11 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 import os.path
 
-ALLOWED_HOSTS = ['2buntu.com',]
-SITE_ID       = 1
+ALLOWED_HOSTS = ['2buntu.com']
+SITE_ID = 1
 
 # Enable timezone-aware datetimes
-USE_TZ    = True
+USE_TZ = True
 TIME_ZONE = 'America/Vancouver'
 
 # Determine the directory this file resides in so that an absolute
@@ -22,9 +22,9 @@ TIME_ZONE = 'America/Vancouver'
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),)
-TEMPLATE_DIRS    = (os.path.join(PROJECT_ROOT, 'templates'),)
+TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
 
-ROOT_URLCONF     = 'twobuntu.urls'
+ROOT_URLCONF = 'twobuntu.urls'
 WSGI_APPLICATION = 'twobuntu.wsgi.application'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -70,4 +70,4 @@ else:
     INSTALLED_APPS = tuple(INSTALLED_APPS + ('debug_toolbar',))
 
 # Import all local settings
-from local_settings import *
+from twobuntu.local_settings import *

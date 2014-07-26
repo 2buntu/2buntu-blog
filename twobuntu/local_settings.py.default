@@ -6,7 +6,7 @@ be included here and NOT in settings.py
 """
 
 # Set DEBUG to True to enable full debugging in your application
-DEBUG          = False
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 # Enable the console email backend when running in debug mode
@@ -14,7 +14,7 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DEFAULT_FROM_EMAIL = '2buntu <donotreply@2buntu.com>'
-SERVER_EMAIL       = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # Staff members
 ADMINS = (
@@ -25,19 +25,19 @@ ADMINS = (
 # Database storage engine(s) for the project
 DATABASES = {
     'default': {
-        'ENGINE':   'django.db.backends.postgresql_psycopg2',
-        'NAME':     '',
-        'USER':     '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '',
+        'USER': '',
         'PASSWORD': '',
-        'HOST':     '',
-        'PORT':     '',
+        'HOST': '',
+        'PORT': '',
     },
 }
 
 # Cache(s) for the project
 CACHES = {
     'default': {
-        'BACKEND':  'redis_cache.cache.RedisCache',
+        'BACKEND': 'redis_cache.cache.RedisCache',
         'LOCATION': '',
         'OPTIONS': {
             'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
@@ -46,22 +46,22 @@ CACHES = {
 }
 
 # Absolute filesystem path where media (uploaded) and static files will be stored
-MEDIA_ROOT  = ''
+MEDIA_ROOT = ''
 STATIC_ROOT = ''
 
 # URL for media and static files
-MEDIA_URL  = '/media/'
+MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 # Keys for reCAPTCHA (to prevent spam form submissions)
-RECAPTCHA_PUBLIC_KEY  = ''
+RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 
 # If you are using Twitter integration, then you will need to supply values for these settings
 TWITTER = {
-    'consumer_key':        '',
-    'consumer_secret':     '',
-    'access_token_key':    '',
+    'consumer_key': '',
+    'consumer_secret': '',
+    'access_token_key': '',
     'access_token_secret': '',
 }
 

@@ -6,8 +6,11 @@ from twobuntu.accounts.models import Profile
 from twobuntu.articles.models import Article
 from twobuntu.categories.models import Category
 
+
 class ArticleFeed(Feed):
-    """Feed of articles."""
+    """
+    Feed of articles.
+    """
 
     def item_title(self, article):
         return article.title
@@ -27,18 +30,27 @@ class ArticleFeed(Feed):
     def item_pubdate(self, article):
         return article.date
 
+
 class LatestArticlesFeed(ArticleFeed):
-    """Feed of most recent articles."""
+    """
+    Feed of most recent articles.
+    """
 
     title = "Latest Articles on 2buntu"
     link = reverse_lazy('home')
     description = "Recently published articles about Ubuntu on the 2buntu blog."
 
     def items(self):
-        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED)[:20]
+        return Article.objects.select_related(
+            'author',
+            'category'
+        ).filter(status=Article.PUBLISHED)[:20]
+
 
 class UserArticlesFeed(ArticleFeed):
-    """Feed of articles written by a specific user."""
+    """
+    Feed of articles written by a specific user.
+    """
 
     def get_object(self, request, id):
         return get_object_or_404(Profile, pk=id)
@@ -53,10 +65,16 @@ class UserArticlesFeed(ArticleFeed):
         return "Recently published articles written by %s." % profile
 
     def items(self, profile):
-        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, author=profile.user)[:20]
+        return Article.objects.select_related(
+            'author',
+            'category'
+        ).filter(status=Article.PUBLISHED, author=profile.user)[:20]
+
 
 class CategoryArticlesFeed(ArticleFeed):
-    """Feed of articles in a specific category."""
+    """
+    Feed of articles in a specific category.
+    """
 
     def get_object(self, request, id):
         return get_object_or_404(Category, pk=id)
@@ -71,4 +89,7 @@ class CategoryArticlesFeed(ArticleFeed):
         return "Articles filed under %s." % category
 
     def items(self, category):
-        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, category=category)[:20]
+        return Article.objects.select_related(
+            'author',
+            'category'
+        ).filter(status=Article.PUBLISHED, category=category)[:20]
