@@ -5,18 +5,24 @@ from django.shortcuts import get_object_or_404, redirect, render
 from twobuntu.images.forms import ImageUploadForm
 from twobuntu.images.models import Image
 
+
 @login_required
 def view(request, id):
-    """View uploaded image."""
+    """
+    View uploaded image.
+    """
     image = get_object_or_404(Image, pk=id)
     return render(request, 'images/view.html', {
         'title': image.caption,
         'image': image,
     })
 
+
 @login_required
 def upload(request):
-    """Upload images for embedding in articles."""
+    """
+    Upload images for embedding in articles.
+    """
     js = 'js' in request.GET
     if request.method == 'POST':
         form = ImageUploadForm(data=request.POST, files=request.FILES)
@@ -29,9 +35,9 @@ def upload(request):
     else:
         form = ImageUploadForm()
     return render(request, 'images/upload.html', {
-        'title':       'Upload',
-        'form':        form,
+        'title': 'Upload',
+        'form': form,
         'description': "Use this form to upload an image.",
-        'action':      'Upload',
-        'js':          js,
+        'action': 'Upload',
+        'js': js,
     })

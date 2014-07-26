@@ -13,27 +13,44 @@ from twobuntu.accounts.models import Profile
 from twobuntu.articles.models import Article
 from twobuntu.categories.models import Category
 
+
 class APIException(Exception):
-    """Base for all API exceptions."""
+    """
+    Base for all API exceptions.
+    """
+
 
 class ObjectEncoder(JSONEncoder):
-    """JSON encoder for supported Django model instances."""
+    """
+    JSON encoder for supported Django model instances.
+    """
 
     def __init__(self, request, **kwargs):
-        """Initialize the encoder."""
+        """
+        Initialize the encoder.
+        """
         self._request = request
         super(ObjectEncoder, self).__init__()
 
     def default(self, o):
-        """Encode the provided object."""
-        if type(o) is QuerySet: return list(o)
-        elif type(o) is Article: return self._encode_article(o)
-        elif type(o) is Category: return self._encode_category(o)
-        elif type(o) is Profile: return self._encode_profile(o)
-        else: return JSONEncoder.default(self, o)
+        """
+        Encode the provided object.
+        """
+        if type(o) is QuerySet:
+            return list(o)
+        elif type(o) is Article:
+            return self._encode_article(o)
+        elif type(o) is Category:
+            return self._encode_category(o)
+        elif type(o) is Profile:
+            return self._encode_profile(o)
+        else:
+            return JSONEncoder.default(self, o)
 
     def _encode_article(self, article):
-        """Encode an article."""
+        """
+        Encode an article.
+        """
         return {
             'id': article.id,
             'title': article.title,
@@ -53,7 +70,9 @@ class ObjectEncoder(JSONEncoder):
         }
 
     def _encode_category(self, category):
-        """Encode a category."""
+        """
+        Encode a category.
+        """
         return {
             'id': category.id,
             'name': category.name,
@@ -62,7 +81,9 @@ class ObjectEncoder(JSONEncoder):
         }
 
     def _encode_profile(self, profile):
-        """Encode a profile."""
+        """
+        Encode a profile.
+        """
         return {
             'id': profile.user.id,
             'name': unicode(profile),
@@ -75,13 +96,18 @@ class ObjectEncoder(JSONEncoder):
             'url': self._request.build_absolute_uri(profile.get_absolute_url()),
         }
 
+
 def endpoint(fn):
-    """Wrap the API endpoint."""
+    """
+    Wrap the API endpoint.
+    """
     def wrapper(request, **kwargs):
         try:
-            json = dumps(fn(request, **kwargs),
-                         cls=ObjectEncoder,
-                         request=request)
+            json = dumps(
+                fn(request, **kwargs),
+                cls=ObjectEncoder,
+                request=request,
+            )
         except APIException as e:
             json = dumps({
                 'error': str(e),
@@ -89,21 +115,26 @@ def endpoint(fn):
         if 'debug' in request.GET:
             return render(request, 'api/debug.html', {
                 'title': '2buntu API Debugger',
-                'parent':  {
+                'parent': {
                     'title': 'API',
-                    'url':   reverse('api:index'),
+                    'url': reverse('api:index'),
                 },
                 'json': dumps(loads(json), indent=4),
             })
         elif 'callback' in request.GET:
-            return HttpResponse('%s(%s)' % (request.GET['callback'], json,),
-                                content_type='application/javascript')
+            return HttpResponse(
+                '%s(%s)' % (request.GET['callback'], json),
+                content_type='application/javascript',
+            )
         else:
             return HttpResponse(json, content_type='application/json')
     return wrapper
 
+
 def paginate(fn):
-    """Limit the number of items returned."""
+    """
+    Limit the number of items returned.
+    """
     def wrapper(request, **kwargs):
         try:
             page = max(int(request.GET['page']), 1) if 'page' in request.GET else 1
@@ -113,63 +144,89 @@ def paginate(fn):
         return fn(request, **kwargs)[(page - 1) * size:page * size]
     return wrapper
 
+
 def minmax(fn):
-    """Process minimum and maximum parameters."""
+    """
+    Process minimum and maximum parameters.
+    """
     def wrapper(request, **kwargs):
         filters = {}
         try:
-            if 'min' in request.GET: filters['date__gte'] = datetime.fromtimestamp(int(request.GET['min']))
-            if 'max' in request.GET: filters['date__lte'] = datetime.fromtimestamp(int(request.GET['max']))
+            if 'min' in request.GET:
+                filters['date__gte'] = datetime.fromtimestamp(int(request.GET['min']))
+            if 'max' in request.GET:
+                filters['date__lte'] = datetime.fromtimestamp(int(request.GET['max']))
         except ValueError:
             raise APIException("Invalid min and/or max parameter specified.")
         return fn(request, **kwargs).filter(**filters)
     return wrapper
 
+
 @endpoint
 @paginate
 @minmax
 def articles(request):
-    """Return all recent articles."""
+    """
+    Return all recent articles.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(status=Article.PUBLISHED)
+
 
 @endpoint
 @paginate
 @minmax
 def article_by_id(request, id):
-    """Return the specified article."""
+    """
+    Return the specified article.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(pk=id, status=Article.PUBLISHED)
+
 
 @endpoint
 @paginate
 @minmax
 def authors(request):
-    """Return most popular authors."""
+    """
+    Return most popular authors.
+    """
     return Profile.objects.select_related('user').all()
+
 
 @endpoint
 @paginate
 @minmax
 def author_by_id(request, id):
-    """Return the specified author."""
+    """
+    Return the specified author.
+    """
     return Profile.objects.select_related('user').filter(pk=id)
+
 
 @endpoint
 @paginate
 @minmax
 def articles_by_author(request, id):
-    """Return articles written by the specified author."""
+    """
+    Return articles written by the specified author.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(author=id, status=Article.PUBLISHED)
+
 
 @endpoint
 @paginate
 @minmax
 def categories(request):
-    """Return most popular categories."""
+    """
+    Return most popular categories.
+    """
     return Category.objects.all().annotate(num_articles=Count('article'))
+
 
 @endpoint
 @paginate
 @minmax
 def articles_by_category(request, id):
-    """Return recent articles in the specified category."""
+    """
+    Return recent articles in the specified category.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(category=id, status=Article.PUBLISHED)
