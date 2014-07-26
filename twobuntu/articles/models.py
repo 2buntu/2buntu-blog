@@ -55,6 +55,13 @@ class Article(models.Model):
             ' [%s]' % self.get_status_display() if not self.status == self.PUBLISHED else '',
         )
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('articles:view', (), {
+            'id':   self.id,
+            'slug': slugify(self.title),
+        })
+
     def can_edit(self, request):
         """
         Determine if the article may be edited by the current user.
@@ -78,16 +85,6 @@ class Article(models.Model):
         if not request.user.is_staff:
             args.append(models.Q(author=request.user.id) | models.Q(status=cls.PUBLISHED))
         return cls.objects.filter(*args)
-
-    @models.permalink
-    def get_absolute_url(self):
-        """
-        Return the absolute URL of the article.
-        """
-        return ('articles:view', (), {
-            'id':   self.id,
-            'slug': slugify(self.title),
-        })
 
     def render(self):
         """

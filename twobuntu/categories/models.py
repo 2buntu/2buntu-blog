@@ -17,9 +17,6 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        """
-        Return the absolute URL of the article.
-        """
         return ('categories:view', (), {
             'id': self.id,
             'slug': slugify(self.name),
