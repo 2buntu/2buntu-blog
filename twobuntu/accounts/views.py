@@ -19,8 +19,6 @@ from twobuntu.decorators import canonical
 def profile(request, profile):
     """
     Display a user's profile.
-
-    :param profile: a Profile instance
     """
     return render(request, 'accounts/profile.html', {
         'title': profile,
@@ -133,8 +131,6 @@ def reset(request):
 def reset_confirm(request, key):
     """
     Complete the password reset procedure.
-
-    :param key: confirmation key to confirm password reset
     """
     key = get_object_or_404(ConfirmationKey, key=key)
     if request.method == 'POST':
@@ -159,8 +155,6 @@ def reset_confirm(request, key):
 def edit(request, id):
     """
     Update the specified user profile.
-
-    :param id: ID of the user profile to update
     """
     profile = get_object_or_404(Profile, user=id)
     if request.method == 'POST':
@@ -172,11 +166,12 @@ def edit(request, id):
             form.save()
             return redirect(profile)
     else:
-        form = ProfileForm(instance=profile,
-                           initial={
-                               'first_name': profile.user.first_name,
-                               'last_name': profile.user.last_name,
-                           })
+        form = ProfileForm(
+            instance=profile,
+            initial={
+                'first_name': profile.user.first_name,
+                'last_name': profile.user.last_name,
+            })
     return render(request, "form.html", {
         'title': 'Edit Profile',
         'form': form,

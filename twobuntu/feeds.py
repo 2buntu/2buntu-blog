@@ -41,10 +41,7 @@ class LatestArticlesFeed(ArticleFeed):
     description = "Recently published articles about Ubuntu on the 2buntu blog."
 
     def items(self):
-        return Article.objects.select_related(
-            'author',
-            'category'
-        ).filter(status=Article.PUBLISHED)[:20]
+        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED)[:20]
 
 
 class UserArticlesFeed(ArticleFeed):
@@ -65,10 +62,7 @@ class UserArticlesFeed(ArticleFeed):
         return "Recently published articles written by %s." % profile
 
     def items(self, profile):
-        return Article.objects.select_related(
-            'author',
-            'category'
-        ).filter(status=Article.PUBLISHED, author=profile.user)[:20]
+        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, author=profile.user)[:20]
 
 
 class CategoryArticlesFeed(ArticleFeed):
@@ -89,7 +83,4 @@ class CategoryArticlesFeed(ArticleFeed):
         return "Articles filed under %s." % category
 
     def items(self, category):
-        return Article.objects.select_related(
-            'author',
-            'category'
-        ).filter(status=Article.PUBLISHED, category=category)[:20]
+        return Article.objects.select_related('author', 'category').filter(status=Article.PUBLISHED, category=category)[:20]

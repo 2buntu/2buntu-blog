@@ -47,10 +47,7 @@ def search(request):
     q = request.GET['q']
     return render(request, 'articles/search.html', {
         'title': 'Search Results for "%s"' % q,
-        'articles': Article.apply_filter(
-            request,
-            Q(title__icontains=q) | Q(body__icontains=q)
-        ).select_related('author', 'author__profile', 'category'),
+        'articles': Article.apply_filter(request, Q(title__icontains=q) | Q(body__icontains=q)).select_related('author', 'author__profile', 'category'),
     })
 
 
@@ -70,10 +67,7 @@ def editor(request, id):
             if creating:
                 article.author = request.user
             article.save()
-            messages.info(
-                request,
-                "The article has been saved." if creating else "Your changes to the article have been saved."
-            )
+            messages.info(request, "The article has been saved." if creating else "Your changes to the article have been saved.")
             if 'action' in request.POST and request.POST['action'] == 'continue':
                 return redirect('articles:editor', article.id)
             else:

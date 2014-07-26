@@ -26,7 +26,9 @@ class ObjectEncoder(JSONEncoder):
     """
 
     def __init__(self, request, **kwargs):
-        """Initialize the encoder."""
+        """
+        Initialize the encoder.
+        """
         self._request = request
         super(ObjectEncoder, self).__init__()
 
@@ -104,7 +106,7 @@ def endpoint(fn):
             json = dumps(
                 fn(request, **kwargs),
                 cls=ObjectEncoder,
-                request=request
+                request=request,
             )
         except APIException as e:
             json = dumps({
@@ -122,7 +124,7 @@ def endpoint(fn):
         elif 'callback' in request.GET:
             return HttpResponse(
                 '%s(%s)' % (request.GET['callback'], json,),
-                content_type='application/javascript'
+                content_type='application/javascript',
             )
         else:
             return HttpResponse(json, content_type='application/json')
@@ -144,7 +146,9 @@ def paginate(fn):
 
 
 def minmax(fn):
-    """Process minimum and maximum parameters."""
+    """
+    Process minimum and maximum parameters.
+    """
     def wrapper(request, **kwargs):
         filters = {}
         try:
@@ -162,7 +166,9 @@ def minmax(fn):
 @paginate
 @minmax
 def articles(request):
-    """Return all recent articles."""
+    """
+    Return all recent articles.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(status=Article.PUBLISHED)
 
 
@@ -170,7 +176,9 @@ def articles(request):
 @paginate
 @minmax
 def article_by_id(request, id):
-    """Return the specified article."""
+    """
+    Return the specified article.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(pk=id, status=Article.PUBLISHED)
 
 
@@ -178,7 +186,9 @@ def article_by_id(request, id):
 @paginate
 @minmax
 def authors(request):
-    """Return most popular authors."""
+    """
+    Return most popular authors.
+    """
     return Profile.objects.select_related('user').all()
 
 
@@ -186,7 +196,9 @@ def authors(request):
 @paginate
 @minmax
 def author_by_id(request, id):
-    """Return the specified author."""
+    """
+    Return the specified author.
+    """
     return Profile.objects.select_related('user').filter(pk=id)
 
 
@@ -194,7 +206,9 @@ def author_by_id(request, id):
 @paginate
 @minmax
 def articles_by_author(request, id):
-    """Return articles written by the specified author."""
+    """
+    Return articles written by the specified author.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(author=id, status=Article.PUBLISHED)
 
 
@@ -202,7 +216,9 @@ def articles_by_author(request, id):
 @paginate
 @minmax
 def categories(request):
-    """Return most popular categories."""
+    """
+    Return most popular categories.
+    """
     return Category.objects.all().annotate(num_articles=Count('article'))
 
 
@@ -210,5 +226,7 @@ def categories(request):
 @paginate
 @minmax
 def articles_by_category(request, id):
-    """Return recent articles in the specified category."""
+    """
+    Return recent articles in the specified category.
+    """
     return Article.objects.select_related('author', 'author__profile', 'category').filter(category=id, status=Article.PUBLISHED)

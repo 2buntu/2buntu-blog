@@ -9,7 +9,9 @@ class ArticleAdmin(admin.ModelAdmin):
     """
 
     def make_released(self, request, queryset):
-        """Releases the articles under a CC BY-SA 4.0 license."""
+        """
+        Releases the articles under a CC BY-SA 4.0 license.
+        """
         queryset.filter(author=request.user).update(cc_license=True)
     make_released.short_description = "Release articles under CC BY-SA 4.0 license"
 

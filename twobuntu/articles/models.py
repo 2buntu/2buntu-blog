@@ -58,7 +58,7 @@ class Article(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('articles:view', (), {
-            'id':   self.id,
+            'id': self.id,
             'slug': slugify(self.title),
         })
 

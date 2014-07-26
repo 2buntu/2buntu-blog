@@ -38,6 +38,13 @@ class Profile(models.Model):
     def __unicode__(self):
         return self.user.get_full_name() or self.user.get_username()
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('accounts:profile', (), {
+            'id': self.user.id,
+            'slug': slugify(self),
+        })
+
     def age(self):
         """
         Calculate the age of the user.
@@ -46,16 +53,6 @@ class Profile(models.Model):
             return None
         n, b = now().date(), self.birthday
         return n.year - b.year - (0 if n.month > b.month or n.month == b.month and n.day >= b.day else 1)
-
-    @models.permalink
-    def get_absolute_url(self):
-        """
-        Return the absolute URL of the profile.
-        """
-        return ('accounts:profile', (), {
-            'id': self.user.id,
-            'slug': slugify(self),
-        })
 
 
 @receiver(models.signals.post_save, sender=User)

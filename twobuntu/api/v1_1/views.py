@@ -12,7 +12,7 @@ def endpoint(fn):
     """
     Designate a view as an API endpoint.
     """
-    def wrap(request, **kwargs):
+    def wrapper(request, **kwargs):
         try:
             json = dumps(fn(request, **kwargs))
         except Exception, e:
@@ -21,19 +21,19 @@ def endpoint(fn):
             })
         if 'callback' in request.GET:
             return HttpResponse(
-                '%s(%s)' % (request.GET['callback'], json,),
+                '%s(%s)' % (request.GET['callback'], json),
                 content_type='application/javascript',
             )
         else:
             return HttpResponse(json, content_type='application/json')
-    return wrap
+    return wrapper
 
 
 def articles(fn):
     """
     Generate an article dictionary from a function that returns an article list.
     """
-    def wrap(request, **kwargs):
+    def wrapper(request, **kwargs):
         return [{
             'id': a.id,
             'title': a.title,
@@ -46,32 +46,32 @@ def articles(fn):
             'published_date': timegm(a.date.utctimetuple()),
             'modified_date': timegm(a.date.utctimetuple()),
         } for a in fn(request, **kwargs)]
-    return wrap
+    return wrapper
 
 
 def paginate(fn):
     """
     Limit the number of items returned.
     """
-    def wrap(request, **kwargs):
+    def wrapper(request, **kwargs):
         p = int(request.GET['page']) if 'page' in request.GET else 1
         s = max(int(request.GET['size']), 20) if 'size' in request.GET else 20
         return fn(request, **kwargs)[(p - 1) * s:p * s]
-    return wrap
+    return wrapper
 
 
 def minmax(fn):
     """
     Process minimum and maximum parameters.
     """
-    def wrap(request, **kwargs):
+    def wrapper(request, **kwargs):
         f = {}
         if 'min' in request.GET:
             f['date__gte'] = datetime.fromtimestamp(int(request.GET['min']))
         if 'max' in request.GET:
             f['date__lte'] = datetime.fromtimestamp(int(request.GET['max']))
         return fn(request, **kwargs).filter(**f)
-    return wrap
+    return wrapper
 
 
 @endpoint
@@ -79,7 +79,9 @@ def minmax(fn):
 @paginate
 @minmax
 def published(request):
-    """Return articles sorted by publication date."""
+    """
+    Return articles sorted by publication date.
+    """
     return Article.objects.filter(status=Article.PUBLISHED).order_by('-date')
 
 
@@ -88,12 +90,16 @@ def published(request):
 @paginate
 @minmax
 def modified(request):
-    """Return articles sorted by modification date."""
+    """
+    Return articles sorted by modification date.
+    """
     return Article.objects.filter(status=Article.PUBLISHED).order_by('-date')
 
 
 @endpoint
 @articles
 def article(request, id):
-    """Return information about a specific article."""
+    """
+    Return information about a specific article.
+    """
     return [Article.objects.filter(status=Article.PUBLISHED).get(pk=id)]

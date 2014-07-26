@@ -7,8 +7,7 @@ from twobuntu.feeds import LatestArticlesFeed
 
 admin.autodiscover()
 
-urlpatterns = patterns(
-    '',
+urlpatterns = patterns('',
     url(r'^$', 'twobuntu.views.index', name='home'),
     url(r'^about/$', 'twobuntu.views.about', name='about'),
     url(r'^links/$', 'twobuntu.views.links', name='links'),

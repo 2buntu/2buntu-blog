@@ -23,8 +23,8 @@ def index(request):
     Render the home page.
     """
     return render(request, 'pages/index.html', {
-        'home':       True,
-        'articles':   Article.objects.select_related(
+        'home': True,
+        'articles': Article.objects.select_related(
             'author',
             'author__profile',
             'category',

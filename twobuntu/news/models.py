@@ -12,14 +12,14 @@ class Item(models.Model):
 
     reporter = models.ForeignKey(
         User,
-        help_text="The user reporting the news item."
+        help_text="The user reporting the news item.",
     )
     title = models.CharField(
         max_length=100,
-        help_text="The title of the news item."
+        help_text="The title of the news item.",
     )
     body = models.TextField(
-        help_text="The body of the news item [in Markdown]."
+        help_text="The body of the news item [in Markdown].",
     )
     url = models.URLField(help_text="URL with more details about the news item.")
     date = models.DateTimeField(auto_now_add=True)
