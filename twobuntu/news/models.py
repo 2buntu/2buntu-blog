@@ -36,11 +36,11 @@ _api = twitter.Api(**settings.TWITTER)
 
 
 @receiver(models.signals.post_save, sender=Item)
-def post_tweet(instance, created, **kwargs):
+def post_tweet(instance, created, raw, **kwargs):
     """
     Post a tweet when a news item is created.
     """
-    if created:
+    if created and not raw:
         _api.PostUpdate('%s %s' % (
             instance.title,
             instance.url,
