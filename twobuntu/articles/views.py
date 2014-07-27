@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
-from twobuntu.articles.forms import EditorForm, ScheduledArticleForm
+from twobuntu.articles.forms import DeleteArticleForm, EditorForm, ScheduledArticleForm
 from twobuntu.articles.models import Article, ScheduledArticle
 from twobuntu.decorators import canonical
 
@@ -152,4 +152,29 @@ def schedule(request, id):
         'description': "Select a date and time to publish the article.",
         'form': form,
         'action': 'Schedule',
+    })
+
+@login_required
+def delete(request, id):
+    """
+    Delete the specified article.
+    """
+    article = get_object_or_404(Article, pk=id, author=request.user, status=Article.DRAFT)
+    if request.method == 'POST':
+        form = DeleteArticleForm(data=request.POST)
+        if form.is_valid():
+            article.delete()
+            messages.info(request, "The article was successfully deleted.")
+            return redirect(request.user.profile)
+    else:
+        form = DeleteArticleForm()
+    return render(request, 'form.html', {
+        'title': 'Delete "%s"' % article.title,
+        'parent': {
+            'title': article,
+            'url': article.get_absolute_url(),
+        },
+        'description': "Are you sure you want to delete this article? This action cannot easily be undone.",
+        'form': form,
+        'action': 'Delete',
     })

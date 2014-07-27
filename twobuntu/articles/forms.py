@@ -21,3 +21,12 @@ class ScheduledArticleForm(forms.ModelForm):
     class Meta:
         model = ScheduledArticle
         fields = ('date',)
+
+
+class DeleteArticleForm(forms.Form):
+    """
+    Form for deleting articles.
+    """
+
+    # Intentionally blank - submitting the form
+    # is considered consent to delete the article.

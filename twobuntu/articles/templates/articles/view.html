@@ -93,6 +93,12 @@
                                 <span class="fa fa-check"></span>
                                 Publish Article
                             </button>
+                            {% if request.user == article.author %}
+                                <a href="{% url "articles:delete" article.id %}" class="btn btn-sm btn-primary">
+                                    <span class="fa fa-trash-o"></span>
+                                    Delete Article
+                                </a>
+                            {% endif %}
                         </form>
                     {% endif %}
                 </div>
