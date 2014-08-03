@@ -94,7 +94,7 @@ class TwoBuntuExtension(markdown.Extension):
 
 
 cm = markdown.Markdown(safe_mode='escape', extensions=[
-    'headerid(level=3)',
+    'headerid',
     TwoBuntuExtension({}),
 ])
 
