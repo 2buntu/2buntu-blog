@@ -68,10 +68,13 @@
     {{ block.super }}
     <script src="{% static "js/ace.js" %}"></script>
     <script src="{% static "js/editor.js" %}"></script>
+    <script src="{% static "js/detect.js" %}"></script>
     <script>
         $(function() {
-            window.editor = new Editor("{% url "images:upload" %}?js");
-            $('#id_title').focus();
+            if(!isMobile()) {
+                window.editor = new Editor("{% url "images:upload" %}?js");
+                $('#id_title').focus();
+            }
         });
     </script>
 {% endblock %}
