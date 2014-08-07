@@ -154,6 +154,7 @@ def schedule(request, id):
         'action': 'Schedule',
     })
 
+
 @login_required
 def delete(request, id):
     """
