@@ -27,6 +27,7 @@ def view(request, article):
             'url': article.category.get_absolute_url(),
         },
         'article': article,
+        'rendered': article.render(),
         'can_edit': article.can_edit(request),
         'social': (
             ('https://www.facebook.com/sharer.php?u=', 'Facebook', 'fa-facebook-square'),
