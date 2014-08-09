@@ -7,6 +7,12 @@
         <title>Maintenance</title>
 
         <style>
+            a {
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
             body {
                 font-family: sans-serif;
                 text-align: center;
@@ -16,13 +22,31 @@
                 font-size: 3em;
                 text-shadow: 0.1em 0.1em 0.1em #aaa;
             }
+            img.logo {
+                display: block;
+                margin: auto;
+                vertical-align: middle;
+                width: 1.5em;
+            }
+            @media (min-width: 40em) {
+                img.logo {
+                    display: inline;
+                }
+            }
         </style>
     </head>
     <body>
-        <h2>System Maintenance</h2>
+        <h2>
+            <img src="data:image/png;base64,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" alt="2buntu Logo" class="logo">
+            System Maintenance
+        </h2>
         <p>
             We apologize for the interruption, but we're currently performing
             maintenance on our servers. Please check back again in a few minutes.
+        </p>
+        <p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAALCAYAAABPhbxiAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NTMxRkJCMkE0MzgxMUUxOEQxMTgzNjBDNjQ4QTVBMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4NTMxRkJCM0E0MzgxMUUxOEQxMTgzNjBDNjQ4QTVBMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjg1MzFGQkIwQTQzODExRTE4RDExODM2MEM2NDhBNUEyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg1MzFGQkIxQTQzODExRTE4RDExODM2MEM2NDhBNUEyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+mVdMVgAAAMVJREFUeNpi/P//PwPj2vcC/4MFPzCgAZA4kEoAYhD9AKhmAVSMgRGqcT2QvREkgabxPJAyQBI6AMQKQNzIBBUAmTIfqHA+3MS17w3QNIGAA1TtBZjGhVAa5Kz7IAOAdDwDdpAIdNkFmFP3Q00jCICaGEE0zMZCIP5AhL4LMAYT1BSQwEQiNE9E0YgUYg/w2YYc6kxIbgdpTATiDTic6IgswAIN/n4gDoAGNToA2VKInkDAoYoUbwFIciBnHwBqwOp8gAADAKjQTaVhdANrAAAAAElFTkSuQmCC" class="Twitter Logo">
+            <a href="https://twitter.com/2buntu">Follow us on Twitter</a> for status updates.
         </p>
     </body>
 </html>
