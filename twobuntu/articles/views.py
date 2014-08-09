@@ -105,7 +105,7 @@ def modify(request, action, id):
             raise Http404
         article.status = Article.UNAPPROVED
         article.save()
-        template = render_to_string('emails/submit.txt', {
+        template = render_to_string('articles/emails/submit.txt', {
             'article': request.build_absolute_uri(article.get_absolute_url()),
         })
         mail_admins('2buntu Article Submitted', template)

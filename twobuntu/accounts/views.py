@@ -69,7 +69,7 @@ def register(request):
             user.save()
             key = ConfirmationKey(user=user)
             key.save()
-            template = render_to_string('emails/register.txt', {
+            template = render_to_string('accounts/emails/register.txt', {
                 'user': user,
                 'url': request.build_absolute_uri(reverse('accounts:register_confirm', kwargs={'key': key.key})),
             })
@@ -110,7 +110,7 @@ def reset(request):
         if form.is_valid():
             key = ConfirmationKey(user=form.user)
             key.save()
-            template = render_to_string('emails/reset.txt', {
+            template = render_to_string('accounts/emails/reset.txt', {
                 'user': key.user,
                 'url': request.build_absolute_uri(reverse('accounts:reset_confirm', kwargs={'key': key.key})),
             })
