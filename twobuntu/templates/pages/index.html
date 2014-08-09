@@ -3,7 +3,7 @@
 
 {% block meta %}
     <meta name="author" content="Nathan Osman">
-    <meta name="description" content="A blog created by Ubuntu community members that provides news, tutorials, reviews, tips, and the occasional rant - all centering around the world's most popular Linux distribution: Ubuntu."/>
+    <meta name="description" content="A blog created by Ubuntu community members to provide news, tutorials, reviews, tips, and the occasional rant - all centering around the world's most popular Linux distribution: Ubuntu."/>
     <meta name="wot-verification" content="e3ab301eccb71149c5d5"/>
 {% endblock %}
 
@@ -21,16 +21,7 @@
             {% include "articles/fragment2.html" %}
         </div>
         <div class="col-sm-4">
-            <form action="{% url "articles:search" %}">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="q" placeholder="Enter search terms...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                            <span class="fa fa-search"></span>
-                        </button>
-                    </span>
-                </div>
-            </form>
+            {% include "components/search.html" %}
             <br>
             {% include "news/fragment.html" %}
             <div class="well">
