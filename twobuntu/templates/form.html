@@ -2,13 +2,13 @@
 
 {% block content %}
     <h2>{{ title }}</h2>
-        <div class="row">
-            <div class="col-sm-8">
-                {% block description %}
-                    <p>{{ description }}</p>
-                {% endblock %}
-            </div>
+    <div class="row">
+        <div class="col-sm-8">
+            {% block description %}
+                <p>{{ description }}</p>
+            {% endblock %}
         </div>
+    </div>
     <br>
     <form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
@@ -19,7 +19,7 @@
                         <div class="alert alert-danger">{{ error }}</div>
                     {% endfor %}
                     {% for field in form %}
-                        {% include "field.html" %}
+                        {% include "components/field.html" %}
                     {% endfor %}
                 </div>
             </div>

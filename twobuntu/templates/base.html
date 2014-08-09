@@ -28,13 +28,13 @@
         {% block rss %}{% endblock %}
     </head>
     <body>
-        {% block navbar %}{% include "navbar.html" %}{% endblock %}
+        {% block navbar %}{% include "components/navbar.html" %}{% endblock %}
         <div class="container content">
-            {% block breadcrumbs %}{% include "breadcrumbs.html" %}{% endblock %}
-            {% include "messages.html" %}
+            {% block breadcrumbs %}{% include "components/breadcrumbs.html" %}{% endblock %}
+            {% include "components/messages.html" %}
             {% block content %}{% endblock %}
         </div>
-        {% block footer %}{% include "footer.html" %}{% endblock %}
+        {% block footer %}{% include "components/footer.html" %}{% endblock %}
 
         {% block scripts %}
             <script src="{% static "js/jquery.min.js" %}"></script>
