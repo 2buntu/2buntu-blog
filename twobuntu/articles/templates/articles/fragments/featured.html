@@ -14,7 +14,7 @@
     <div class="row">
         {% for article in articles|slice:"1:3" %}
             <div class="col-sm-6 featured-article fade-bottom">
-                {% include "articles/preview.html" %}
+                {% include "articles/fragments/article.html" %}
             </div>
         {% endfor %}
     </div>

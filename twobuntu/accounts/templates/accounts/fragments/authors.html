@@ -1,0 +1,24 @@
+<h2>Meet the Authors</h2>
+<p>
+    We have a number of different authors that contribute articles to our blog.
+    Each of them writes with a unique perspective, ensuring that we have a diverse collection articles accessible to anyone.
+</p>
+<br>
+{% if users %}
+    <div class="row">
+        {% for user in users|slice:":6" %}
+            {% if forloop.counter0 == 3 %}
+                </div>
+                <br>
+                <div class="row">
+            {% endif %}
+            <div class="col-sm-4 text-center">
+                {% include "accounts/fragments/author.html" %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">
+        There are currently no registered users.
+    </p>
+{% endif %}

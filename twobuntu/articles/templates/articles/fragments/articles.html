@@ -4,7 +4,7 @@
 
 {% for article in page %}
     {% if forloop.counter0 %}<hr>{% endif %}
-    {% include "articles/preview.html" %}
+    {% include "articles/fragments/article.html" %}
 {% empty %}
     <p class="text-muted">
         No articles match the specified criteria.

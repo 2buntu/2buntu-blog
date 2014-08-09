@@ -5,9 +5,11 @@
         <div class="col-sm-8">
             <h2>{{ title }}</h2>
             <hr>
-            {% include "articles/list.html" %}
+            {% include "articles/fragments/articles.html" %}
         </div>
         <div class="col-sm-4">
+            {% include "components/search.html" %}
+            <br>
             <div class="well">
                 <a href="{% url "categories:rss" category.id %}">
                     <span class="fa fa-rss"></span>

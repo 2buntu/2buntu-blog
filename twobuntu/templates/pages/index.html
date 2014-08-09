@@ -14,16 +14,22 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-8">
-            {% include "articles/fragment1.html" %}
+            {% include "articles/fragments/featured.html" %}
             <hr>
-            {% include "accounts/fragment.html" %}
+            {% include "accounts/fragments/authors.html" %}
             <hr>
-            {% include "articles/fragment2.html" %}
+            <h2>Recent Articles</h2>
+            <p>
+                Looking for more great content? There's more where that came from!
+                Here are some other articles that have recently been published.
+            </p>
+            <br>
+            {% include "articles/fragments/articles.html" %}
         </div>
         <div class="col-sm-4">
             {% include "components/search.html" %}
             <br>
-            {% include "news/fragment.html" %}
+            {% include "news/fragments/items.html" %}
             <div class="well">
                 <a href="{% url "rss" %}">
                     <span class="fa fa-rss"></span>
@@ -34,7 +40,7 @@
                 <img src="{% static "img/blank-ad.png" %}" alt="Advertise Here">
             </a>
             <br><br>
-            {% include "categories/fragment.html" %}
+            {% include "categories/fragments/categories.html" %}
         </div>
     </div>
 {% endblock %}
