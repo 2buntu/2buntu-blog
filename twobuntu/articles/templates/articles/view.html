@@ -135,6 +135,13 @@
                        target="_blank"><span class="fa {{ site.2 }} fa-3x"></span></a>
                 {% endfor %}
             </div>
+            <hr>
+            <h4>Related Articles</h4>
+            <ul>
+                {% for article in related_articles %}
+                    <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 {% endblock %}
