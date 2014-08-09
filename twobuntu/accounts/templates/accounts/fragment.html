@@ -21,9 +21,11 @@
                     <small>Author of {{ user.num_articles }} article{{ user.num_articles|pluralize }}</small>
                 </h4>
                 <div class="featured-author fade-bottom">
-                    <p>
-                        {{ user.profile.bio|linebreaksbr }}
-                    </p>
+                    {% if user.profile.bio %}
+                        <p>{{ user.profile.bio|linebreaksbr }}</p>
+                    {% else %}
+                        <p class="text-muted">This user has not yet completed their profile.</p>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
