@@ -3,7 +3,14 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block content %}
-    <h2>Whoops!</h2>
-    <p>That page does not exist.</p>
-    <img src="http://placekitten.com/400/300" />
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Whoops!</h2>
+            <p>That page does not exist.</p>
+            <img src="http://placekitten.com/400/300" />
+        </div>
+        <div class="col-md-4">
+            {% include "components/search.html" %}
+        </div>
+    </div>
 {% endblock %}
