@@ -1,0 +1,6 @@
+<h4>Related Articles</h4>
+<ul>
+    {% for article in related_articles %}
+        <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
+    {% endfor %}
+</ul>

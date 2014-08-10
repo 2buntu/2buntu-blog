@@ -58,17 +58,7 @@
                 {{ rendered }}
             </div>
             <hr>
-            <!-- Disqus comments. -->
-            <div id="disqus_thread"></div>
-            <script>
-                var disqus_shortname = '2buntu';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + '2buntu.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript>
+            {% include "articles/fragments/comments.html" %}
         </div>
         <div class="col-sm-4">
             {% if can_edit %}
@@ -129,21 +119,9 @@
             {% endif %}
             {% include "components/search.html" %}
             <br>
-            <h4>Share This Article</h4>
-            <div id="share-buttons">
-                {% for site in social %}
-                    <a href="{{ site.0 }}{{ request.build_absolute_uri|urlencode }}"
-                       title="Share this article on {{ site.1 }}"
-                       target="_blank"><span class="fa {{ site.2 }} fa-3x"></span></a>
-                {% endfor %}
-            </div>
+            {% include "articles/fragments/share.html" %}
             <br>
-            <h4>Related Articles</h4>
-            <ul>
-                {% for article in related_articles %}
-                    <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
-                {% endfor %}
-            </ul>
+            {% include "articles/fragments/related.html" %}
         </div>
     </div>
 {% endblock %}

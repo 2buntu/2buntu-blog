@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block meta %}
     <meta name="author" content="Nathan Osman">
@@ -36,9 +35,7 @@
                     Latest Articles Feed
                 </a>
             </div>
-            <a href="{% url "ads:index" %}">
-                <img src="{% static "img/blank-ad.png" %}" alt="Advertise Here">
-            </a>
+            {% include "ads/fragments/ad.html" %}
             <br><br>
             {% include "categories/fragments/categories.html" %}
         </div>

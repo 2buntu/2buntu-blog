@@ -1,0 +1,8 @@
+<h4>Share This Article</h4>
+<div id="share-buttons">
+    {% for site in social %}
+        <a href="{{ site.0 }}{{ request.build_absolute_uri|urlencode }}"
+           title="Share this article on {{ site.1 }}"
+           target="_blank"><span class="fa {{ site.2 }} fa-3x"></span></a>
+    {% endfor %}
+</div>
