@@ -8,6 +8,12 @@ a:hover, a:focus { text-decoration: none; }
 a.navbar-brand { font-size: 18pt; }
 body { background-color: #f5f5f5; }
 div.alert { overflow: auto; }
+div.alert h1:first-child,
+div.alert h2:first-child,
+div.alert h3:first-child,
+div.alert h4:first-child,
+div.alert h5:first-child,
+div.alert h6:first-child { margin-top: 0; }
 div.btn-group { margin: 0 0 8px 0; }
 div.jumbotron { padding: 16px; }
 div.jumbotron h1 { font-size: 24pt; }
