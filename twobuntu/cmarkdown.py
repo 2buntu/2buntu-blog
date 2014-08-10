@@ -88,6 +88,8 @@ class TwoBuntuExtension(markdown.Extension):
         """
         Add our custom processors to the Markdown parser.
         """
+        strikethrough_pattern = markdown.inlinepatterns.SimpleTagPattern(r'---([^-]+)---', 's')
+        md.inlinePatterns.add('strikethrough', strikethrough_pattern, '_end')
         md.inlinePatterns.add('linkify', LinkifyPattern(), '_end')
         md.inlinePatterns.add('image', ImagePattern(), '_end')
         md.parser.blockprocessors.add('alert', AlertProcessor(md.parser), '>indent')
