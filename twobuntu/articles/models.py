@@ -76,6 +76,29 @@ class Article(models.Model):
         # The user must either be staff or have written the article or it must be published
         return request.user.is_staff or request.user == self.author or self.status == self.PUBLISHED
 
+    @property
+    def markdown_key(self):
+        """
+        Return the key used for caching markdown.
+        """
+        return 'article-%d-markdown' % self.id
+
+    def related(self):
+        """
+        Returns a QuerySet of related articles.
+        """
+        return Article.objects.filter(~models.Q(id=self.id), status=self.PUBLISHED, category=self.category)
+
+    def render(self):
+        """
+        Render the Markdown body.
+        """
+        md = cache.get(self.markdown_key)
+        if not md:
+            md = cmarkdown(self.body)
+            cache.set(self.markdown_key, md)
+        return md
+
     @classmethod
     def apply_filter(cls, request, *args):
         """
@@ -85,16 +108,6 @@ class Article(models.Model):
         if not request.user.is_staff:
             args.append(models.Q(author=request.user.id) | models.Q(status=cls.PUBLISHED))
         return cls.objects.filter(*args)
-
-    def render(self):
-        """
-        Render the Markdown body.
-        """
-        md = cache.get(self.id)
-        if not md:
-            md = cmarkdown(self.body)
-            cache.set(self.id, md)
-        return md
 
     class Meta:
         ordering = ('status', '-date')
@@ -113,7 +126,7 @@ def clear_cache_and_set_date(instance, **kwargs):
     """
     Clear the rendered cache and update the date if required.
     """
-    cache.delete(instance.id)
+    cache.delete(instance.markdown_key)
     if not instance.status == instance.old_status == Article.PUBLISHED:
         instance.date = now()
 

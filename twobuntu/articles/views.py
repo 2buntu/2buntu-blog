@@ -36,7 +36,6 @@ def view(request, article):
             ('http://tumblr.com/share?s=&v=3&u=', 'Tumblr', 'fa-tumblr-square'),
             ('http://www.linkedin.com/shareArticle?mini=true&url=', 'LinkedIn', 'fa-linkedin-square'),
         ),
-        'related_articles': Article.apply_filter(request, Q(category=article.category), ~Q(id=article.id))[:6],
     })
 
 

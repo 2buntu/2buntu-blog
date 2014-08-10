@@ -1,6 +1,6 @@
 <h4>Related Articles</h4>
 <ul>
-    {% for article in related_articles %}
-        <li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
+    {% for related_article in article.related|slice:":6" %}
+        <li><a href="{{ related_article.get_absolute_url }}">{{ related_article }}</a></li>
     {% endfor %}
 </ul>
