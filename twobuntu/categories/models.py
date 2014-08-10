@@ -11,6 +11,12 @@ class Category(models.Model):
         max_length=40,
         help_text="The name of the category.",
     )
+    image = models.ImageField(
+        upload_to='categories',
+        blank=True,
+        null=True,
+        help_text="A representative image.",
+    )
 
     def __unicode__(self):
         return self.name
