@@ -23,7 +23,9 @@
                 Here are some other articles that have recently been published.
             </p>
             <br>
-            {% include "articles/fragments/articles.html" %}
+            {% with articles|slice:"3:" as articles %}
+                {% include "articles/fragments/articles.html" %}
+            {% endwith %}
         </div>
         <div class="col-sm-4">
             {% include "components/search.html" %}
