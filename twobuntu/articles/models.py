@@ -122,11 +122,10 @@ def set_status(instance, **kwargs):
 
 
 @receiver(models.signals.pre_save, sender=Article)
-def clear_cache_and_set_date(instance, **kwargs):
+def update_date(instance, **kwargs):
     """
-    Clear the rendered cache and update the date if required.
+    Update the date if required.
     """
-    cache.delete(instance.markdown_key)
     if not instance.status == instance.old_status == Article.PUBLISHED:
         instance.date = now()
 
@@ -147,9 +146,11 @@ class ScheduledArticle(models.Model):
 
 
 @receiver(models.signals.post_save, sender=Article)
-def remove_scheduled(instance, **kwargs):
+def clear_cache_and_remove_scheduled(instance, created, **kwargs):
     """
-    Remove any scheduled articles if article is being published.
+    Clear the cache and remove any scheduled articles instance.
     """
+    if not created:
+        cache.delete(instance.markdown_key)
     if instance.status == Article.PUBLISHED:
         ScheduledArticle.objects.filter(article=instance).delete()
