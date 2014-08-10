@@ -13,19 +13,31 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-8">
-            {% include "articles/fragments/featured.html" %}
-            <hr>
-            {% include "accounts/fragments/authors.html" %}
-            <hr>
-            <h2>Recent Articles</h2>
-            <p>
-                Looking for more great content? There's more where that came from!
-                Here are some other articles that have recently been published.
-            </p>
-            <br>
-            {% with articles|slice:"3:" as articles %}
+            {% if not "page" in request.GET %}
+                {% include "articles/fragments/featured.html" %}
+                <hr>
+                {% include "accounts/fragments/authors.html" %}
+                <hr>
+                <h2>Recent Articles</h2>
+                <p>
+                    Looking for more great content? There's more where that came from!
+                    Here are some other articles that have recently been published.
+                </p>
+                <br>
+                {% with articles|slice:"3:" as articles %}
+                    {% include "articles/fragments/articles.html" %}
+                {% endwith %}
+            {% else %}
+                <h2>Archives &mdash; Page {{ request.GET.page }}</h2>
+                <p>
+                    Check out some of our older articles below.
+                    We've been publishing articles for a very long time, so there's
+                    sure to be something here for everybody.
+                </p>
+                <br>
                 {% include "articles/fragments/articles.html" %}
-            {% endwith %}
+            {% endif %}
+
         </div>
         <div class="col-sm-4">
             {% include "components/search.html" %}
