@@ -128,7 +128,7 @@ class AlertProcessor(markdown.blockprocessors.BlockProcessor):
         media = markdown.util.etree.SubElement(alert, 'div')
         media.set('class', 'media')
         icon = markdown.util.etree.SubElement(media, 'span')
-        icon.set('class', 'fa fa-4x fa-%s media-object pull-left' % self.TAGS[tag])
+        icon.set('class', 'fa fa-3x fa-%s media-object pull-left' % self.TAGS[tag])
         body = markdown.util.etree.SubElement(media, 'div')
         body.set('class', 'media-body')
         return body
