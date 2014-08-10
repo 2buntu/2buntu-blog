@@ -1,9 +1,8 @@
 import markdown
 import re
 
+from django.db.models import get_model
 from django.utils.safestring import mark_safe
-
-from twobuntu.images.models import Image
 
 
 class LinkifyPattern(markdown.inlinepatterns.Pattern):
@@ -12,45 +11,73 @@ class LinkifyPattern(markdown.inlinepatterns.Pattern):
     """
 
     def __init__(self):
-        """
-        Initialize the pattern.
-        """
         super(LinkifyPattern, self).__init__(r'(https?:\/\/[^\s\b]+)')
 
     def handleMatch(self, m):
-        """
-        Process a match of the regular expression.
-        """
         e = markdown.util.etree.Element('a')
         e.set('href', m.group(2))
         e.text = m.group(2)
         return e
 
 
-class ImagePattern(markdown.inlinepatterns.Pattern):
+class ReferencePattern(markdown.inlinepatterns.Pattern):
+    """
+    Pattern to recognize references to internal model instances.
+
+    Subclasses are expected to have two class attributes - MODEL_NAME, which is
+    used in the pattern, and MODEL, a string in dotted notation referencing the
+    model class. Subclasses must also provide a create_element method.
+    """
+
+    def __init__(self):
+        super(ReferencePattern, self).__init__(r'\[%s:(\d+)\]' % self.MODEL_NAME)
+
+    def handleMatch(self, m):
+        Model = get_model(*self.MODEL)
+        instance = None
+        try:
+            instance = Model.objects.get(pk=m.group(2))
+        except Model.DoesNotExist:
+            pass
+        e = instance and self.create_element(instance)
+        if e is None:
+            e = markdown.util.etree.Element('p')
+            e.set('class', 'text-muted')
+            e.text = '[Invalid %s reference.]' % self.MODEL_NAME
+        return e
+
+
+class ArticlePattern(ReferencePattern):
+    """
+    Pattern to replace references to other articles with <a> elements.
+    """
+
+    MODEL_NAME = 'article'
+    MODEL = ('articles', 'Article')
+
+    def create_element(self, article):
+        # Note: only published articles are rendered
+        if article.status == article.PUBLISHED:
+            e = markdown.util.etree.Element('a')
+            e.set('href', article.get_absolute_url())
+            e.text = unicode(article)
+            return e
+
+
+class ImagePattern(ReferencePattern):
     """
     Pattern to replace references to images with <img> elements.
     """
 
-    def __init__(self):
-        """
-        Initialize the pattern.
-        """
-        super(ImagePattern, self).__init__(r'\[image:\s*(\d+)(:primary)?\]')
+    MODEL_NAME = 'image'
+    MODEL = ('images', 'Image')
 
-    def handleMatch(self, m):
-        """
-        Process a match of the regular expression.
-        """
-        try:
-            img = Image.objects.get(pk=m.group(2))
-        except IndexError, Image.DoesNotExist:
-            pass
-        else:
-            e = markdown.util.etree.Element('img')
-            e.set('src', img.image.url)
-            e.set('title', img.caption)
-            return e
+    def create_element(self, image):
+        e = markdown.util.etree.Element('img')
+        e.set('src', image.image.url)
+        e.set('alt', image.caption)
+        e.set('title', image.caption)
+        return e
 
 
 class AlertProcessor(markdown.blockprocessors.BlockProcessor):
@@ -66,15 +93,9 @@ class AlertProcessor(markdown.blockprocessors.BlockProcessor):
     PATTERN = re.compile(r'\[(%s)\]' % '|'.join(TAGS.keys()))
 
     def test(self, parent, block):
-        """
-        Identify the type of block.
-        """
         return self.PATTERN.search(block)
 
     def run(self, parent, blocks):
-        """
-        Perform any necessary substitutions.
-        """
         block = blocks.pop(0)
         open_match = self.PATTERN.search(block)
         tag = open_match.group(1)
@@ -92,8 +113,8 @@ class AlertProcessor(markdown.blockprocessors.BlockProcessor):
                 content.append(last_block[:close_match.start()])
                 # Create the alert element and parse the blocks inside the alert body
                 self.parser.parseBlocks(self._create_alert(parent, tag), content)
-                # Parse the text after the closing tag
-                self.parser.parseBlocks(parent, [last_block[close_match.end():]])
+                # Insert the remaining text back into the block list
+                blocks.insert(0, last_block[close_match.end():])
                 break
             # If closing tag is missing, make it implicit
             if not len(blocks):
@@ -102,9 +123,6 @@ class AlertProcessor(markdown.blockprocessors.BlockProcessor):
                 content.append(blocks.pop(0))
 
     def _create_alert(self, parent, tag):
-        """
-        Create the container for the content.
-        """
         alert = markdown.util.etree.SubElement(parent, 'div')
         alert.set('class', 'alert alert-%s' % tag)
         media = markdown.util.etree.SubElement(alert, 'div')
@@ -122,12 +140,13 @@ class TwoBuntuExtension(markdown.Extension):
     """
 
     def extendMarkdown(self, md, md_globals):
-        """
-        Add our custom processors to the Markdown parser.
-        """
-        strikethrough_pattern = markdown.inlinepatterns.SimpleTagPattern(r'---([^-]+)---', 's')
-        md.inlinePatterns.add('strikethrough', strikethrough_pattern, '_end')
+        md.inlinePatterns.add(
+            'strikethrough',
+            markdown.inlinepatterns.SimpleTagPattern(r'---([^-]+)---', 's'),
+            '_end'
+        )
         md.inlinePatterns.add('linkify', LinkifyPattern(), '_end')
+        md.inlinePatterns.add('article', ArticlePattern(), '_end')
         md.inlinePatterns.add('image', ImagePattern(), '_end')
         md.parser.blockprocessors.add('alert', AlertProcessor(md.parser), '_begin')
 
@@ -141,5 +160,8 @@ cm = markdown.Markdown(safe_mode='escape', extensions=[
 def cmarkdown(value):
     """
     Render Markdown with our custom processors.
+
+    :param value: raw markdown
+    :returns: rendered HTML
     """
     return mark_safe(cm.convert(value))
