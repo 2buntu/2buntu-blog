@@ -2,14 +2,25 @@
 {% load gravatar %}
 
 {% block meta %}
-    <meta property="og:title" content="{{ article.title }}">
+    <!-- Facebook Open Graph metadata -->
+    <meta property="og:title" content="{{ article }}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:image" content="{{ article.author.profile.user.email|gravatar:256 }}">
     <meta property="og:description" content="{{ rendered|striptags|truncatewords:20 }}">
     <meta property="article:publisher" content="https://www.facebook.com/pages/2buntucom/129981420418132">
     <meta property="article:section" content="{{ article.category.name }}">
     <meta property="article:published_time" content="{{ article.date|date:"c" }}">
+    <!-- Twitter Summary Card metadata -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@2buntu">
+    <meta property="twitter:title" content="{{ article }}">
+    <meta property="twitter:description" content="{{ rendered|striptags|truncatewords:20 }}">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <!-- An image for the article if present -->
+    {% if article.image %}
+        <meta property="og:image" content="{{ article.image }}">
+        <meta property="twitter:image" content="{{ article.image }}">
+    {% endif %}
 {% endblock  %}
 
 {% block content %}

@@ -77,6 +77,14 @@ class Article(models.Model):
         return request.user.is_staff or request.user == self.author or self.status == self.PUBLISHED
 
     @property
+    def image(self):
+        """
+        Return the image representing the article.
+        """
+        if self.category.image:
+            return self.category.image.url
+
+    @property
     def markdown_key(self):
         """
         Return the key used for caching markdown.
