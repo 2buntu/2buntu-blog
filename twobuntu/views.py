@@ -23,12 +23,9 @@ def index(request):
     Render the home page.
     """
     return render(request, 'pages/index.html', {
+        'title': 'Archives' if 'page' in request.GET else None,
         'home': True,
-        'articles': Article.objects.select_related(
-            'author',
-            'author__profile',
-            'category',
-        ).filter(status=Article.PUBLISHED),
+        'articles': Article.objects.select_related('author', 'author__profile', 'category').filter(status=Article.PUBLISHED),
         'categories': Category.objects.filter(article__status=Article.PUBLISHED).annotate(num_articles=Count('article')),
         'items': Item.objects.all(),
         'users': User.objects.select_related('profile').filter(is_active=True).annotate(num_articles=Count('article')).order_by('-num_articles'),

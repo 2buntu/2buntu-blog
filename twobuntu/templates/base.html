@@ -13,7 +13,11 @@
 
         <title>
             {% if title %}
-                {{ title}} &middot; 2buntu
+                {{ title}}
+                {% if "page" in request.GET %}
+                    &mdash; Page {{ request.GET.page }}
+                {% endif %}
+                &middot; 2buntu
             {% else %}
                 2buntu &middot; News for Human Beings
             {% endif %}
