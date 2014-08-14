@@ -1,0 +1,30 @@
+{% if not article.cc_license %}
+    <div class="alert alert-warning">
+        <div class="media">
+            <span class="fa fa-warning fa-4x media-object pull-left"></span>
+            <div class="media-body">
+                <p>
+                    <strong>Important:</strong> this article is <em>not</em> released under a
+                    Creative Commons license and may <em>not</em> be copied or redistributed in any form.
+                    Please use our contact page to get in touch with us if you wish to reproduce the article.
+                </p>
+                {% if request.user == article.author %}
+                    <p>
+                        Because you are the original author of this article, you have the option of
+                        retaining the existing copyright or releasing the article under a CC BY-SA 4.0
+                        license.
+                    </p>
+                    <p>
+                        <form method="post" action="{% url "articles:modify" "release" article.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <span class="fa fa-globe"></span>
+                                Release Article
+                            </button>
+                        </form>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
