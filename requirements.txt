@@ -3,8 +3,8 @@ psycopg2
 django-redis-cache
 South
 Markdown
+django-recaptcha>=1.0
 django-widget-tweaks
 Pillow
 python-dateutil
 python-twitter
--e git+https://github.com/praekelt/django-recaptcha.git#egg=django-recaptcha
