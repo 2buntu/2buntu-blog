@@ -42,11 +42,11 @@
 
         {% block scripts %}
             <script src="{% static "js/jquery.min.js" %}"></script>
+            <script src="{% static "js/jquery.timeago.min.js" %}"></script>
             <script src="{% static "js/bootstrap.min.js" %}"></script>
 
             <!-- Google Analytics -->
-            <script type="text/javascript">
-
+            <script>
                 var _gaq = _gaq || [];
                 _gaq.push(['_setAccount', 'UA-28943111-1']);
                 _gaq.push(['_trackPageview']);
@@ -56,7 +56,14 @@
                     ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
                     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
                 })();
+            </script>
 
+            <!-- Common page initialization -->
+            <script>
+                $(function() {
+                    // Initialize instances of timeago
+                    $('.timeago').timeago();
+                });
             </script>
         {% endblock %}
     </body>
