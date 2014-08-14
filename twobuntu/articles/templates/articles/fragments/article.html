@@ -3,7 +3,8 @@
 <h4 class="truncate">
     <a href="{{ article.get_absolute_url }}" title="{{ article.title }}">{{ article }}</a><br>
     <small>
-        {{ article.date|timesince }} ago by
+        <span class="timeago" title="{{ article.date|date:"c" }}">{{ article.date|date:"DATETIME_FORMAT" }}</span>
+        by
         <a href="{{ article.author.profile.get_absolute_url }}" title="{{ article.author.profile }}">
             {{ article.author.profile }}
         </a>

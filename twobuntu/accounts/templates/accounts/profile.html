@@ -15,7 +15,12 @@
                 <div class="col-lg-8">
                     <h2>
                         {{ profile }}<br>
-                        <small>Last seen {{ profile.user.last_login|timesince }} ago</small>
+                        <small>
+                            Last seen
+                            {% with profile.user.last_login as ldate %}
+                                <span class="timeago" title="{{ ldate|date:"c" }}">{{ ldate|date:"DATETIME_FORMAT" }}</span>
+                            {% endwith %}
+                        </small>
                     </h2>
                     <table class="table">
                         {% if profile.website %}
