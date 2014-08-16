@@ -32,13 +32,13 @@
         {% block rss %}{% endblock %}
     </head>
     <body>
-        {% block navbar %}{% include "components/navbar.html" %}{% endblock %}
+        {% block navbar %}{% include "fragments/navbar.html" %}{% endblock %}
         <div class="container content">
-            {% block breadcrumbs %}{% include "components/breadcrumbs.html" %}{% endblock %}
-            {% include "components/messages.html" %}
+            {% block breadcrumbs %}{% include "fragments/breadcrumbs.html" %}{% endblock %}
+            {% include "fragments/messages.html" %}
             {% block content %}{% endblock %}
         </div>
-        {% block footer %}{% include "components/footer.html" %}{% endblock %}
+        {% block footer %}{% include "fragments/footer.html" %}{% endblock %}
 
         {% block scripts %}
             <script src="{% static "js/jquery.min.js" %}"></script>
