@@ -17,4 +17,4 @@ class Command(BaseCommand):
         Process the command.
         """
         cache.clear()
-        print 'Cache has been completely cleared.'
+        print "Cache has been completely cleared."
