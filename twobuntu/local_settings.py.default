@@ -59,10 +59,10 @@ RECAPTCHA_PRIVATE_KEY = ''
 
 # If you are using Twitter integration, then you will need to supply values for these settings
 TWITTER = {
+    'token': '',
+    'token_secret': '',
     'consumer_key': '',
     'consumer_secret': '',
-    'access_token_key': '',
-    'access_token_secret': '',
 }
 
 # This value must be customized

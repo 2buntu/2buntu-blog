@@ -7,4 +7,4 @@ django-recaptcha>=1.0
 django-widget-tweaks
 Pillow
 python-dateutil
-python-twitter
+twitter

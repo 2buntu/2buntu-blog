@@ -1,8 +1,8 @@
-import twitter
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
+from twitter import OAuth, Twitter
 
 
 class Item(models.Model):
@@ -32,7 +32,7 @@ class Item(models.Model):
 
 
 # Create a global Twitter API object used for tweeting
-_api = twitter.Api(**settings.TWITTER)
+_twitter = Twitter(auth=OAuth(**settings.TWITTER))
 
 
 @receiver(models.signals.post_save, sender=Item)
@@ -41,7 +41,7 @@ def post_tweet(instance, created, raw, **kwargs):
     Post a tweet when a news item is created.
     """
     if created and not raw:
-        _api.PostUpdate('%s %s' % (
+        _twitter.statuses.update(status='%s %s' % (
             instance.title,
             instance.url,
         ))
