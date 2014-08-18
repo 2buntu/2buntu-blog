@@ -1,6 +1,7 @@
 from hashlib import md5
 
 from django import template
+from django.utils.encoding import smart_bytes
 
 register = template.Library()
 
@@ -15,6 +16,6 @@ def gravatar(email, size=64):
     :returns: the URL of the image
     """
     return 'http://gravatar.com/avatar/%s?d=identicon&size=%s' % (
-        md5(email).hexdigest(),
+        md5(smart_bytes(email)).hexdigest(),
         size,
     )

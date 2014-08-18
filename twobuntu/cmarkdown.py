@@ -2,6 +2,7 @@ import markdown
 import re
 
 from django.db.models import get_model
+from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
 
 
@@ -60,7 +61,7 @@ class ArticlePattern(ReferencePattern):
         if article.status == article.PUBLISHED:
             e = markdown.util.etree.Element('a')
             e.set('href', article.get_absolute_url())
-            e.text = unicode(article)
+            e.text = smart_text(article)
             return e
 
 
