@@ -40,9 +40,9 @@ def about(request):
         process = Popen(['git', 'log', '-1'], stdout=PIPE, cwd=path.dirname(__file__))
         output, error = process.communicate()
         commit = {
-            'hash': search(r'commit\s*(.*)', output).group(1)[:8],
-            'author': search(r'Author:\s*(.*)<', output).group(1),
-            'date': parse(search(r'Date:\s*(.*)', output).group(1)),
+            'hash': search(br'commit\s*(.*)', output).group(1)[:8],
+            'author': search(br'Author:\s*(.*)<', output).group(1),
+            'date': parse(search(br'Date:\s*(.*)', output).group(1)),
         }
     except (AttributeError, CalledProcessError):
         commit = {}
