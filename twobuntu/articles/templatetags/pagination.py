@@ -23,7 +23,7 @@ def modify_query_string(context, **kwargs):
     """
     Returns the current URL with modified query string.
     """
-    qs = dict([(k, v) for k, v in context['request'].GET.iteritems()])
+    qs = dict([(k, v) for k, v in context['request'].GET.items()])
     qs.update(kwargs)
     if 'page' in qs and qs['page'] == 1:
         del qs['page']
