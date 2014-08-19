@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from django.core.management.base import BaseCommand
 from django.utils.timezone import now
 
@@ -15,7 +17,9 @@ class Command(BaseCommand):
         """
         Process the command.
         """
-        for article in Article.objects.filter(scheduledarticle__date__lte=now()):
+        articles = list(Article.objects.filter(scheduledarticle__date__lte=now()))
+        for article in articles:
             article.status = Article.PUBLISHED
             article.save()
-            print '"%s" published.' % article.title
+            print('"%s" published.' % article.title)
+        print('%d article(s) published.' % len(articles))

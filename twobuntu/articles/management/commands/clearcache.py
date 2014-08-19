@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from django.core.cache import cache
 from django.core.management.base import BaseCommand
 
@@ -17,4 +19,4 @@ class Command(BaseCommand):
         Process the command.
         """
         cache.clear()
-        print "Cache has been completely cleared."
+        print("Cache has been completely cleared.")

@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
@@ -24,5 +26,5 @@ class Command(BaseCommand):
         users = list(User.objects.annotate(num_articles=Count('article')).filter(num_articles=0, last_login__lte=month))
         for user in users:
             user.delete()
-            print u'User "%s" deleted.' % user
-        print '%d users deleted.' % len(users)
+            print('User "%s" deleted.' % user)
+        print('%d user(s) deleted.' % len(users))
