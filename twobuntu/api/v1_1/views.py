@@ -4,6 +4,7 @@ from hashlib import md5
 from json import dumps
 
 from django.http import HttpResponse
+from django.utils.encoding import smart_bytes, smart_text
 
 from twobuntu.articles.models import Article
 
@@ -15,14 +16,14 @@ def endpoint(fn):
     def wrapper(request, **kwargs):
         try:
             json = dumps(fn(request, **kwargs))
-        except Exception, e:
+        except Exception as e:
             json = dumps({
-                'error': str(e),
+                'error': smart_text(e),
             })
         if 'callback' in request.GET:
             return HttpResponse(
                 '%s(%s)' % (request.GET['callback'], json),
-                content_type='application/javascript',
+                content_type='application/javascript; charset=utf-8',
             )
         else:
             return HttpResponse(json, content_type='application/json')
@@ -39,8 +40,8 @@ def articles(fn):
             'title': a.title,
             'body': a.render(),
             'author': {
-                'name': str(a.author.profile),
-                'email_hash': md5(a.author.email).hexdigest(),
+                'name': smart_text(a.author.profile),
+                'email_hash': md5(smart_bytes(a.author.email)).hexdigest(),
             },
             'url': request.build_absolute_uri(a.get_absolute_url()),
             'published_date': timegm(a.date.utctimetuple()),
