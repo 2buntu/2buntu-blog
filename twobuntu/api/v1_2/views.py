@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.encoding import smart_bytes, smart_text
 
 from twobuntu.accounts.models import Profile
 from twobuntu.articles.models import Article
@@ -56,8 +57,8 @@ class ObjectEncoder(JSONEncoder):
             'title': article.title,
             'author': {
                 'id': article.author.id,
-                'name': unicode(article.author.profile),
-                'email_hash': md5(article.author.email).hexdigest(),
+                'name': smart_text(article.author.profile),
+                'email_hash': md5(smart_bytes(article.author.email)).hexdigest(),
             },
             'category': {
                 'id': article.category.id,
@@ -86,8 +87,8 @@ class ObjectEncoder(JSONEncoder):
         """
         return {
             'id': profile.user.id,
-            'name': unicode(profile),
-            'email_hash': md5(profile.user.email).hexdigest(),
+            'name': smart_text(profile),
+            'email_hash': md5(smart_bytes(profile.user.email)).hexdigest(),
             'age': profile.age(),
             'location': profile.location,
             'website': profile.website,
@@ -101,7 +102,7 @@ def endpoint(fn):
     """
     Wrap the API endpoint.
     """
-    def wrapper(request, **kwargs):
+    def wrap(request, **kwargs):
         try:
             json = dumps(
                 fn(request, **kwargs),
@@ -110,7 +111,7 @@ def endpoint(fn):
             )
         except APIException as e:
             json = dumps({
-                'error': str(e),
+                'error': smart_text(e),
             })
         if 'debug' in request.GET:
             return render(request, 'api/debug.html', {
@@ -124,47 +125,49 @@ def endpoint(fn):
         elif 'callback' in request.GET:
             return HttpResponse(
                 '%s(%s)' % (request.GET['callback'], json),
-                content_type='application/javascript',
+                content_type='application/javascript; charset=utf-8',
             )
         else:
             return HttpResponse(json, content_type='application/json')
-    return wrapper
+    return wrap
 
 
 def paginate(fn):
     """
     Limit the number of items returned.
     """
-    def wrapper(request, **kwargs):
+    def wrap(request, **kwargs):
         try:
             page = max(int(request.GET['page']), 1) if 'page' in request.GET else 1
             size = min(max(int(request.GET['size']), 0), 20) if 'size' in request.GET else 20
         except ValueError:
             raise APIException("Invalid page and/or size parameter specified.")
         return fn(request, **kwargs)[(page - 1) * size:page * size]
-    return wrapper
+    return wrap
 
 
-def minmax(fn):
+def minmax(field):
     """
     Process minimum and maximum parameters.
     """
-    def wrapper(request, **kwargs):
-        filters = {}
-        try:
-            if 'min' in request.GET:
-                filters['date__gte'] = datetime.fromtimestamp(int(request.GET['min']))
-            if 'max' in request.GET:
-                filters['date__lte'] = datetime.fromtimestamp(int(request.GET['max']))
-        except ValueError:
-            raise APIException("Invalid min and/or max parameter specified.")
-        return fn(request, **kwargs).filter(**filters)
-    return wrapper
+    def outer(fn):
+        def inner(request, **kwargs):
+            filters = {}
+            try:
+                if 'min' in request.GET:
+                    filters['%s__gte' % field] = datetime.fromtimestamp(int(request.GET['min']))
+                if 'max' in request.GET:
+                    filters['%s__lte' % field] = datetime.fromtimestamp(int(request.GET['max']))
+            except ValueError:
+                raise APIException("Invalid min and/or max parameter specified.")
+            return fn(request, **kwargs).filter(**filters)
+        return inner
+    return outer
 
 
 @endpoint
 @paginate
-@minmax
+@minmax('date')
 def articles(request):
     """
     Return all recent articles.
@@ -173,8 +176,6 @@ def articles(request):
 
 
 @endpoint
-@paginate
-@minmax
 def article_by_id(request, id):
     """
     Return the specified article.
@@ -184,7 +185,7 @@ def article_by_id(request, id):
 
 @endpoint
 @paginate
-@minmax
+@minmax('user__last_login')
 def authors(request):
     """
     Return most popular authors.
@@ -193,8 +194,6 @@ def authors(request):
 
 
 @endpoint
-@paginate
-@minmax
 def author_by_id(request, id):
     """
     Return the specified author.
@@ -204,7 +203,7 @@ def author_by_id(request, id):
 
 @endpoint
 @paginate
-@minmax
+@minmax('date')
 def articles_by_author(request, id):
     """
     Return articles written by the specified author.
@@ -214,7 +213,6 @@ def articles_by_author(request, id):
 
 @endpoint
 @paginate
-@minmax
 def categories(request):
     """
     Return most popular categories.
@@ -224,7 +222,7 @@ def categories(request):
 
 @endpoint
 @paginate
-@minmax
+@minmax('date')
 def articles_by_category(request, id):
     """
     Return recent articles in the specified category.
