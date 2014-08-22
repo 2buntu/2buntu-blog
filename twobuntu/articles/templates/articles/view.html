@@ -6,7 +6,7 @@
     <meta property="og:title" content="{{ article }}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:description" content="{{ rendered|striptags|truncatewords:20 }}">
+    <meta property="og:description" content="{{ rendered|striptags|truncatewords:40 }}">
     <meta property="article:publisher" content="https://www.facebook.com/pages/2buntucom/129981420418132">
     <meta property="article:section" content="{{ article.category }}">
     <meta property="article:published_time" content="{{ article.date|date:"c" }}">
@@ -14,7 +14,7 @@
     <meta property="twitter:card" content="summary">
     <meta property="twitter:site" content="@2buntu">
     <meta property="twitter:title" content="{{ article }}">
-    <meta property="twitter:description" content="{{ rendered|striptags|truncatewords:20 }}">
+    <meta property="twitter:description" content="{{ rendered|striptags|truncatewords:40 }}">
     <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
     <!-- An image for the article if present -->
     {% if article.image %}
