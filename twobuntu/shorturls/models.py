@@ -1,6 +1,6 @@
-from uuid import uuid4
-
 from django.db import models
+
+from twobuntu.utils import uuid6
 
 
 class ShortURL(models.Model):
@@ -11,7 +11,7 @@ class ShortURL(models.Model):
     key = models.CharField(
         max_length=6,
         primary_key=True,
-        default=lambda: uuid4().hex[:6],
+        default=uuid6,
     )
     url = models.URLField(help_text="URL to redirect the client to.")
 

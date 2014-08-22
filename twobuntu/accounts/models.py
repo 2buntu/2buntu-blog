@@ -1,10 +1,10 @@
-from uuid import uuid4
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.utils.timezone import now
+
+from twobuntu.utils import uuid
 
 
 class Profile(models.Model):
@@ -75,7 +75,7 @@ class ConfirmationKey(models.Model):
     )
     key = models.CharField(
         max_length=32,
-        default=lambda: uuid4().hex,
+        default=uuid,
     )
 
     def __unicode__(self):
