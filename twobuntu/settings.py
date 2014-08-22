@@ -69,6 +69,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 )
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 # Load the debug toolbar if it is installed
 try:
     import debug_toolbar
