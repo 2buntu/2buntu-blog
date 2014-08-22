@@ -2,9 +2,11 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
+from django.utils.encoding import python_2_unicode_compatible
 from twitter import OAuth, Twitter
 
 
+@python_2_unicode_compatible
 class Item(models.Model):
     """
     A short news report.
@@ -24,7 +26,7 @@ class Item(models.Model):
     url = models.URLField(help_text="URL with more details about the news item.")
     date = models.DateTimeField(auto_now_add=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:

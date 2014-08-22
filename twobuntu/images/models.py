@@ -1,6 +1,8 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Image(models.Model):
     """
     A web-accessible image file.
@@ -15,7 +17,7 @@ class Image(models.Model):
         help_text="The image file.",
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.caption
 
     @models.permalink

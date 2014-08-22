@@ -4,9 +4,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
 
 
+@python_2_unicode_compatible
 class Profile(models.Model):
     """
     Information about an author.
@@ -35,7 +37,7 @@ class Profile(models.Model):
         help_text="A brief biography.",
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.get_full_name() or self.user.get_username()
 
     @models.permalink
@@ -64,6 +66,7 @@ def create_profile(instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 
+@python_2_unicode_compatible
 class ConfirmationKey(models.Model):
     """
     Unique token for confirming a user account or resetting a password.
@@ -78,5 +81,5 @@ class ConfirmationKey(models.Model):
         default=lambda: uuid4().hex,
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user

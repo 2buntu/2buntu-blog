@@ -1,7 +1,9 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
     """
     A grouping for articles of a similar topic.
@@ -18,7 +20,7 @@ class Category(models.Model):
         help_text="A representative image.",
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink

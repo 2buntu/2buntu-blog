@@ -1,6 +1,8 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Ad(models.Model):
     """
     An advertisement for a product.
@@ -18,5 +20,5 @@ class Ad(models.Model):
     display_start = models.DateTimeField(help_text="When the ad should start being displayed.")
     display_end = models.DateTimeField(help_text="When the ad should stop being displayed.")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.product

@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
 
 from twobuntu.categories.models import Category
 from twobuntu.cmarkdown import cmarkdown
 
 
+@python_2_unicode_compatible
 class Article(models.Model):
     """
     A post written in Markdown by an author.
@@ -49,7 +51,7 @@ class Article(models.Model):
     )
     date = models.DateTimeField()
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s%s' % (
             self.title,
             ' [%s]' % self.get_status_display() if not self.status == self.PUBLISHED else '',
@@ -138,6 +140,7 @@ def update_date(instance, **kwargs):
         instance.date = now()
 
 
+@python_2_unicode_compatible
 class ScheduledArticle(models.Model):
     """
     An article to be published at a later date.
@@ -149,7 +152,7 @@ class ScheduledArticle(models.Model):
     )
     date = models.DateTimeField(help_text="Date/time to publish article (YYYY-MM-DD HH:MM:SS).")
 
-    def __unicode__(self):
+    def __str__(self):
         return unicode(self.article)
 
 
