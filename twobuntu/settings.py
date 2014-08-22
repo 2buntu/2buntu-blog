@@ -27,17 +27,6 @@ TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
 ROOT_URLCONF = 'twobuntu.urls'
 WSGI_APPLICATION = 'twobuntu.wsgi.application'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.request',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.contrib.messages.context_processors.messages',
-)
-
 INSTALLED_APPS = (
     # Core Django applications
     'django.contrib.admin',
@@ -59,6 +48,25 @@ INSTALLED_APPS = (
     'twobuntu.images',
     'twobuntu.news',
     'twobuntu.shorturls',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
 )
 
 # Load the debug toolbar if it is installed
