@@ -54,7 +54,7 @@ class ObjectEncoder(JSONEncoder):
         """
         return {
             'id': article.id,
-            'title': article.title,
+            'title': smart_text(article),
             'author': {
                 'id': article.author.id,
                 'name': smart_text(article.author.profile),

@@ -21,5 +21,5 @@ class Command(BaseCommand):
         for article in articles:
             article.status = Article.PUBLISHED
             article.save()
-            print('"%s" published.' % article.title)
+            print('"%s" published.' % article)
         print('%d article(s) published.' % len(articles))

@@ -21,7 +21,7 @@ def view(request, article):
     if not article.can_view(request):
         raise Http404
     return render(request, 'articles/view.html', {
-        'title': article.title,
+        'title': article,
         'parent': {
             'title': article.category,
             'url': article.category.get_absolute_url(),
@@ -145,7 +145,7 @@ def schedule(request, id):
     else:
         form = ScheduledArticleForm(instance=scheduled_article)
     return render(request, 'form.html', {
-        'title': 'Schedule "%s"' % article.title,
+        'title': 'Schedule "%s"' % article,
         'parent': {
             'title': article,
             'url': article.get_absolute_url(),
@@ -171,7 +171,7 @@ def delete(request, id):
     else:
         form = DeleteArticleForm()
     return render(request, 'form.html', {
-        'title': 'Delete "%s"' % article.title,
+        'title': 'Delete "%s"' % article,
         'parent': {
             'title': article,
             'url': article.get_absolute_url(),

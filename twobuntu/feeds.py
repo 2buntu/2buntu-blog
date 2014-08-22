@@ -13,7 +13,7 @@ class ArticleFeed(Feed):
     """
 
     def item_title(self, article):
-        return article.title
+        return article
 
     def item_link(self, article):
         return article.get_absolute_url()

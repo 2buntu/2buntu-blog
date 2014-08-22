@@ -37,7 +37,7 @@ def articles(fn):
     def wrapper(request, **kwargs):
         return [{
             'id': a.id,
-            'title': a.title,
+            'title': smart_text(a),
             'body': a.render(),
             'author': {
                 'name': smart_text(a.author.profile),
