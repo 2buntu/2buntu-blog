@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from django.core.management.base import BaseCommand
 from django.utils.timezone import now
 
@@ -21,5 +19,5 @@ class Command(BaseCommand):
         for article in articles:
             article.status = Article.PUBLISHED
             article.save()
-            print('"%s" published.' % article)
-        print('%d article(s) published.' % len(articles))
+            self.stdout.write('"%s" published.' % article)
+        self.stdout.write('%d article(s) published.' % len(articles))
