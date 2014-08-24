@@ -42,10 +42,10 @@ class Profile(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('accounts:profile', (), {
-            'id': self.user.id,
-            'slug': slugify(self),
-        })
+        kwargs, slug = {'id': self.user.id}, slugify(self)
+        if slug:
+            kwargs['slug'] = slug
+        return ('accounts:profile', (), kwargs)
 
     def age(self):
         """

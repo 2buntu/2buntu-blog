@@ -59,10 +59,10 @@ class Article(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('articles:view', (), {
-            'id': self.id,
-            'slug': slugify(self.title),
-        })
+        kwargs, slug = {'id': self.id}, slugify(self.title)
+        if slug:
+            kwargs['slug'] = slug
+        return ('articles:view', (), kwargs)
 
     def can_edit(self, request):
         """
