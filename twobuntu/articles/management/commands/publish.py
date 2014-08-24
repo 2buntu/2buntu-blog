@@ -10,6 +10,7 @@ class Command(BaseCommand):
     """
 
     help = "Publish all scheduled articles."
+    output_transaction = True
 
     def handle(self, *args, **kwargs):
         """
