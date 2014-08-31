@@ -25,4 +25,4 @@ class Command(BaseCommand):
         for user in users:
             user.delete()
             self.stdout.write('User "%s" deleted.' % user)
-        self.stdout.write('%d user(s) deleted.' % len(users))
+        self.stdout.write("%d user(s) deleted." % len(users))

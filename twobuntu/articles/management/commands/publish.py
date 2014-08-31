@@ -21,4 +21,4 @@ class Command(BaseCommand):
             article.status = Article.PUBLISHED
             article.save()
             self.stdout.write('"%s" published.' % article)
-        self.stdout.write('%d article(s) published.' % len(articles))
+        self.stdout.write("%d article(s) published." % len(articles))
