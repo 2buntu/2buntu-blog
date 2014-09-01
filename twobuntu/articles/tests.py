@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AnonymousUser, User
+from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.utils.timezone import now
 
@@ -12,10 +12,7 @@ class TestArticlePermission(TestCase):
     """
 
     def setUp(self):
-        # Create a client that will be used for making requests
-        self.client = Client()
-        # Create three users - an anonymous user, a normal user, and an admin (staff)
-        self.anonymous_user = AnonymousUser()
+        # Create three users - two normal users and an admin (staff)
         self.ordinary_user1 = User.objects.create_user('ordinary1', 'ordinary1@example.com', 'ordinary1')
         self.ordinary_user2 = User.objects.create_user('ordinary2', 'ordinary1@example.com', 'ordinary2')
         self.administrator = User.objects.create_user('admin', 'admin@example.com', 'admin')
@@ -34,6 +31,12 @@ class TestArticlePermission(TestCase):
         article.save()
         return article
 
+    def create_request(self, article, username=None):
+        client = Client()
+        if username:
+            client.login(username=username, password=username)
+        return client.get(article.get_absolute_url())
+
     def test_access_to_draft_article(self):
-        response = self.client.get(self.draft_article.get_absolute_url())
+        response = self.create_request(self.draft_article)
         self.assertEqual(response.status_code, 404)
