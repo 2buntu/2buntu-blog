@@ -36,12 +36,15 @@ class Command(BaseCommand):
     help = "Create a complete backup of the 2buntu website."
 
     DATABASE_MODELS = [
-        'auth.user',
         'accounts.profile',
-        'categories.category',
-        'images.image',
+        'ads.ad',
         'articles.article',
         'articles.scheduledarticle',
+        'auth.user',
+        'categories.category',
+        'images.image',
+        'news.item',
+        'shorturls.shorturl',
     ]
 
     IMAGE_MODELS = [
