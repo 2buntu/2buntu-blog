@@ -3,26 +3,26 @@ language: python
 python:
     - "2.7"
 
+services:
+    - redis-server
+
 install:
-    - sudo apt-get install postgresql redis-server python-pip python-dev libpq-dev libjpeg8-dev zlib1g-dev
-    - pip install -r requirements.txt
+    - sudo apt-get install python-pip
+    - sudo pip install -r requirements.txt
+
+before_script:
+    - psql -c 'create database twobuntu;' -U postgres
 
 script:
-    - sudo -u postgres psql -c "CREATE USER twobuntu WITH PASSWORD 'twobuntu'"
-    - sudo -u postgres psql -c "CREATE DATABASE twobuntu WITH OWNER twobuntu"
-    - sudo -u postgres psql -c "ALTER USER twobuntu CREATEDB"
     - cp twobuntu/local_settings.py.default twobuntu/local_settings.py
     - |
       echo "DATABASES = {
           'default': {
-              'ENGINE':   'django.db.backends.postgresql_psycopg2',
-              'NAME':     'twobuntu',
-              'USER':     'twobuntu',
-              'PASSWORD': 'twobuntu',
-              'HOST':     'localhost',
+              'ENGINE': 'django.db.backends.postgresql_psycopg2',
+              'NAME': 'twobuntu',
+              'USER': 'postgres',
               },
       }
-
       SECRET_KEY = '1234567890abcdef'" >> twobuntu/local_settings.py
     - ./manage.py syncdb --noinput
     - ./manage.py migrate --noinput
