@@ -4,7 +4,7 @@ python:
     - "2.7"
 
 install:
-    - sudo apt-get install postgresql python-pip python-dev libpq-dev libjpeg8-dev zlib1g-dev
+    - sudo apt-get install postgresql redis-server python-pip python-dev libpq-dev libjpeg8-dev zlib1g-dev
     - pip install -r requirements.txt
 
 script:
@@ -22,7 +22,7 @@ script:
               'HOST':     'localhost',
               },
       }
-      
+
       SECRET_KEY = '1234567890abcdef'" >> twobuntu/local_settings.py
     - ./manage.py syncdb --noinput
     - ./manage.py migrate --noinput
