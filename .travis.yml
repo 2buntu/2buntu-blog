@@ -8,7 +8,7 @@ services:
 
 install:
     - sudo apt-get install python-pip
-    - sudo pip install -r requirements.txt
+    - pip install -r requirements.txt
 
 before_script:
     - psql -c 'create database twobuntu;' -U postgres
@@ -21,7 +21,7 @@ script:
               'ENGINE': 'django.db.backends.postgresql_psycopg2',
               'NAME': 'twobuntu',
               'USER': 'postgres',
-              },
+          },
       }
       SECRET_KEY = '1234567890abcdef'" >> twobuntu/local_settings.py
     - ./manage.py syncdb --noinput
