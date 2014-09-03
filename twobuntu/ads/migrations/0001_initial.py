@@ -1,40 +1,27 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Ad'
-        db.create_table(u'ads_ad', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('product', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('display_start', self.gf('django.db.models.fields.DateTimeField')()),
-            ('display_end', self.gf('django.db.models.fields.DateTimeField')()),
-        ))
-        db.send_create_signal(u'ads', ['Ad'])
+    dependencies = [
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'Ad'
-        db.delete_table(u'ads_ad')
-
-
-    models = {
-        u'ads.ad': {
-            'Meta': {'object_name': 'Ad'},
-            'display_end': ('django.db.models.fields.DateTimeField', [], {}),
-            'display_start': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'product': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
-        }
-    }
-
-    complete_apps = ['ads']
+    operations = [
+        migrations.CreateModel(
+            name='Ad',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('product', models.CharField(help_text='The name of the product being advertised.', max_length=100)),
+                ('image', models.ImageField(help_text='An image depicting the advertised product.', upload_to='ads')),
+                ('url', models.URLField(help_text='The URL that will be displayed when the image is selected.')),
+                ('display_start', models.DateTimeField(help_text='When the ad should start being displayed.')),
+                ('display_end', models.DateTimeField(help_text='When the ad should stop being displayed.')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+    ]

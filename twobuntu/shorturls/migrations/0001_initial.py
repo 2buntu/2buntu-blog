@@ -1,32 +1,24 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import twobuntu.utils
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'ShortURL'
-        db.create_table(u'shorturls_shorturl', (
-            ('key', self.gf('django.db.models.fields.CharField')(default='92364b', max_length=6, primary_key=True)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
-        ))
-        db.send_create_signal(u'shorturls', ['ShortURL'])
+    dependencies = [
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'ShortURL'
-        db.delete_table(u'shorturls_shorturl')
-
-
-    models = {
-        u'shorturls.shorturl': {
-            'Meta': {'object_name': 'ShortURL'},
-            'key': ('django.db.models.fields.CharField', [], {'default': "'29f2cf'", 'max_length': '6', 'primary_key': 'True'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
-        }
-    }
-
-    complete_apps = ['shorturls']
+    operations = [
+        migrations.CreateModel(
+            name='ShortURL',
+            fields=[
+                ('key', models.CharField(primary_key=True, max_length=6, serialize=False, default=twobuntu.utils.uuid6)),
+                ('url', models.URLField(help_text='URL to redirect the client to.')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+    ]

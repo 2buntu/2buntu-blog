@@ -1,32 +1,26 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Category'
-        db.create_table(u'categories_category', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=40)),
-        ))
-        db.send_create_signal(u'categories', ['Category'])
+    dependencies = [
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'Category'
-        db.delete_table(u'categories_category')
-
-
-    models = {
-        u'categories.category': {
-            'Meta': {'object_name': 'Category'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '40'})
-        }
-    }
-
-    complete_apps = ['categories']
+    operations = [
+        migrations.CreateModel(
+            name='Category',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('name', models.CharField(help_text='The name of the category.', max_length=40)),
+                ('image', models.ImageField(help_text='A representative image.', blank=True, null=True, upload_to='categories')),
+            ],
+            options={
+                'ordering': ('name',),
+                'verbose_name_plural': 'Categories',
+            },
+            bases=(models.Model,),
+        ),
+    ]
