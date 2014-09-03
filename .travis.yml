@@ -8,7 +8,6 @@ services:
     - redis-server
 
 install:
-    - sudo apt-get install python-pip
     - pip install -r requirements.txt
 
 before_script:
