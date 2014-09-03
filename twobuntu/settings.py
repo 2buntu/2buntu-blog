@@ -70,13 +70,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-# Load the debug toolbar if it is installed
-try:
-    import debug_toolbar
-except ImportError:
-    pass
-else:
-    INSTALLED_APPS = tuple(INSTALLED_APPS + ('debug_toolbar',))
-
 # Import all local settings
 from twobuntu.local_settings import *
