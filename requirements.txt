@@ -2,8 +2,8 @@ Django>=1.7
 psycopg2
 django-redis-cache
 Markdown
-django-recaptcha>=1.0
 django-widget-tweaks
 Pillow
 python-dateutil
 twitter
+-e git+https://github.com/nathan-osman/django-recaptcha.git#egg=django-recaptcha
