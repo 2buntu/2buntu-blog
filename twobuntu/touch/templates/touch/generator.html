@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link href="{% static "css/generator.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4">
+            <img src="{% static "img/touch-preview.png" %}">
+        </div>
+        <div class="col-sm-8">
+            <h2>Ubuntu Touch Device Art Generator</h2>
+            <p>
+                You've just finished writing an Ubuntu Touch app and you're ready to start distributing it through the Ubuntu Store.
+                How do you begin promoting your app? How can you show visitors to your blog what your app actually looks like on a device?
+            </p>
+            <p>
+                We've got you covered!
+            </p>
+            <p>
+                Upload a screenshot (resolution: <strong>319x543</strong>) of your app and click the generate button below.
+                Our server will generate a picture of your app running on an actual Ubuntu phone for you to use wherever you'd like.
+            </p>
+            <hr>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% with form.image as field %}
+                    {% include "fragments/field.html" %}
+                {% endwith %}
+                <br>
+                <button type="submit" class="btn btn-xl btn-primary">
+                    <span class="fa fa-cogs"></span>
+                    Generate
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

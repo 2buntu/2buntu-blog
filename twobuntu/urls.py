@@ -22,15 +22,13 @@ urlpatterns = patterns('',
     url(r'^categories/', include('twobuntu.categories.urls', 'categories')),
     url(r'^images/', include('twobuntu.images.urls', 'images')),
     url(r'^news/', include('twobuntu.news.urls', 'news')),
+    url(r'^touch/', include('twobuntu.touch.urls', 'touch')),
 
     # Shortened URLs can redirect anywhere
     url(r'^(?P<key>[0-9a-f]{6})/$', 'twobuntu.shorturls.views.shorturl'),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rss/$', LatestArticlesFeed(), name='rss'),
-
-    # Catch requests to the old URLs for a while with a permanent 301 redirect
-    url(r'^(?P<id>\d+)/', 'twobuntu.views.old'),
 )
 
 if settings.DEBUG:

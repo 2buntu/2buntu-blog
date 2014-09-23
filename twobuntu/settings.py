@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'twobuntu.images',
     'twobuntu.news',
     'twobuntu.shorturls',
+    'twobuntu.touch',
 )
 
 MIDDLEWARE_CLASSES = (
