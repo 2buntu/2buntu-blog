@@ -23,6 +23,12 @@ script:
               'USER': 'postgres',
           },
       }
+      CACHES = {
+          'default': {
+              'BACKEND': 'redis_cache.cache.RedisCache',
+              'LOCATION': '127.0.0.1:6379:0',
+          },
+      }
       SECRET_KEY = '1234567890abcdef'" >> twobuntu/local_settings.py
     - ./manage.py migrate --noinput
     - ./manage.py test --noinput
