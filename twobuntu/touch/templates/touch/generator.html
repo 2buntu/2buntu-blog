@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-4 text-center">
             <img src="{% static "img/touch-preview.png" %}">
         </div>
         <div class="col-sm-8">
@@ -21,8 +21,12 @@
                 We've got you covered!
             </p>
             <p>
-                Upload a screenshot (resolution: <strong>319x543</strong>) of your app and click the generate button below.
+                Upload a screenshot of your app and click the generate button below.
                 Our server will generate a picture of your app running on an actual Ubuntu phone for you to use wherever you'd like.
+            </p>
+            <p>
+                <strong>Note:</strong> as a general rule of thumb, the height of the screenshot should be at least twice the width.
+                Our tool will automatically perform any rescaling and cropping.
             </p>
             <hr>
             <form method="post" enctype="multipart/form-data">

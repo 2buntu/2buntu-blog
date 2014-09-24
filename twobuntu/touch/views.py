@@ -6,6 +6,12 @@ from PIL import Image
 
 from twobuntu.touch.forms import DeviceArtForm
 
+# Dimensions for the area of the frame used for the screenshot
+SCREENSHOT_X = 41
+SCREENSHOT_Y = 109
+SCREENSHOT_W = 319
+SCREENSHOT_H = 543
+
 
 def generate_device_art(screenshot):
     """
@@ -14,8 +20,10 @@ def generate_device_art(screenshot):
     response = BytesIO()
     t = Image.open(finders.find('img/touch-frame.png'))
     s = Image.open(screenshot)
-    s.thumbnail((319, 543), Image.ANTIALIAS)
-    t.paste(s, (41, 109))
+    w, h = s.size
+    s = s.crop((0, 0, w, int(float(SCREENSHOT_H) / float(SCREENSHOT_W) * w)))
+    s = s.resize((SCREENSHOT_W, SCREENSHOT_H), Image.ANTIALIAS)
+    t.paste(s, (SCREENSHOT_X, SCREENSHOT_Y))
     t.save(response, format='PNG')
     return response.getvalue()
 
