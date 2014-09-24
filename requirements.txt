@@ -1,6 +1,6 @@
 Django>=1.7
 psycopg2
-django-redis-cache
+django-redis
 Markdown
 django-widget-tweaks
 Pillow
