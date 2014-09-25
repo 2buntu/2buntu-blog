@@ -7,3 +7,4 @@ class DeviceArtForm(forms.Form):
     """
 
     image = forms.ImageField()
+    add_panel = forms.BooleanField(required=False, label='Add the Unity panel to the picture')

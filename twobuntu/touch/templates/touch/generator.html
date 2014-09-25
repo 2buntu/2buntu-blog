@@ -21,14 +21,15 @@
             </p>
             <p>
                 <strong>Note:</strong> for best results, use an image that is <strong>1080x1800</strong>.
+                Subract <strong>73 pixels</strong> from the height if you are adding the Unity panel.
                 Our tool will automatically resize and crop the image if necessary.
             </p>
             <hr>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {% with form.image as field %}
+                {% for field in form %}
                     {% include "fragments/field.html" %}
-                {% endwith %}
+                {% endfor %}
                 <br>
                 <button type="submit" class="btn btn-xl btn-primary">
                     <span class="fa fa-cogs"></span>
