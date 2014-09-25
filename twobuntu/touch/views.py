@@ -6,25 +6,32 @@ from PIL import Image
 
 from twobuntu.touch.forms import DeviceArtForm
 
-# Dimensions for the area of the frame used for the screenshot
-SCREENSHOT_X = 41
-SCREENSHOT_Y = 109
-SCREENSHOT_W = 319
-SCREENSHOT_H = 543
+# Dimensions used for calculations
+TEMPLATE_W = 1346
+TEMPLATE_H = 2313
+SCREENSHOT_X = 131
+SCREENSHOT_Y = 213
+SCREENSHOT_W = 1080
+SCREENSHOT_H = 1800
 
 
 def generate_device_art(screenshot):
     """
-    Load the template and combine it with the screenshot.
+    Load the template & overlay and combine them with the screenshot.
     """
     response = BytesIO()
-    t = Image.open(finders.find('img/touch-frame.png'))
+    # Open the two images to be combined
     s = Image.open(screenshot)
+    t = Image.open(finders.find('img/touch-frame.png'))
+    # Crop and resize the screenshot
     w, h = s.size
     s = s.crop((0, 0, w, int(float(SCREENSHOT_H) / float(SCREENSHOT_W) * w)))
     s = s.resize((SCREENSHOT_W, SCREENSHOT_H), Image.ANTIALIAS)
-    t.paste(s, (SCREENSHOT_X, SCREENSHOT_Y))
-    t.save(response, format='PNG')
+    # Create the output image and paste the screenshot on it
+    o = Image.new('RGBA', (TEMPLATE_W, TEMPLATE_H))
+    o.paste(s, (SCREENSHOT_X, SCREENSHOT_Y))
+    # Blend the frame above and save the image to the BytesIO
+    Image.alpha_composite(o, t).save(response, format='PNG')
     return response.getvalue()
 
 

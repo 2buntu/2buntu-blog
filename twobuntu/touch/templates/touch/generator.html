@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block stylesheets %}
-    {{ block.super }}
-    <link href="{% static "css/generator.css" %}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
     <div class="row">
         <div class="col-sm-4 text-center">
@@ -25,8 +20,8 @@
                 Our server will generate a picture of your app running on an actual Ubuntu phone for you to use wherever you'd like.
             </p>
             <p>
-                <strong>Note:</strong> as a general rule of thumb, the height of the screenshot should be at least twice the width.
-                Our tool will automatically perform any rescaling and cropping.
+                <strong>Note:</strong> for best results, use an image that is <strong>1080x1800</strong>.
+                Our tool will automatically resize and crop the image if necessary.
             </p>
             <hr>
             <form method="post" enctype="multipart/form-data">
