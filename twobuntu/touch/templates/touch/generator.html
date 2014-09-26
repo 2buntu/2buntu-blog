@@ -4,7 +4,7 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-4 text-center">
-            <img src="{% static "img/touch-preview.png" %}">
+            <img src="{% static "img/touch/mx3-preview.png" %}">
         </div>
         <div class="col-sm-8">
             <h2>Ubuntu Touch Device Art Generator</h2>
@@ -25,17 +25,21 @@
                 Our tool will automatically resize and crop the image if necessary.
             </p>
             <hr>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% for field in form %}
-                    {% include "fragments/field.html" %}
-                {% endfor %}
-                <br>
-                <button type="submit" class="btn btn-xl btn-primary">
-                    <span class="fa fa-cogs"></span>
-                    Generate
-                </button>
-            </form>
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% include "fragments/field.html" %}
+                        {% endfor %}
+                        <br>
+                        <button type="submit" class="btn btn-xl btn-primary">
+                            <span class="fa fa-cogs"></span>
+                            Generate
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
