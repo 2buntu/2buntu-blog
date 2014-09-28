@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('website', models.URLField()),
                 ('download_url', models.URLField()),
                 ('download_size', models.PositiveIntegerField()),
+                ('rating', models.PositiveSmallIntegerField()),
                 ('last_updated', models.DateTimeField()),
                 ('date_published', models.DateTimeField()),
             ],

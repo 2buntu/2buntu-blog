@@ -66,6 +66,8 @@ class Application(models.Model):
     department = models.ForeignKey(Department)
     keywords = models.ManyToManyField(Keyword)
 
+    rating = models.PositiveSmallIntegerField()
+
     last_updated = models.DateTimeField()
     date_published = models.DateTimeField()
 
