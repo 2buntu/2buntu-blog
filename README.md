@@ -1,7 +1,7 @@
 ## 2buntu Django Blog
 
 [![Build Status](https://travis-ci.org/2buntu/2buntu-Django-Blog.svg)](https://travis-ci.org/2buntu/2buntu-Django-Blog)
-[![Apache 2.0 License](http://img.shields.io/badge/license-Apache%202.0-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Apache 2.0 License](http://img.shields.io/badge/license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 The 2buntu blog is powered by Django, a flexible, open-source Python
 framework for quickly developing high-performance websites that scale. This
