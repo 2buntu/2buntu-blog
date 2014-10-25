@@ -56,6 +56,9 @@ class Profile(models.Model):
         n, b = now().date(), self.birthday
         return n.year - b.year - (0 if n.month > b.month or n.month == b.month and n.day >= b.day else 1)
 
+    class Meta:
+        ordering = ('-user__last_login',)
+
 
 @receiver(models.signals.post_save, sender=User)
 def create_profile(instance, created, **kwargs):
