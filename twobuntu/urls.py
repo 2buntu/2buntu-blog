@@ -2,10 +2,15 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 
 from twobuntu.feeds import LatestArticlesFeed
+from twobuntu.sitemaps import HomePageSitemap, StaticViewSitemap
 
-admin.autodiscover()
+sitemaps = {
+    'home': HomePageSitemap,
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = patterns('',
     url(r'^$', 'twobuntu.views.index', name='home'),
@@ -13,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^links/$', 'twobuntu.views.links', name='links'),
     url(r'^feedback/$', 'twobuntu.views.feedback', name='feedback'),
     url(r'^join/$', 'twobuntu.views.join', name='join'),
-    url(r'^opensearch.xml$', 'twobuntu.views.opensearch', name='opensearch'),
+    url(r'^opensearch\.xml$', 'twobuntu.views.opensearch', name='opensearch'),
 
     url(r'^accounts/', include('twobuntu.accounts.urls', 'accounts')),
     url(r'^ads/', include('twobuntu.ads.urls', 'ads')),
@@ -29,6 +34,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rss/$', LatestArticlesFeed(), name='rss'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 )
 
 if settings.DEBUG:
