@@ -162,6 +162,7 @@ def edit(request, id):
         if form.is_valid():
             profile.user.first_name = form.cleaned_data['first_name']
             profile.user.last_name = form.cleaned_data['last_name']
+            profile.user.email = form.cleaned_data['email']
             profile.user.save()
             form.save()
             return redirect(profile)
@@ -171,6 +172,7 @@ def edit(request, id):
             initial={
                 'first_name': profile.user.first_name,
                 'last_name': profile.user.last_name,
+                'email': profile.user.email,
             })
     return render(request, "form.html", {
         'title': 'Edit Profile',

@@ -47,7 +47,8 @@ class ProfileForm(forms.ModelForm):
         required=False,
         help_text="Last name [optional].",
     )
+    email = forms.EmailField(help_text="Used for account verification and password resets.")
 
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'birthday', 'location', 'website', 'bio')
+        fields = ('first_name', 'last_name', 'email', 'birthday', 'location', 'website', 'bio')
