@@ -29,13 +29,10 @@
             {% include "articles/fragments/license.html" %}
             <h2>
                 {{ article }}
-                <br>
-                <small>
-                    <span class="timeago" title="{{ article.date|date:"c" }}">{{ article.date|date:"DATETIME_FORMAT" }}</span>
-                    by
-                    <a href="{{ article.author.profile.get_absolute_url }}">{{ article.author.profile }}</a>
-                </small>
             </h2>
+            <hr>
+            {% include "articles/fragments/author.html" %}
+            <hr>
             <div class="article">
                 {{ rendered }}
             </div>
