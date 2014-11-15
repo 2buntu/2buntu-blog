@@ -1,6 +1,6 @@
 {% load gravatar %}
 
-<img src="{{ user.email|gravatar }}" alt="{{ user }}'s Gravatar" class="img-circle">
+<img src="{{ user.email|gravatar }}" alt="{{ user.profile }}'s Gravatar" class="img-circle">
 <h4 class="truncate">
     <a href="{{ user.profile.get_absolute_url }}" title="{{ user.profile }}">{{ user.profile }}</a><br>
     <small>Author of {{ user.num_articles }} article{{ user.num_articles|pluralize }}</small>
