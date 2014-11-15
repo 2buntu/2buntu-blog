@@ -1,0 +1,19 @@
+{% load gravatar %}
+
+<div class="media">
+    <div class="media-left">
+        <img src="{{ article.author.email|gravatar:40 }}"
+             alt="{{ article.author.profile }}'s Gravatar"
+             class="img-circle">
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading">
+            <a href="{{ article.author.profile.get_absolute_url }}">{{ article.author.profile }}</a>
+            <br>
+            <small>
+                published
+                <span class="timeago" title="{{ article.date|date:"c" }}">{{ article.date|date:"DATETIME_FORMAT" }}</span>
+            </small>
+        </h4>
+    </div>
+</div>
