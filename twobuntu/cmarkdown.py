@@ -12,7 +12,7 @@ class LinkifyPattern(markdown.inlinepatterns.Pattern):
     """
 
     def __init__(self):
-        super(LinkifyPattern, self).__init__(r'(https?:\/\/[^\s\b]+)')
+        super(LinkifyPattern, self).__init__(r'(https?:\/\/[^\s\b)]+)')
 
     def handleMatch(self, m):
         e = markdown.util.etree.Element('a')
