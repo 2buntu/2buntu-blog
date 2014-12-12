@@ -51,8 +51,8 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 # Keys for reCAPTCHA (to prevent spam form submissions)
-RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = ''
+RECAPTCHA_SITE_KEY = ''
+RECAPTCHA_SECRET_KEY = ''
 
 # If you are using Twitter integration, then you will need to supply values for these settings
 TWITTER = {

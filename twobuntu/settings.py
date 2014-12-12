@@ -37,13 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     # Django helper applications
-    'captcha',
     'widget_tweaks',
     # 2buntu applications
     'twobuntu.accounts',
     'twobuntu.ads',
     'twobuntu.api',
     'twobuntu.articles',
+    'twobuntu.captcha',
     'twobuntu.categories',
     'twobuntu.images',
     'twobuntu.news',

@@ -1,9 +1,9 @@
-from captcha.fields import ReCaptchaField
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.contrib.auth.models import User
 
 from twobuntu.accounts.models import Profile
+from twobuntu.captcha.fields import CaptchaField
 
 
 class RegistrationForm(UserCreationForm):
@@ -12,7 +12,7 @@ class RegistrationForm(UserCreationForm):
     """
 
     email = forms.EmailField(help_text="Used for account verification and password resets.")
-    captcha = ReCaptchaField(attrs={'theme': 'clean'})
+    captcha = CaptchaField()
 
 
 class ResetForm(PasswordResetForm):

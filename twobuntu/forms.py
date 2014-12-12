@@ -1,5 +1,6 @@
-from captcha.fields import ReCaptchaField
 from django import forms
+
+from twobuntu.captcha.fields import CaptchaField
 
 
 class FeedbackForm(forms.Form):
@@ -13,4 +14,4 @@ class FeedbackForm(forms.Form):
         help_text="Not required unless you would like a reply.",
     )
     comments = forms.CharField(widget=forms.Textarea())
-    captcha = ReCaptchaField(attrs={'theme': 'clean'})
+    captcha = CaptchaField()
