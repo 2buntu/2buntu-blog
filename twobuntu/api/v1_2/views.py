@@ -15,6 +15,15 @@ from twobuntu.articles.models import Article
 from twobuntu.categories.models import Category
 
 
+def index(request):
+    """
+    Display information about the API.
+    """
+    return render(request, 'api/v1_2/index.html', {
+        'title': 'API',
+    })
+
+
 class APIException(Exception):
     """
     Base for all API exceptions.
@@ -114,7 +123,7 @@ def endpoint(fn):
                 'error': smart_text(e),
             })
         if 'debug' in request.GET:
-            return render(request, 'api/debug.html', {
+            return render(request, 'api/v1_2/debug.html', {
                 'title': '2buntu API Debugger',
                 'parent': {
                     'title': 'API',

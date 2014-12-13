@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>2buntu API</h2>
+            <p>
+                2buntu provides a public API for querying general information about articles. This API was originally developed to provide the 2buntu Android app with easy access to database content. We encourage all interested parties to use our API, but we do request that you let us know if you plan to be making a large volume of requests (more than 1,000 requests per day).
+            </p>
+            <h3 id="technical-details">Technical Details</h3>
+            <p>
+                All responses received from the 2buntu API are in <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>
+                format. Additionally, <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a> requests are supported by
+                way of the <code>callback=&lt;whatever&gt;</code> parameter.
+            </p>
+            <p>
+                The absolute URL of each endpoint described below is constructed as follows:
+            </p>
+            <pre>/api/ <strong>API version</strong> / <strong>endpoint</strong> ? <strong>[parameters]</strong></pre>
+            <p>
+                The current version of the API is <strong>1.2</strong>.
+            </p>
+            <h3 id="methods">Methods</h3>
+            <p>
+                Each of the endpoints is documented below and each of them returns a list of "article" objects.
+            </p>
+            <hr>
+
+            <!-- /articles/ -->
+            <h4 id="articles">/articles/</h4>
+            <p>
+                Returns a list of articles sorted by their publication date.
+            </p>
+            <table class="table table-striped">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>minimum publication timestamp for returned articles</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>maximum publication timestamp for returned articles</td>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>specifies the page of articles to obtain</td>
+                </tr>
+                <tr>
+                    <td>size</td>
+                    <td>specifies the size of each page</td>
+                </tr>
+            </table>
+            <hr>
+
+            <!-- /articles/{id}/ -->
+            <h4 id="articles_id">/articles/{id}/</h4>
+            <p>
+                Returns information about a specific article. The <code>{id}</code> parameter refers to the ID of the article to be retrieved. This method will never return more than a single article.
+            </p>
+            <hr>
+
+            <!-- /authors/ -->
+            <h4 id="authors">/authors/</h4>
+            <p>
+                Returns a list of authors sorted by the number of articles published.
+            </p>
+            <table class="table table-striped">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>minimum last login timestamp for returned authors</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>maximum last login timestamp for returned authors</td>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>specifies the page of authors to obtain</td>
+                </tr>
+                <tr>
+                    <td>size</td>
+                    <td>specifies the size of each page</td>
+                </tr>
+            </table>
+            <hr>
+
+            <!-- /authors/{id}/ -->
+            <h4 id="authors_id">/authors/{id}/</h4>
+            <p>
+                Returns information about a specific author. The <code>{id}</code> parameter refers to the ID of the author to be retrieved. This method will never return more than a single article.
+            </p>
+            <hr>
+
+            <!-- /authors/{id}/articles/ -->
+            <h4 id="authors_id_articles">/authors/{id}/articles/</h4>
+            <p>
+                Returns a list of articles written by the author identified by the <code>{id}</code> parameter.
+            </p>
+            <table class="table table-striped">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>minimum publication timestamp for returned articles</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>maximum publication timestamp for returned articles</td>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>specifies the page of articles to obtain</td>
+                </tr>
+                <tr>
+                    <td>size</td>
+                    <td>specifies the size of each page</td>
+                </tr>
+            </table>
+            <hr>
+
+            <!-- /categories/ -->
+            <h4 id="categories">/categories/</h4>
+            <p>
+                Returns a list of categories sorted in alphabetical order.
+            </p>
+            <table class="table table-striped">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>specifies the page of categories to obtain</td>
+                </tr>
+                <tr>
+                    <td>size</td>
+                    <td>specifies the size of each page</td>
+                </tr>
+            </table>
+            <hr>
+
+            <!-- /categories/{id}/articles/ -->
+            <h4 id="categories_id_articles">/categories/{id}/articles/</h4>
+            <p>
+                Returns a list of articles filed under the category identified by the <code>{id}</code> parameter.
+            </p>
+            <table class="table table-striped">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>minimum publication timestamp for returned articles</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>maximum publication timestamp for returned articles</td>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>specifies the page of articles to obtain</td>
+                </tr>
+                <tr>
+                    <td>size</td>
+                    <td>specifies the size of each page</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default fixed">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Quick Links</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li><a href="#technical-details">Technical Details</a></p></li>
+                        <li>
+                            <a href="#methods">Methods</a>
+                            <ul>
+                                <li><a href="#articles">/articles/</a></li>
+                                <li><a href="#articles_id">/articles/{id}/</a></li>
+                                <li><a href="#authors">/authors/</a></li>
+                                <li><a href="#authors_id">/authors/{id}/</a></li>
+                                <li><a href="#authors_id_articles">/authors/{id}/articles/</a></li>
+                                <li><a href="#categories">/categories/</a></li>
+                                <li><a href="#categories_id_articles">/categories/{id}/articles/</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

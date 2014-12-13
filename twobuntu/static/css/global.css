@@ -35,6 +35,7 @@ span.fa { margin: 0 4px; }
    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), white);
    background: -o-linear-gradient(top, rgba(255, 255, 255, 0), white);
    background: -ms-linear-gradient(top, rgba(255, 255, 255, 0), white); }
+.fixed { position: fixed; }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Implement "missing" elements. */
