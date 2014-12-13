@@ -1,4 +1,11 @@
+# Files created by CPython
 *.py[co]
+__pycache__/
+
+# Deal with Windows' thumbnail silliness
 Thumbs.db
-*~
+
+# Local settings should never be committed
+# Instead, global changes go in settings.py and changes
+# to the template fo in local_settings.py.default
 twobuntu/local_settings.py
