@@ -3,7 +3,7 @@ from io import BytesIO
 from django.contrib.auth.models import User
 from django.core.files import File
 from django.test import TestCase
-from django.utils.encoding import smart_bytes
+from django.utils.encoding import smart_bytes, smart_text
 from django.utils.timezone import now
 
 from twobuntu.articles.models import Article
@@ -52,3 +52,6 @@ class TestCMarkdown(TestCase):
 
     def test_strikethrough(self):
         self.assertEqual(cm('---test---'), '<p><s>test</s></p>')
+
+    def test_unicode(self):
+        self.assertEqual(cm(smart_text('\xce\xa9')), smart_text('<p>\xce\xa9</p>'))
