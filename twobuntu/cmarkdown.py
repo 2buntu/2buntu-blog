@@ -143,7 +143,7 @@ class TwoBuntuExtension(markdown.Extension):
     def extendMarkdown(self, md, md_globals):
         md.inlinePatterns.add(
             'strikethrough',
-            markdown.inlinepatterns.SimpleTagPattern(r'---([^-]+)---', 's'),
+            markdown.inlinepatterns.SimpleTagPattern(r'(---)([^-]+)(---)', 's'),
             '_end'
         )
         md.inlinePatterns.add('linkify', LinkifyPattern(), '_end')

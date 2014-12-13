@@ -39,7 +39,7 @@ class TestCMarkdown(TestCase):
         self.assertEqual(cm('http://example.org'), '<p><a href="http://example.org">http://example.org</a></p>')
 
     def test_references(self):
-        self.assertEqual(cm('[article:%d]' % self.article.id), '<p><a href="/articles/1/test/">Test</a></p>')
+        self.assertEqual(cm('[article:%d]' % self.article.id), '<p><a href="/articles/%d/test/">Test</a></p>' % self.article.id)
         self.assertEqual(cm('[image:%d]' % self.image.id), '<p><img alt="Test" src="%s" title="Test" /></p>' % self.image.image.url)
 
     def test_alerts(self):
