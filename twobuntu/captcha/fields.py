@@ -1,9 +1,10 @@
-from json import load
+from json import loads
 from sys import _getframe
 
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.utils.encoding import smart_bytes, smart_text
 from six.moves.urllib.parse import urlencode
 from six.moves.urllib.request import urlopen
 
@@ -46,10 +47,10 @@ class CaptchaField(forms.Field):
         super(CaptchaField, self).validate(value)
         params = urlencode({
             'secret': settings.RECAPTCHA_SECRET_KEY,
-            'response': value,
+            'response': smart_bytes(value),
             'remoteip': self.get_remoteip(),
         })
         url = 'https://www.google.com/recaptcha/api/siteverify?%s' % params
-        if not load(urlopen(url)).get('success', False):
+        if not loads(smart_text(urlopen(url).read())).get('success', False):
             raise ValidationError("Incorrect captcha solution provided.")
         return value
