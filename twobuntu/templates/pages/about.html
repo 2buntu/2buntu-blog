@@ -74,9 +74,37 @@
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Fast Facts</h3>
+                    <h3 class="panel-title">Source Code Facts</h3>
                 </div>
                 <div class="panel-body">
+                    <p>
+                        2buntu is written in <a href="http://python.org">Python</a> and uses
+                        the <a href="http://djangoproject.com">Django</a> web framework.
+                        The user interface uses <a href="http://getbootstrap.com">Bootstrap 3</a>.
+                    </p>
+                    <p>
+                        Our articles are written in <a href="https://daringfireball.net/projects/markdown/">Markdown</a>
+                        and stored in a <a href="http://www.postgresql.org/">PostgreSQL</a> database. The Markdown is rendered to HTML and cached with <a href="http://redis.io/">Redis</a>.
+                    </p>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Server Facts</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        This server (<em>{{ hostname }}</em>) is running
+                        <strong>Django {{ django_version }}</strong> on
+                        <strong>Python {{ python_version }}</strong>.
+                    </p>
+                    {% if commit %}
+                        <p>
+                            Also, this server is running on commit
+                            <a href="https://github.com/2buntu/2buntu-Django-Blog/commit/{{ commit.hash }}">{{ commit.hash }}</a>,
+                            which was created by {{ commit.author }} {{ commit.date|timesince }} ago.
+                        </p>
+                    {% endif %}
                     <p>
                         2buntu currently has
                         <strong>{{ num_users }}</strong>
@@ -88,21 +116,6 @@
                             <em>That's a lot of articles!</em>
                         {% endif %}
                     </p>
-                    <p>
-                        2buntu is written in <a href="http://python.org">Python</a> and uses
-                        the <a href="http://djangoproject.com">Django</a> web framework.
-                        The user interface uses <a href="http://getbootstrap.com">Bootstrap 3</a>.
-                    </p>
-                    <p>
-                        Our articles are written in <a href="https://daringfireball.net/projects/markdown/">Markdown</a>
-                        and stored in a <a href="http://www.postgresql.org/">PostgreSQL</a> database. The Markdown is rendered to HTML and cached with <a href="http://redis.io/">Redis</a>.
-                    </p>
-                    {% if commit %}
-                        <p>
-                            This blog is running on commit <a href="https://github.com/2buntu/2buntu-Django-Blog/commit/{{ commit.hash }}">{{ commit.hash }}</a>,
-                            which was created by {{ commit.author }} {{ commit.date|timesince }} ago.
-                        </p>
-                    {% endif %}
                 </div>
             </div>
         </div>

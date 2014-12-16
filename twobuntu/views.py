@@ -1,8 +1,11 @@
 from dateutil.parser import parse
 from os import path
+from platform import python_version
 from re import search
+from socket import gethostname
 from subprocess import CalledProcessError, Popen, PIPE
 
+from django import get_version
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.templatetags.staticfiles import static
@@ -50,6 +53,9 @@ def about(request):
         'title': 'About Us',
         'num_articles': Article.objects.filter(status=Article.PUBLISHED).count(),
         'num_users': User.objects.filter(is_active=True).count(),
+        'hostname': gethostname(),
+        'django_version': get_version(),
+        'python_version': python_version(),
         'commit': commit,
     })
 
