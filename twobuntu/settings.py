@@ -17,6 +17,9 @@ SITE_ID = 1
 USE_TZ = True
 TIME_ZONE = 'America/Vancouver'
 
+# Default email from address
+DEFAULT_FROM_EMAIL = SERVER_EMAIL = '2buntu <donotreply@2buntu.com>'
+
 # Determine the directory this file resides in so that an absolute
 # path can be specified for the static files and templates
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
