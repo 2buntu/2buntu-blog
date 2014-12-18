@@ -63,6 +63,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
+    # Core Django context processors
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
@@ -71,6 +72,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
+    # 2buntu context processors
+    'twobuntu.context_processors.read_only',
 )
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
