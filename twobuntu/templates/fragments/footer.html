@@ -18,12 +18,14 @@
                         About Us
                     </a>
                 </p>
-                <p>
-                    <a href="{% url "join" %}">
-                        <span class="fa fa-fw fa-plus-circle"></span>
-                        Join
-                    </a>
-                </p>
+                {% if not READ_ONLY %}
+                    <p>
+                        <a href="{% url "join" %}">
+                            <span class="fa fa-fw fa-plus-circle"></span>
+                            Join
+                        </a>
+                    </p>
+                {% endif %}
             </div>
             <div class="col-sm-3">
                 <p>

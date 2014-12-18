@@ -70,7 +70,7 @@
                             </li>
                         </ul>
                     </li>
-                {% else %}
+                {% elif not READ_ONLY %}
                     <li>
                         <a href="{% url "accounts:login" %}?next={{ request.path|urlencode }}">
                             <span class="fa fa-sign-in"></span>
