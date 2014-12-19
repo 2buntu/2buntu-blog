@@ -55,11 +55,14 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    # Core Django middleware
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    # 2buntu middleware
+    'twobuntu.middleware.ReadOnlyMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -78,7 +81,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # Router for database operations
 DATABASE_ROUTERS = (
-    'twobuntu.routers.ReadOnlyAwareRouter',
+    'twobuntu.routers.ReadOnlyRouter',
 )
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'

@@ -8,15 +8,12 @@ class ReadOnlyError(Exception):
     """
 
 
-class ReadOnlyAwareRouter(object):
+class ReadOnlyRouter(object):
     """
-    Ensure that no write operations are performed in read-only mode.
+    Raises an exception if write operations are performed in read-only mode.
     """
 
     def db_for_write(self, model, **hints):
-        """
-        Raise an exception when attempting to write during read-only mode.
-        """
         if getattr(settings, 'READ_ONLY', False):
             raise ReadOnlyError('Write operations are not permitted when read-only mode is enabled.')
         return DEFAULT_DB_ALIAS
