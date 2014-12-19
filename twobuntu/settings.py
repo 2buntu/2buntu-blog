@@ -76,6 +76,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'twobuntu.context_processors.read_only',
 )
 
+# Router for database operations
+DATABASE_ROUTERS = (
+    'twobuntu.routers.ReadOnlyAwareRouter',
+)
+
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # Load the debug toolbar if it is installed
