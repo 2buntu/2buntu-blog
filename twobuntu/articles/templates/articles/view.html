@@ -18,8 +18,8 @@
     <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
     {% if article.image or article.category.image %}
         <!-- An image for the article -->
-        <meta property="og:image" content="{{ article.image.image|default:article.category.image }}">
-        <meta property="twitter:image" content="{{ article.image.image|default:article.category.image }}">
+        <meta property="og:image" content="{{ article.image.image.url|default:article.category.image.url }}">
+        <meta property="twitter:image" content="{{ article.image.image.url|default:article.category.image.url }}">
     {% endif %}
 {% endblock  %}
 
