@@ -55,9 +55,16 @@ function Editor(upload_url) {
 
         var selection = editor.getSelection(),
             range = selection.getRange();
+
+        // Use either an existing selection (if it exists) or supplied text
+        text = editor.session.getTextRange(range) || text;
+
+        // Insert the text and then adjust the selection accordingly
         editor.insert(prefix + text + suffix);
         range.setStart(range.start.row, range.start.column + prefix.length);
         range.setEnd(range.start.row, range.start.column + text.length);
+
+        // Set the modified range and focus the editor
         selection.setSelectionRange(range);
         editor.focus();
     }
