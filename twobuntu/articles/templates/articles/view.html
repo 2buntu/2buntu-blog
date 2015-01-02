@@ -16,10 +16,10 @@
     <meta property="twitter:title" content="{{ article }}">
     <meta property="twitter:description" content="{{ rendered|striptags|truncatewords:40 }}">
     <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
-    <!-- An image for the article if present -->
-    {% if article.image %}
-        <meta property="og:image" content="{{ article.image }}">
-        <meta property="twitter:image" content="{{ article.image }}">
+    {% if article.image or article.category.image %}
+        <!-- An image for the article -->
+        <meta property="og:image" content="{{ article.image.image|default:article.category.image }}">
+        <meta property="twitter:image" content="{{ article.image.image|default:article.category.image }}">
     {% endif %}
 {% endblock  %}
 

@@ -8,6 +8,7 @@ from django.utils.timezone import now
 
 from twobuntu.categories.models import Category
 from twobuntu.cmarkdown import cmarkdown
+from twobuntu.images.models import Image
 
 
 @python_2_unicode_compatible
@@ -40,6 +41,12 @@ class Article(models.Model):
         help_text="The title of the article.",
     )
     body = models.TextField(help_text="The body of the article [in Markdown].")
+    image = models.ForeignKey(
+        Image,
+        blank=True,
+        null=True,
+        help_text="An image highlighting the contents of the article.",
+    )
     status = models.PositiveSmallIntegerField(
         choices=STATUS,
         default=DRAFT,
@@ -77,14 +84,6 @@ class Article(models.Model):
         """
         # The user must either be staff or have written the article or it must be published
         return request.user.is_staff or request.user == self.author or self.status == self.PUBLISHED
-
-    @property
-    def image(self):
-        """
-        Return the image representing the article.
-        """
-        if self.category.image:
-            return self.category.image.url
 
     @property
     def markdown_key(self):
