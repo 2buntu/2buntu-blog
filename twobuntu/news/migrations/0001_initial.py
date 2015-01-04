@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Item',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('title', models.CharField(help_text='The title of the news item.', max_length=100)),
-                ('body', models.TextField(help_text='The body of the news item [in Markdown].')),
-                ('url', models.URLField(help_text='URL with more details about the news item.')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(help_text=b'The title of the news item.', max_length=100)),
+                ('body', models.TextField(help_text=b'The body of the news item [in Markdown].')),
+                ('url', models.URLField(help_text=b'URL with more details about the news item.')),
                 ('date', models.DateTimeField(auto_now_add=True)),
-                ('reporter', models.ForeignKey(help_text='The user reporting the news item.', to=settings.AUTH_USER_MODEL)),
+                ('reporter', models.ForeignKey(help_text=b'The user reporting the news item.', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('-date',),

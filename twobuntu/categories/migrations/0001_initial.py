@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('name', models.CharField(help_text='The name of the category.', max_length=40)),
-                ('image', models.ImageField(help_text='A representative image.', blank=True, null=True, upload_to='categories')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(help_text=b'The name of the category.', max_length=40)),
+                ('image', models.ImageField(help_text=b'A representative image.', null=True, upload_to=b'categories', blank=True)),
             ],
             options={
                 'ordering': ('name',),

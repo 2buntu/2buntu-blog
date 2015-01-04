@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ShortURL',
             fields=[
-                ('key', models.CharField(primary_key=True, max_length=6, serialize=False, default=twobuntu.utils.uuid6)),
-                ('url', models.URLField(help_text='URL to redirect the client to.')),
+                ('key', models.CharField(default=twobuntu.utils.uuid6, max_length=6, serialize=False, primary_key=True)),
+                ('url', models.URLField(help_text=b'URL to redirect the client to.')),
             ],
             options={
             },

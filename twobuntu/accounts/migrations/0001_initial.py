@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='ConfirmationKey',
             fields=[
                 ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('key', models.CharField(max_length=32, default=twobuntu.utils.uuid)),
+                ('key', models.CharField(default=twobuntu.utils.uuid, max_length=32)),
             ],
             options={
             },
@@ -27,12 +27,13 @@ class Migration(migrations.Migration):
             name='Profile',
             fields=[
                 ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('birthday', models.DateField(help_text='Birthday in YYYY-MM-DD format [used for displaying age].', blank=True, null=True)),
-                ('location', models.CharField(help_text='Geographic location.', blank=True, max_length=40)),
-                ('website', models.URLField(help_text='A personal blog or website.', blank=True)),
-                ('bio', models.TextField(help_text='A brief biography.', blank=True)),
+                ('birthday', models.DateField(help_text=b'Birthday in YYYY-MM-DD format [used for displaying age].', null=True, blank=True)),
+                ('location', models.CharField(help_text=b'Geographic location.', max_length=40, blank=True)),
+                ('website', models.URLField(help_text=b'A personal blog or website.', blank=True)),
+                ('bio', models.TextField(help_text=b'A brief biography.', blank=True)),
             ],
             options={
+                'ordering': ('-user__last_login',),
             },
             bases=(models.Model,),
         ),
