@@ -1,8 +1,9 @@
 Django>=1.7
 psycopg2
+django-archive>=0.1.4
 django-redis
-Markdown
 django-widget-tweaks
+Markdown
 Pillow
 python-dateutil
 twitter

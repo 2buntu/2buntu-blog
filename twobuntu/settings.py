@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     # Django helper applications
+    'django_archive',
     'widget_tweaks',
     # 2buntu applications
     'twobuntu.accounts',
