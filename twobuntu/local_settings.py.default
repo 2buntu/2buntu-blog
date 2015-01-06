@@ -48,6 +48,9 @@ CACHES = {
 MEDIA_ROOT = ''
 STATIC_ROOT = ''
 
+# Absolute filesystem path where backups will be stored
+ARCHIVE_DIRECTORY = ''
+
 # URL for media and static files
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'

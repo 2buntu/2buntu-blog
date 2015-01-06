@@ -1,6 +1,6 @@
 Django>=1.7
 psycopg2
-django-archive>=0.1.4
+django-archive>=0.1.5
 django-redis
 django-widget-tweaks
 Markdown
