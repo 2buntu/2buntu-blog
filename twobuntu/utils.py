@@ -44,7 +44,7 @@ def dummy_category():
     return category
 
 
-def dummy_article(author, category):
+def dummy_article(author, category, status=Article.PUBLISHED):
     """
     Generate a dummy article for testing.
     """
@@ -53,6 +53,7 @@ def dummy_article(author, category):
         category=category,
         title=uuid6(),
         body=uuid6(),
+        status=status,
         date=now(),
     )
     article.save()

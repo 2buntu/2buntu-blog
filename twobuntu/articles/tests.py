@@ -20,41 +20,35 @@ class TestArticlePermission(TestCase):
         self.user1 = dummy_user()
         self.user2 = dummy_user()
         self.admin = dummy_user(True)
-        # Create a dummy article for testing
-        self.article = dummy_article(self.user1, dummy_category())
+        # Create a dummy category
+        self.category = dummy_category()
 
-    def request(self, user):
-        request = self.factory.get(self.article.get_absolute_url())
+    def check_permission(self, article, user, access):
+        request = self.factory.get(article.get_absolute_url())
         request.user = user
-        return view_article(request, self.article.id)
-
-    def check_permission(self, user, access):
         if access:
-            self.assertEqual(self.request(user).status_code, 200)
+            self.assertEqual(view_article(request, article.id).status_code, 200)
         else:
             with self.assertRaises(Http404):
-                self.request(user)
+                view_article(request, article.id)
 
     def test_access_to_draft_article(self):
-        self.article.status = Article.DRAFT
-        self.article.save()
-        self.check_permission(AnonymousUser(), False)
-        self.check_permission(self.user1, True)
-        self.check_permission(self.user2, False)
-        self.check_permission(self.admin, True)
+        article = dummy_article(self.user1, self.category, Article.DRAFT)
+        self.check_permission(article, AnonymousUser(), False)
+        self.check_permission(article, self.user1, True)
+        self.check_permission(article, self.user2, False)
+        self.check_permission(article, self.admin, True)
 
     def test_access_to_unapproved_article(self):
-        self.article.status = Article.UNAPPROVED
-        self.article.save()
-        self.check_permission(AnonymousUser(), False)
-        self.check_permission(self.user1, True)
-        self.check_permission(self.user2, False)
-        self.check_permission(self.admin, True)
+        article = dummy_article(self.user1, self.category, Article.UNAPPROVED)
+        self.check_permission(article, AnonymousUser(), False)
+        self.check_permission(article, self.user1, True)
+        self.check_permission(article, self.user2, False)
+        self.check_permission(article, self.admin, True)
 
     def test_access_to_published_article(self):
-        self.article.status = Article.PUBLISHED
-        self.article.save()
-        self.check_permission(AnonymousUser(), True)
-        self.check_permission(self.user1, True)
-        self.check_permission(self.user2, True)
-        self.check_permission(self.admin, True)
+        article = dummy_article(self.user1, self.category, Article.PUBLISHED)
+        self.check_permission(article, AnonymousUser(), True)
+        self.check_permission(article, self.user1, True)
+        self.check_permission(article, self.user2, True)
+        self.check_permission(article, self.admin, True)
