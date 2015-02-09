@@ -1,4 +1,3 @@
-from calendar import timegm
 from json import loads
 
 from django.core.urlresolvers import reverse
@@ -7,7 +6,7 @@ from django.utils.encoding import smart_text
 from django.utils.timezone import now
 
 from twobuntu.articles.models import Article
-from twobuntu.utils import dummy_article, dummy_category, dummy_user
+from twobuntu.utils import datetime_to_timestamp, dummy_article, dummy_category, dummy_user
 
 
 class TestAPI(TestCase):
@@ -37,7 +36,7 @@ class TestAPI(TestCase):
         self.get_response('api:1.2:articles_by_category', viewargs={'id': self.category.id})
 
     def test_min_max(self):
-        past, future = 1, timegm(now().utctimetuple()) + 1
+        past, future = 1, datetime_to_timestamp(now()) + 1
         self.get_response('api:1.2:articles', getargs={'min': past})
         self.get_response('api:1.2:articles', getargs={'max': future})
         self.get_response('api:1.2:articles', expected=0, getargs={'min': future})
