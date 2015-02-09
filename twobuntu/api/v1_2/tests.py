@@ -2,6 +2,7 @@ from json import loads
 
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils.encoding import smart_text
 
 from twobuntu.articles.models import Article
 from twobuntu.utils import dummy_article, dummy_category, dummy_user
@@ -20,7 +21,7 @@ class TestAPI(TestCase):
 
     def get_response(self, view, expected=1, **kwargs):
         url = reverse(view, kwargs=kwargs)
-        response = loads(self.client.get(url).content)
+        response = loads(smart_text(self.client.get(url).content))
         self.assertEqual(len(response), expected)
         return response
 
