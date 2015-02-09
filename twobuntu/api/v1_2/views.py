@@ -13,6 +13,7 @@ from django.utils.encoding import smart_bytes, smart_text
 from twobuntu.accounts.models import Profile
 from twobuntu.articles.models import Article
 from twobuntu.categories.models import Category
+from twobuntu.utils import timestamp_to_datetime
 
 
 def index(request):
@@ -164,9 +165,9 @@ def minmax(field):
             filters = {}
             try:
                 if 'min' in request.GET:
-                    filters['%s__gte' % field] = datetime.fromtimestamp(int(request.GET['min']))
+                    filters['%s__gte' % field] = timestamp_to_datetime(int(request.GET['min']))
                 if 'max' in request.GET:
-                    filters['%s__lte' % field] = datetime.fromtimestamp(int(request.GET['max']))
+                    filters['%s__lte' % field] = timestamp_to_datetime(int(request.GET['max']))
             except ValueError:
                 raise APIException("Invalid min and/or max parameter specified.")
             return fn(request, **kwargs).filter(**filters)
