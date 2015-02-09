@@ -1,5 +1,4 @@
 from calendar import timegm
-from datetime import datetime
 from hashlib import md5
 from json import dumps, JSONEncoder, loads
 
