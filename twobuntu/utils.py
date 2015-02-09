@@ -1,7 +1,9 @@
+from calendar import timegm
+from datetime import datetime
 from uuid import uuid4
 
 from django.contrib.auth.models import User
-from django.utils.timezone import now
+from django.utils.timezone import make_aware, now, utc
 
 from twobuntu.articles.models import Article
 from twobuntu.categories.models import Category
@@ -19,6 +21,20 @@ def uuid6():
     Generate a UUID and truncate it to six characters.
     """
     return uuid()[:6]
+
+
+def timestamp_to_datetime(timestamp):
+    """
+    Convert a UTC timestamp to a timezone-aware datetime instance.
+    """
+    return make_aware(datetime.utcfromtimestamp(timestamp), utc)
+
+
+def datetime_to_timestamp(instance):
+    """
+    Convert a timezone-aware datetime instance to a UTC timestamp.
+    """
+    return timegm(instance.utctimetuple())
 
 
 def dummy_user(staff=False):
