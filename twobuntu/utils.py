@@ -44,7 +44,7 @@ def dummy_category():
     return category
 
 
-def dummy_article(author, category, status=Article.PUBLISHED):
+def dummy_article(author, category, status):
     """
     Generate a dummy article for testing.
     """
