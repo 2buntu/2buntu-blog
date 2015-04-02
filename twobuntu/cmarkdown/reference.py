@@ -1,6 +1,6 @@
 import markdown
 
-from django.db.models import get_model
+from django.apps import apps
 from django.utils.encoding import smart_text
 
 
@@ -17,7 +17,7 @@ class ReferencePattern(markdown.inlinepatterns.Pattern):
         super(ReferencePattern, self).__init__(r'\[%s:(\d+)\]' % self.MODEL_NAME)
 
     def handleMatch(self, m):
-        Model = get_model(*self.MODEL)
+        Model = apps.get_model(*self.MODEL)
         instance = None
         try:
             instance = Model.objects.get(pk=m.group(2))
