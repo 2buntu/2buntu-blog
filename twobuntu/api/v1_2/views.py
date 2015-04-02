@@ -102,7 +102,7 @@ class ObjectEncoder(JSONEncoder):
             'location': profile.location,
             'website': profile.website,
             'bio': profile.bio,
-            'last_seen': timegm(profile.user.last_login.utctimetuple()),
+            'last_seen': timegm(profile.user.last_login.utctimetuple()) if profile.user.last_login else 0,
             'url': self._request.build_absolute_uri(profile.get_absolute_url()),
         }
 
