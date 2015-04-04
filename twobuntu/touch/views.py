@@ -12,7 +12,11 @@ def generator(request):
     if request.method == 'POST':
         form = DeviceArtForm(data=request.POST, files=request.FILES)
         if form.is_valid():
-            image = generate_device_art(form.cleaned_data['template'], request.FILES['image'])
+            image = generate_device_art(
+                form.cleaned_data['template'],
+                request.FILES['image'],
+                form.cleaned_data['glossy_screen'],
+            )
             response = HttpResponse(image, content_type='image/png')
             response['Content-Disposition'] = 'attachment; filename="ubuntu-touch-device-art.png"'
             response['Content-Length'] = len(image)
