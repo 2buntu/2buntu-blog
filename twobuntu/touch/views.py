@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from twobuntu.touch.forms import DeviceArtForm
-from twobuntu.touch.generator import generate_device_art
+from twobuntu.touch.generator import generate_device_art, TEMPLATES
 
 
 def generator(request):
@@ -26,4 +26,5 @@ def generator(request):
     return render(request, 'touch/generator.html', {
         'title': 'Device Art Generator',
         'form': form,
+        'templates': TEMPLATES,
     })

@@ -4,7 +4,7 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-4 text-center">
-            <img src="{% static "img/touch/bq-aquaris/preview.jpg" %}">
+            <img id="device-preview" src="{% get_static_prefix %}/img/touch/{{ templates.0.name }}.jpg">
         </div>
         <div class="col-sm-8">
             <h2>Ubuntu Touch Device Art Generator</h2>
@@ -20,37 +20,45 @@
                 Our server will generate a picture of your app running on an actual Ubuntu phone for you to use wherever you'd like.
             </p>
             <p>
-                <strong>Note:</strong> for best results, use the actual dimensions of the phone's screen.
+                <strong>Note:</strong> for best results, the supplied image should match the dimensions displayed on the screen.
                 Our tool will automatically resize and crop the image if necessary.
             </p>
             <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-5">
                         {% with form.template as field %}
                             {% include "fragments/field.html" %}
                         {% endwith %}
-                        {% comment %}
-                            {% with form.add_panel as field %}
-                                {% include "fragments/field.html" %}
-                            {% endwith %}
-                        {% endcomment %}
-                        {% with form.glossy_screen as field %}
-                            {% include "fragments/field.html" %}
-                        {% endwith %}
-                        <hr>
                         {% with form.image as field %}
                             {% include "fragments/field.html" %}
                         {% endwith %}
-                        <hr>
-                        <button type="submit" class="btn btn-xl btn-primary">
-                            <span class="fa fa-cogs"></span>
-                            Generate
-                        </button>
-                    </form>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <!-- TODO: add the panel and gloss options -->
+                    </div>
                 </div>
-            </div>
+                <hr>
+                <button type="submit" class="btn btn-xl btn-primary">
+                    <span class="fa fa-cogs"></span>
+                    Generate
+                </button>
+            </form>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $('#id_template').change(function() {
+                $('#device-preview').attr(
+                    'src',
+                    '{% get_static_prefix %}/img/touch/' + $(this).val() + '.jpg'
+                );
+            }).change();
+        });
+    </script>
 {% endblock %}
