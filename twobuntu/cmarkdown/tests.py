@@ -53,5 +53,8 @@ class TestCMarkdown(TestCase):
     def test_strikethrough(self):
         self.assertEqual(cm('---test---'), '<p><s>test</s></p>')
 
+    def test_escaping(self):
+        self.assertEqual(cm('<>'), '<p>&lt;&gt;</p>')
+
     def test_unicode(self):
         self.assertEqual(cm(smart_text('\xce\xa9')), smart_text('<p>\xce\xa9</p>'))
