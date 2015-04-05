@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from io import BytesIO
 from os import path
 
@@ -6,26 +5,22 @@ from PIL import Image
 
 
 # Each entry in the list contains the information necessary to render the final
-# image with each of the layers resized and cropped accordingly. This
+# image with each of the layers resized and cropped accordingly. Some of this
 # information is also required by the JavaScript on the page.
-TEMPLATES = OrderedDict((
-    (
-        'bq-aquaris', {
-            'title': 'BQ Aquaris E4.5 Ubuntu Edition',
-            'frame': (671, 1305),
-            'screen': (540, 960),
-            'offset': (65, 145),
-        }
-    ),
-    (
-        'meizu-mx3', {
-            'title': 'Meizu MX3',
-            'frame': (1346, 2313),
-            'screen': (1080, 1800),
-            'offset': (131, 213),
-        }
-    ),
-))
+TEMPLATES = {
+    'bq-aquaris': {
+        'title': 'BQ Aquaris E4.5 Ubuntu Edition',
+        'frame': (671, 1305),
+        'screen': (540, 960),
+        'offset': (65, 145),
+    },
+    'meizu-mx3': {
+        'title': 'Meizu MX3',
+        'frame': (1346, 2313),
+        'screen': (1080, 1800),
+        'offset': (131, 213),
+    },
+}
 
 
 def blit_source_image(output, template, image):

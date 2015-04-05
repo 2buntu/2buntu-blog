@@ -9,8 +9,8 @@ class DeviceArtForm(forms.Form):
     """
 
     template = forms.TypedChoiceField(
-        initial=TEMPLATES.iteritems().next()[0],
-        choices=[(k, v['title']) for k, v in TEMPLATES.items()],
+        initial='bq-aquaris',
+        choices=[(k, TEMPLATES[k]['title']) for k in sorted(TEMPLATES.keys())],
     )
     add_panel = forms.BooleanField(
         label="Add Unity panel",
