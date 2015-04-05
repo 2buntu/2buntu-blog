@@ -4,7 +4,10 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-4 text-center">
-            <img id="device-preview" src="{% get_static_prefix %}/img/touch/{{ templates.0.name }}.jpg">
+            <div id="device-preview" class="spinner-container">
+                <img src="{% get_static_prefix %}img/touch/{{ form.template.value|default:templates.keys.0 }}.jpg">
+                <div class="spinner"></div>
+            </div>
         </div>
         <div class="col-sm-8">
             <h2>Ubuntu Touch Device Art Generator</h2>
@@ -53,11 +56,20 @@
     {{ block.super }}
     <script>
         $(function() {
+
+            // Find the preview image and spinner
+            var $container = $('#device-preview'),
+                $img = $('img', $container);
+
+            // Hide the spinner when the page loads
+            $img.load(function() {
+                $container.removeClass('spinning');
+            });
+
+            // Show the spinner and load the preview when the selection changes
             $('#id_template').change(function() {
-                $('#device-preview').attr(
-                    'src',
-                    '{% get_static_prefix %}/img/touch/' + $(this).val() + '.jpg'
-                );
+                $container.addClass('spinning');
+                $img.attr('src', '{% get_static_prefix %}img/touch/' + $(this).val() + '.jpg');
             }).change();
         });
     </script>

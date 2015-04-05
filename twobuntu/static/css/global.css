@@ -58,6 +58,12 @@ div.editor .toolbar button:hover { background-color: #ccc; }
 div.editor .toolbar .spacer { display: inline-block; width: 12px; }
 div.editor .ace { border: 1px solid #ccc; }
 
+/* Classes for the device art generator */
+.spinner-container { position: relative; }
+.spinner-container .spinner { background: url(../img/spinner.gif) center no-repeat; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%; }
+.spinner-container.spinning img { opacity: 0.3; }
+.spinner-container.spinning .spinner { display: block; }
+
 /* Ensure the page is never wider than 992px. */
 @media (min-width: 992px) {
     div.container { max-width: 970px; }
