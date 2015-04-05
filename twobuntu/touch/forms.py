@@ -9,8 +9,7 @@ class DeviceArtForm(forms.Form):
     """
 
     template = forms.TypedChoiceField(
-        choices=[(t['name'], t['title']) for t in TEMPLATES],
-        coerce=int,
+        choices=[(k, v['title']) for k, v in TEMPLATES.items()],
     )
     add_panel = forms.BooleanField(
         label="Add Unity panel",

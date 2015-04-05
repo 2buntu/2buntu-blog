@@ -15,6 +15,7 @@ def generator(request):
             image = generate_device_art(
                 form.cleaned_data['template'],
                 request.FILES['image'],
+                form.cleaned_data['add_panel'],
                 form.cleaned_data['glossy_screen'],
             )
             response = HttpResponse(image, content_type='image/png')
