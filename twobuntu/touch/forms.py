@@ -9,6 +9,7 @@ class DeviceArtForm(forms.Form):
     """
 
     template = forms.TypedChoiceField(
+        initial=TEMPLATES.iteritems().next()[0],
         choices=[(k, v['title']) for k, v in TEMPLATES.items()],
     )
     add_panel = forms.BooleanField(
