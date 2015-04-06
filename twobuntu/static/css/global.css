@@ -5,27 +5,27 @@
 
 /* Override the Bootstrap theme */
 a:hover, a:focus { text-decoration: none; }
-a.navbar-brand { font-size: 18pt; }
 body { background-color: #f5f5f5; }
-div.alert { overflow: auto; }
-div.alert h1:first-child,
-div.alert h2:first-child,
-div.alert h3:first-child,
-div.alert h4:first-child,
-div.alert h5:first-child,
-div.alert h6:first-child { margin-top: 0; }
-div.btn-group { margin: 0 0 8px 0; }
-div.jumbotron { padding: 16px; }
-div.jumbotron h1 { font-size: 24pt; }
-div.jumbotron p { font-size: 12pt; }
-div.navbar { box-shadow: 0 0 8px black; margin-bottom: 0; }
 h1 small { display: block; font-size: 12pt; line-height: 14pt; }
 img { max-width: 100%; }
 p, li { text-align: justify; }
+.alert { overflow: auto; }
+.alert h1:first-child,
+.alert h2:first-child,
+.alert h3:first-child,
+.alert h4:first-child,
+.alert h5:first-child,
+.alert h6:first-child { margin-top: 0; }
+.btn-group { margin: 0 0 8px 0; }
+.jumbotron { padding: 16px; }
+.jumbotron h1 { font-size: 24pt; }
+.jumbotron p { font-size: 12pt; }
+.navbar { box-shadow: 0 0 8px black; margin-bottom: 0; }
+.navbar-brand { font-size: 18pt; }
 
 /* Space the Font Awesome icons away from text */
-div.alert span.fa { margin-top: 6px; }
-span.fa { margin: 0 4px; }
+.alert .fa { margin-top: 6px; }
+.fa { margin: 0 4px; }
 
 /* Implement "missing" classes. */
 .fade-bottom { position: relative; }
@@ -39,24 +39,24 @@ span.fa { margin: 0 4px; }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Implement "missing" elements. */
-div.article img { display: block; margin: 20px auto; }
-div.content { background-color: white; box-shadow: 0 0 8px #ccc; padding: 16px 16px 32px; }
-div.content h2:first-child,
-div.content h4:first-child { margin-top: 0; }
-div.footer { background-color: #ddd; padding: 32px 0; }
-div.footer img { margin-top: 6px; }
+.article img { display: block; margin: 20px auto; }
+.content { background-color: white; box-shadow: 0 0 8px #ccc; padding: 16px 16px 32px; }
+.content h2:first-child,
+.content h4:first-child { margin-top: 0; }
+.footer { background-color: #ddd; padding: 32px 0; }
+.footer img { margin-top: 6px; }
 
 /* Featured styles. */
-div.featured-article { height: 200px; overflow: hidden; }
-div.featured-author { height: 100px; overflow: hidden; }
+.featured-article { height: 200px; overflow: hidden; }
+.featured-author { height: 100px; overflow: hidden; }
 
 /* Classes for the article editor */
-div.editor { background-color: #f5f5f5; border: 1px solid #e3e3e3; border-radius: 4px; padding: 8px; }
-div.editor .toolbar { margin-bottom: 8px; }
-div.editor .toolbar button { background-color: #e3e3e3; border: 1px solid #ccc; border-radius: 2px; height: 28px; margin: 0 2px; width: 28px; }
-div.editor .toolbar button:hover { background-color: #ccc; }
-div.editor .toolbar .spacer { display: inline-block; width: 12px; }
-div.editor .ace { border: 1px solid #ccc; }
+.editor { background-color: #f5f5f5; border: 1px solid #e3e3e3; border-radius: 4px; padding: 8px; }
+.editor .toolbar { margin-bottom: 8px; }
+.editor .toolbar button { background-color: #e3e3e3; border: 1px solid #ccc; border-radius: 2px; height: 28px; margin: 0 2px; width: 28px; }
+.editor .toolbar button:hover { background-color: #ccc; }
+.editor .toolbar .spacer { display: inline-block; width: 12px; }
+.editor .ace { border: 1px solid #ccc; }
 
 /* Classes for the device art generator */
 .spinner-container { position: relative; }
@@ -66,5 +66,5 @@ div.editor .ace { border: 1px solid #ccc; }
 
 /* Ensure the page is never wider than 992px. */
 @media (min-width: 992px) {
-    div.container { max-width: 970px; }
+    .container { max-width: 970px; }
 }
