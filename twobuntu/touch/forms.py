@@ -15,6 +15,7 @@ class DeviceArtForm(forms.Form):
     add_panel = forms.BooleanField(
         label="Add Unity panel",
         required=False,
+        help_text='Remember to take into account the height of the panel when uploading the image.',
     )
     glossy_screen = forms.BooleanField(
         required=False,
