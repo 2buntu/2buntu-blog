@@ -62,8 +62,12 @@
             <!-- Common page initialization -->
             <script>
                 $(function() {
+
                     // Initialize instances of timeago
                     $('.timeago').timeago();
+
+                    // Initialize tooltips
+                    $('[data-toggle="tooltip"]').tooltip();
                 });
             </script>
         {% endblock %}

@@ -4,6 +4,9 @@
     <div class="checkbox">
         <label>
             {{ field }} {{ field.label }}
+            {% if field.help_text %}
+                <span class="fa fa-question-circle" data-toggle="tooltip" title="{{ field.help_text }}"></span>
+            {% endif %}
         </label>
     </div>
 {% else %}
