@@ -74,8 +74,11 @@
 
             // Show the spinner and load the preview when the selection changes
             $('#id_template').change(function() {
-                $container.addClass('spinning');
-                $img.attr('src', '{% get_static_prefix %}img/touch/' + $(this).val() + '.jpg');
+                var src = '{% get_static_prefix %}img/touch/' + $(this).val() + '.jpg';
+                if(src != $img.attr('src')) {
+                    $container.addClass('spinning');
+                    $img.attr('src', src);
+                }
             }).change();
         });
     </script>
