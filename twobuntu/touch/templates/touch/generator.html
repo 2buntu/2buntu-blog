@@ -39,7 +39,13 @@
                         {% endwith %}
                     </div>
                     <div class="col-md-5 col-md-offset-1">
-                        <!-- TODO: add the panel and gloss options -->
+                        <h4>Additional Options</h4>
+                        {% with form.add_panel as field %}
+                            {% include "fragments/field.html" %}
+                        {% endwith %}
+                        {% with form.glossy_screen as field %}
+                            {% include "fragments/field.html" %}
+                        {% endwith %}
                     </div>
                 </div>
                 <hr>
