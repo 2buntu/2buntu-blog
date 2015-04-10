@@ -1,6 +1,8 @@
 <div id="disqus_thread"></div>
 <script>
     var disqus_shortname = '2buntu';
+    var disqus_identifier = '{{ article.id }}';
+    var disqus_title = '{{ article.title|escapejs }}';
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + '2buntu.disqus.com/embed.js';
