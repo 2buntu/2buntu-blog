@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'widget_tweaks',
     # 2buntu applications
     'twobuntu.accounts',
-    'twobuntu.ads',
     'twobuntu.api',
     'twobuntu.articles',
     'twobuntu.captcha',
