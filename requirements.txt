@@ -1,7 +1,7 @@
 Django>=1.7
 psycopg2
 django-archive>=0.1.5
-django-redis
+django-redis>=3.8.0
 django-widget-tweaks
 Markdown
 Pillow
