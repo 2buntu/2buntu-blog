@@ -1,10 +1,11 @@
 Django>=1.7
-psycopg2
+Markdown
+Pillow
 django-archive>=0.1.5
 django-redis>=3.8.0
 django-widget-tweaks
-Markdown
-Pillow
+psycopg2
+pycannon>=0.3.0
 python-dateutil
 twitter
 six
