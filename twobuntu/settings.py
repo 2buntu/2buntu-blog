@@ -18,7 +18,7 @@ USE_TZ = True
 TIME_ZONE = 'America/Vancouver'
 
 # Settings that control the delivery of email
-EMAIL_BACKEND = 'pycannon.django.GoCannonBackend'
+EMAIL_BACKEND = 'pyhectane.django.HectaneBackend'
 DEFAULT_FROM_EMAIL = SERVER_EMAIL = '2buntu <donotreply@2buntu.com>'
 
 # Determine the directory this file resides in so that an absolute
