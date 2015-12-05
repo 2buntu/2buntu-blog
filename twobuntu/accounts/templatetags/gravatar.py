@@ -15,7 +15,7 @@ def gravatar(email, size=64):
     :param size: the size of the Gravatar to generate
     :returns: the URL of the image
     """
-    return 'http://gravatar.com/avatar/%s?d=identicon&size=%s' % (
+    return '//gravatar.com/avatar/%s?d=identicon&size=%s' % (
         md5(smart_bytes(email)).hexdigest(),
         size,
     )
