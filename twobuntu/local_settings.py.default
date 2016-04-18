@@ -7,7 +7,6 @@ be included here and NOT in settings.py
 
 # Set DEBUG to True to enable full debugging in your application
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 # Set READ_ONLY to True to trigger read-only mode
 # - a banner will be displayed along the top of the page

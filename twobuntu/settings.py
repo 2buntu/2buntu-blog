@@ -26,7 +26,32 @@ DEFAULT_FROM_EMAIL = SERVER_EMAIL = '2buntu <donotreply@2buntu.com>'
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),)
-TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
+
+# Template settings
+TEMPLATES = (
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': (
+            os.path.join(PROJECT_ROOT, 'templates'),
+        ),
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': (
+                # Core Django context processors
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.request',
+                'django.core.context_processors.static',
+                'django.core.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                # 2buntu context processors
+                'twobuntu.context_processors.read_only',
+            ),
+        },
+    },
+)
 
 ROOT_URLCONF = 'twobuntu.urls'
 WSGI_APPLICATION = 'twobuntu.wsgi.application'
@@ -64,20 +89,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # 2buntu middleware
     'twobuntu.middleware.ReadOnlyMiddleware',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    # Core Django context processors
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.request',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.contrib.messages.context_processors.messages',
-    # 2buntu context processors
-    'twobuntu.context_processors.read_only',
 )
 
 # Router for database operations
