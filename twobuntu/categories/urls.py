@@ -1,8 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
+from twobuntu.categories import views
 from twobuntu.feeds import CategoryArticlesFeed
 
-urlpatterns = patterns('twobuntu.categories.views',
-    url(r'^(?P<id>\d+)/(?:(?P<slug>[\w-]+)/)?$', 'view', name='view'),
+
+urlpatterns = [
+    url(r'^(?P<id>\d+)/(?:(?P<slug>[\w-]+)/)?$', views.view, name='view'),
     url(r'^rss/(?P<id>\d+)/$', CategoryArticlesFeed(), name='rss'),
-)
+]

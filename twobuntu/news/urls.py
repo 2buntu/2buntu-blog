@@ -1,5 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('twobuntu.news.views',
-    url(r'^add/$', 'add', name='add'),
-)
+from twobuntu.news import views
+
+
+urlpatterns = [
+    url(r'^add/$', views.add, name='add'),
+]

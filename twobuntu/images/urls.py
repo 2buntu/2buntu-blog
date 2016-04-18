@@ -1,6 +1,9 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('twobuntu.images.views',
-    url(r'^view/(?P<id>\d+)/$', 'view', name='view'),
-    url(r'^upload/$', 'upload', name='upload'),
-)
+from twobuntu.images import views
+
+
+urlpatterns = [
+    url(r'^view/(?P<id>\d+)/$', views.view, name='view'),
+    url(r'^upload/$', views.upload, name='upload'),
+]

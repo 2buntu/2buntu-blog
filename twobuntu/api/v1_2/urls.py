@@ -1,13 +1,16 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('twobuntu.api.v1_2.views',
-    url(r'^articles/$', 'articles', name='articles'),
-    url(r'^articles/(?P<id>\d+)/$', 'article_by_id', name='article_by_id'),
+from twobuntu.api.v1_2 import views
 
-    url(r'^authors/$', 'authors', name='authors'),
-    url(r'^authors/(?P<id>\d+)/$', 'author_by_id', name='author_by_id'),
-    url(r'^authors/(?P<id>\d+)/articles/$', 'articles_by_author', name='articles_by_author'),
 
-    url(r'^categories/$', 'categories', name='categories'),
-    url(r'^categories/(?P<id>\d+)/articles/$', 'articles_by_category', name='articles_by_category'),
-)
+urlpatterns = [
+    url(r'^articles/$', views.articles, name='articles'),
+    url(r'^articles/(?P<id>\d+)/$', views.article_by_id, name='article_by_id'),
+
+    url(r'^authors/$', views.authors, name='authors'),
+    url(r'^authors/(?P<id>\d+)/$', views.author_by_id, name='author_by_id'),
+    url(r'^authors/(?P<id>\d+)/articles/$', views.articles_by_author, name='articles_by_author'),
+
+    url(r'^categories/$', views.categories, name='categories'),
+    url(r'^categories/(?P<id>\d+)/articles/$', views.articles_by_category, name='articles_by_category'),
+]
