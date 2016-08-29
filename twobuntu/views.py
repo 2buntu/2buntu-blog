@@ -35,20 +35,31 @@ def index(request):
     })
 
 
-def about(request):
+def commit():
     """
-    Render the about page.
+    Retrieve the current commit.
     """
     try:
         process = Popen(['git', 'log', '-1'], stdout=PIPE, cwd=path.dirname(__file__))
         output, error = process.communicate()
-        commit = {
+        return {
             'hash': search(br'commit\s*(.*)', output).group(1)[:8],
             'author': search(br'Author:\s*(.*)<', output).group(1),
             'date': parse(search(br'Date:\s*(.*)', output).group(1)),
         }
     except (AttributeError, CalledProcessError):
-        commit = {}
+        return {}
+
+
+# Due to memory problems with fork, the git commit information should be
+# retrieved only once when the application starts
+_commit = commit()
+
+
+def about(request):
+    """
+    Render the about page.
+    """
     return render(request, 'pages/about.html', {
         'title': 'About Us',
         'num_articles': Article.objects.filter(status=Article.PUBLISHED).count(),
@@ -56,7 +67,7 @@ def about(request):
         'hostname': gethostname(),
         'django_version': get_version(),
         'python_version': python_version(),
-        'commit': commit,
+        'commit': _commit,
     })
 
 
