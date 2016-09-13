@@ -8,6 +8,10 @@ class EditorForm(forms.ModelForm):
     Form for entering or editing articles.
     """
 
+    # The <textarea> needs this set so that the form can validate on the client
+    # side without any content (due to ACE editor)
+    use_required_attribute = False
+
     class Meta:
         model = Article
         fields = ('category', 'title', 'body')
